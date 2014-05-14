@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,6 +59,56 @@ public class MainActivity extends Activity {
         SET2 = (ImageView)findViewById(R.id.set2);
         SET3 = (ImageView)findViewById(R.id.set3);
         ITEMS=new ImageView[]{SET1,SET2,SET3};
+        pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        
+        setStar();
+    }
+    
+    @Override
+    public void onResume(){
+    	super.onResume();
+    	setStar();
+    }
+    
+    public void setStar(){
+    	int star = pref.getInt("star", 6);
+    	ImageView starView = (ImageView)findViewById(R.id.star);
+    	switch(star){
+    	case 0:
+    		starView.setImageResource(R.drawable.star0);
+    		break;
+    	case 1:
+    		starView.setImageResource(R.drawable.star1);
+    		break;
+    	case 2:
+    		starView.setImageResource(R.drawable.star2);
+    		break;
+    	case 3:
+    		starView.setImageResource(R.drawable.star3);
+    		break;
+    	case 4:
+    		starView.setImageResource(R.drawable.star4);
+    		break;
+    	case 5:
+    		starView.setImageResource(R.drawable.star5);
+    		break;
+    	case 6:
+    		starView.setImageResource(R.drawable.star6);
+    		break;
+    	}
+    }
+    
+    public void consumeStar(View v){
+    	
+    	int star = pref.getInt("star", 6);
+    	
+    	if(star!=0){
+    		star -= 1;
+    		editor = pref.edit();
+    		editor.putInt("star", star);
+    		editor.commit();
+    		Start(v);
+    	}
     }
 
     public void result(View view){
@@ -139,8 +190,9 @@ public class MainActivity extends Activity {
 				Start(vg.getChildAt(i));
 			}
 		}
-		//ゲームスタート
+		
 		//繧ｲ繝ｼ繝�繧ｹ繧ｿ繝ｼ繝�
+		//郢ｧ�ｽｲ郢晢ｽｼ郢晢ｿｽ郢ｧ�ｽｹ郢ｧ�ｽｿ郢晢ｽｼ郢晢ｿｽ
 		Intent intent = new Intent(Intent.ACTION_MAIN);
 		intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.StartActivity");
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -148,32 +200,32 @@ public class MainActivity extends Activity {
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// メニューの要素を追加
 		// 繝｡繝九Η繝ｼ縺ｮ隕∫ｴ�繧定ｿｽ蜉�
+		// 郢晢ｽ｡郢昜ｹ斟礼ｹ晢ｽｼ邵ｺ�ｽｮ髫補悪�ｽｴ�ｿｽ郢ｧ螳夲ｽｿ�ｽｽ陷会ｿｽ
 		super.onCreateOptionsMenu(menu);
 		menu.add(0, 0, 0, "Update");
 
 		return true;
 	}
 
-	// オプションメニュー選択された場合、選択項目に合わせて
+	// 繧ｪ繝励す繝ｧ繝ｳ繝｡繝九Η繝ｼ驕ｸ謚槭＆繧後◆蝣ｴ蜷医��驕ｸ謚樣��逶ｮ縺ｫ蜷医ｏ縺帙※
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		/* webView縺ｫlayout.xml縺ｮwebview繧偵そ繝�繝� */
+		/* webView邵ｺ�ｽｫlayout.xml邵ｺ�ｽｮwebview郢ｧ蛛ｵ縺晉ｹ晢ｿｽ郢晢ｿｽ */
 		// WebView myWebView = (WebView)findViewById(R.id.webview);
 		super.onOptionsItemSelected(item);
 		int itemId = item.getItemId();
 		switch (itemId) {
 		case 0:
-			// パフォーマンス低下を検出する機能を無効にしておく
 			// 繝代ヵ繧ｩ繝ｼ繝槭Φ繧ｹ菴惹ｸ九ｒ讀懷�ｺ縺吶ｋ讖溯�ｽ繧堤┌蜉ｹ縺ｫ縺励※縺翫￥
+			// 郢昜ｻ｣繝ｵ郢ｧ�ｽｩ郢晢ｽｼ郢晄ｧｭﾎｦ郢ｧ�ｽｹ闖ｴ諠ｹ�ｽｸ荵晢ｽ定ｮ�諛ｷ�ｿｽ�ｽｺ邵ｺ蜷ｶ�ｽ玖ｮ匁ｺｯ�ｿｽ�ｽｽ郢ｧ蝣､笏瑚怏�ｽｹ邵ｺ�ｽｫ邵ｺ蜉ｱ窶ｻ邵ｺ鄙ｫ�ｿ･
 			StrictMode
 			.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 			.permitAll().build());
 
 			String url0 = "http://pppnexus.ddo.jp/prinotoshi.apk";
-			// ダウンロード・インストール開始
 			// 繝�繧ｦ繝ｳ繝ｭ繝ｼ繝峨�ｻ繧､繝ｳ繧ｹ繝医�ｼ繝ｫ髢句ｧ�
+			// 郢晢ｿｽ郢ｧ�ｽｦ郢晢ｽｳ郢晢ｽｭ郢晢ｽｼ郢晏ｳｨ�ｿｽ�ｽｻ郢ｧ�ｽ､郢晢ｽｳ郢ｧ�ｽｹ郢晏現�ｿｽ�ｽｼ郢晢ｽｫ鬮｢蜿･�ｽｧ�ｿｽ
 			download(url0);
 
 			break;
@@ -185,34 +237,34 @@ public class MainActivity extends Activity {
 
 	/**
 <<<<<<< HEAD
-	 * ダウンロード・インストールメソッド
-=======
 	 * 繝�繧ｦ繝ｳ繝ｭ繝ｼ繝峨�ｻ繧､繝ｳ繧ｹ繝医�ｼ繝ｫ繝｡繧ｽ繝�繝�
+=======
+	 * 郢晢ｿｽ郢ｧ�ｽｦ郢晢ｽｳ郢晢ｽｭ郢晢ｽｼ郢晏ｳｨ�ｿｽ�ｽｻ郢ｧ�ｽ､郢晢ｽｳ郢ｧ�ｽｹ郢晏現�ｿｽ�ｽｼ郢晢ｽｫ郢晢ｽ｡郢ｧ�ｽｽ郢晢ｿｽ郢晢ｿｽ
 >>>>>>> a14d7fbb98efacb3ee483ce18e9a4529fd4df01a
 	 */
 	public void download(String apkurl) {
 
 		try {
-			// URL設定
+			// URL險ｭ螳�
 			URL url = new URL(apkurl);
 
-			// HTTP謗･邯夐幕蟋�
+			// HTTP隰暦ｽ･驍ｯ螟仙ｹ戊沂�ｿｽ
 			HttpURLConnection c = (HttpURLConnection) url.openConnection();
 			c.setRequestMethod("GET");
 			c.connect();
-			// SD繧ｫ繝ｼ繝峨�ｮ險ｭ螳�
+			// SD郢ｧ�ｽｫ郢晢ｽｼ郢晏ｳｨ�ｿｽ�ｽｮ髫ｪ�ｽｭ陞ｳ�ｿｽ
 			String PATH = Environment.getExternalStorageDirectory()
 					+ "/download/";
 			File file = new File(PATH);
 			file.mkdirs();
 
 
-			// ダウンロード開始
-			// 繝�繝ｳ繝昴Λ繝ｪ繝輔ぃ繧､繝ｫ縺ｮ險ｭ螳�
+			// 繝�繧ｦ繝ｳ繝ｭ繝ｼ繝蛾幕蟋�
+			// 郢晢ｿｽ郢晢ｽｳ郢晄亢ﾎ帷ｹ晢ｽｪ郢晁ｼ斐＜郢ｧ�ｽ､郢晢ｽｫ邵ｺ�ｽｮ髫ｪ�ｽｭ陞ｳ�ｿｽ
 			File outputFile = new File(file, "app.apk");
 			FileOutputStream fos = new FileOutputStream(outputFile);
 
-			// 繝�繧ｦ繝ｳ繝ｭ繝ｼ繝蛾幕
+			// 郢晢ｿｽ郢ｧ�ｽｦ郢晢ｽｳ郢晢ｽｭ郢晢ｽｼ郢晁崟蟷�
 			InputStream is = c.getInputStream();
 			byte[] buffer = new byte[1024];
 			int len = 0;
@@ -222,16 +274,16 @@ public class MainActivity extends Activity {
 			fos.close();
 			is.close();
 
-			// Intent逕滓��
+			// Intent騾墓ｻ難ｿｽ�ｿｽ
 			Intent intent = new Intent(Intent.ACTION_VIEW);
-			// MIME type險ｭ螳�
+			// MIME type髫ｪ�ｽｭ陞ｳ�ｿｽ
 			intent.setDataAndType(
 					Uri.fromFile(new File(Environment
 							.getExternalStorageDirectory()
 							+ "/download/"
 							+ "app.apk")),
 					"application/vnd.android.package-archive");
-			// Intent逋ｺ陦�
+			// Intent騾具ｽｺ髯ｦ�ｿｽ
 			startActivity(intent);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
