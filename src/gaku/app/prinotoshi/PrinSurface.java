@@ -33,8 +33,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 	// このサンプルでは実行間隔を 0.016秒間隔（約 60 fps に相当）に設定してみた
 	private static final long INTERVAL_PERIOD = 16;
 	private ScheduledExecutorService scheduledExecutorService;
-	private static final float FONT_SIZE = 24f;
-	private Paint paintCircle, paintFps;
+	private static final float FONT_SIZE = 64f;
+	private static final float FONT_SIZE2 = 424f;
+	private Paint paintCircle, paintFps, paintCount;
 	private float x, y, r;
 	private ArrayList<Long> intervalTime = new ArrayList<Long>(20);
 	private float touchX = 0;
@@ -53,6 +54,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 	private int gameCount = 0;
 	private int gameokFlag = 0;
 	private int yFlickokFlag = 0;
+	private int startFlag = 0;
 
 	private Bitmap[] resource = new Bitmap [101];
 
@@ -108,6 +110,12 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 		paintFps.setTextSize(FONT_SIZE);
 		paintFps.setColor(Color.BLACK);
 		paintFps.setAntiAlias(true);
+
+		paintCount = new Paint();
+		paintCount.setStyle(Style.FILL);
+		paintCount.setColor(Color.BLACK);
+		paintCount.setTextSize(FONT_SIZE2);
+		paintCount.setAntiAlias(false);
 	}
 
 	// コールバック内容の定義 (1/3)
@@ -179,7 +187,6 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 		scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 			@Override
 			public void run() {
-
 				// fps（実測値）の計測
 				intervalTime.add(System.currentTimeMillis());
 				float fps = 20000 / (intervalTime.get(19) - intervalTime.get(0));
@@ -190,7 +197,28 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 				canvas.drawColor(Color.WHITE);
 				//背景描画
 				canvas.drawBitmap(desk, 0, 0, paintCircle);
-
+				if(startFlag < 210){
+					startFlag++;
+					FlickFlag = 100;
+					String countt = String.valueOf((int)startFlag/62);
+					if((int)startFlag/62 == 1){
+						countt="3";
+					}
+					else if((int)startFlag/62 == 2){
+						countt="2";
+					}
+					else if((int)startFlag/62 == 3){
+						countt="1";
+					}
+					else{
+						countt="3";
+					}
+					canvas.drawText(countt, (float) (getWidth()/2.5), getHeight()/2, paintCount);
+				}
+				else if(startFlag == 190){
+					startFlag = 1000;
+					FlickFlag = 0;
+				}
 				//横に移動
 				if(x <= getWidth()/2 && FlickFlag < 10){
 					x = x += getWidth()/25;
@@ -357,23 +385,23 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 						}
 						if(n==21){
 							prin2 = resource[7];
-							gameokFlag++;
+							gameokFlag = 1;
 						}
 						if(n==22){
 							prin2 = resource[8];
-							gameokFlag++;
+							gameokFlag = 1;
 						}
 						if(n==23){
 							prin2 = resource[9];
-							gameokFlag++;
+							gameokFlag = 1;
 						}
 						if(n==24){
 							prin2 = resource[10];
-							gameokFlag++;
+							gameokFlag = 1;
 						}
 						if(n==25){
 							prin2 = resource[11];
-							gameokFlag++;
+							gameokFlag = 1;
 						}
 						prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
 						canvas.drawBitmap(prin2, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
@@ -390,8 +418,8 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 					canvas.drawBitmap(sara, x-imageSize/2, defaultY, paintCircle);
 					canvas.drawBitmap(prin, x-imageSize/2, y-imageSize/2, paintCircle);
 					canvas.drawBitmap(cup, x-imageSize/2, y-imageSize/2, paintCircle);
-					canvas.drawText(String.valueOf(gameCount), 200, FONT_SIZE, paintFps);
 				}
+				canvas.drawText(String.valueOf(gameCount), getWidth()-100, FONT_SIZE, paintFps);
 				canvas.drawText(String.format("%.1f fps", fps), 0, FONT_SIZE, paintFps);
 				// ロックした Canvas の解放
 				surfaceHolder.unlockCanvasAndPost(canvas);
