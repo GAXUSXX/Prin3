@@ -97,6 +97,19 @@ public class MainActivity extends Activity {
     		break;
     	}
     }
+    
+    public void consumeStar(View v){
+    	
+    	int star = pref.getInt("star", 6);
+    	
+    	if(star!=0){
+    		star -= 1;
+    		editor = pref.edit();
+    		editor.putInt("star", star);
+    		editor.commit();
+    		Start(v);
+    	}
+    }
 
     public void result(View view){
     	Intent intent = new Intent(this,Result.class);
@@ -177,8 +190,6 @@ public class MainActivity extends Activity {
 				Start(vg.getChildAt(i));
 			}
 		}
-		
-		//consumeStar();
 		
 		//繧ｲ繝ｼ繝�繧ｹ繧ｿ繝ｼ繝�
 		//郢ｧ�ｽｲ郢晢ｽｼ郢晢ｿｽ郢ｧ�ｽｹ郢ｧ�ｽｿ郢晢ｽｼ郢晢ｿｽ
