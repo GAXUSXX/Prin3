@@ -46,6 +46,15 @@ public class MainActivity extends Activity {
 	public ImageView item6;
 	public ImageView item7;
 	public ImageView item8;
+	public TextView count1;
+	public TextView count2;
+	public TextView count3;
+	public TextView count4;
+	public TextView count5;
+	public TextView count6;
+	public TextView count7;
+	public TextView count8;
+	
 	public SharedPreferences pref;
 	public SharedPreferences.Editor editor;
 
@@ -64,6 +73,7 @@ public class MainActivity extends Activity {
         setStar();		// スタミナ
         setScore();		// スコア
         setLock();		// アイテムLock
+        setItem();
     }
     
     @Override
@@ -88,6 +98,14 @@ public class MainActivity extends Activity {
         item6 = (ImageView)findViewById(R.id.item6);
         item7 = (ImageView)findViewById(R.id.item7);
         item8 = (ImageView)findViewById(R.id.item8);
+        count1 = (TextView)findViewById(R.id.count1);
+        count2 = (TextView)findViewById(R.id.count2);
+        count3 = (TextView)findViewById(R.id.count3);
+        count4 = (TextView)findViewById(R.id.count4);
+        count5 = (TextView)findViewById(R.id.count5);
+        count6 = (TextView)findViewById(R.id.count6);
+        count7 = (TextView)findViewById(R.id.count7);
+        count8 = (TextView)findViewById(R.id.count8);
         ITEMS=new ImageView[]{SET1,SET2,SET3};
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
     }
@@ -155,34 +173,50 @@ public class MainActivity extends Activity {
 
     	if(50 > total_score){
     		item1.setImageResource(R.drawable.lock);
+    		count1.setAlpha(0);
     	}
     	if(100 > total_score){
     		item2.setImageResource(R.drawable.lock);
+    		count2.setAlpha(0);
     	}
     	if(200 > total_score){
     		item3.setImageResource(R.drawable.lock);
+    		count3.setAlpha(0);
     	}
     	if(250 > total_score){
     		item4.setImageResource(R.drawable.lock);
+    		count4.setAlpha(0);
     	}
     	if(300 > total_score){
     		item5.setImageResource(R.drawable.lock);
+    		count5.setAlpha(0);
     	}
     	if(500 > total_score){
     		item6.setImageResource(R.drawable.lock);
+    		count6.setAlpha(0);
     	}
     	if(750 > total_score){
     		item7.setImageResource(R.drawable.lock);
+    		count7.setAlpha(0);
     	}
     	if(1000 > total_score){
     		item8.setImageResource(R.drawable.lock);
+    		count8.setAlpha(0);
     	}
     	
     }
-
-    public void result(View view){
-    	Intent intent = new Intent(this,Result.class);
-    	startActivity(intent);
+    
+    public void setItem(){
+    	
+    	count1.setText(Integer.toString(pref.getInt("count1", 0)));
+    	count2.setText(Integer.toString(pref.getInt("count2", 0)));
+    	count3.setText(Integer.toString(pref.getInt("count3", 0)));
+    	count4.setText(Integer.toString(pref.getInt("count4", 0)));
+    	count5.setText(Integer.toString(pref.getInt("count5", 0)));
+    	count6.setText(Integer.toString(pref.getInt("count6", 0)));
+    	count7.setText(Integer.toString(pref.getInt("count7", 0)));
+    	count8.setText(Integer.toString(pref.getInt("count8", 0)));
+    	
     }
 
     public void select(View view){
