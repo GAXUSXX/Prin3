@@ -2,13 +2,18 @@ package gaku.app.prinotoshi;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+
 import com.facebook.FacebookException;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.FacebookDialog;
 import com.facebook.android.Facebook;
+
 import android.app.Activity;
+
+import java.util.Date;
 import java.util.List;
 
 import com.facebook.FacebookException;
@@ -38,6 +43,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
+import android.text.format.Time;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -61,17 +67,17 @@ public class Result extends Activity {
 	public final String CONSUMER_SECRET = "6Paic5Rsq6JV07DasFK9hyAiDCtRonIA71p7l8tnuFSkLqCqhL";
 	private Facebook facebook = null;
 	private UiLifecycleHelper uiHelper;
+	private SharedPreferences pref;
 
 	public void onCreate(Bundle savedInstanceState){
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.result);
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		String score = prefs.getString("score", "0");
+		pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		String score = pref.getString("score", "0");
 		TextView scoretext = (TextView) findViewById(R.id.scoreText);
 		scoretext.setText(score);
 
-		// 繧ｭ繝ｼ繝上ャ繧ｷ繝･繧貞�ｺ蜉帙☆繧九さ繝ｼ繝峨ｒ霑ｽ蜉�縺吶ｋ
 	    try {
 	        PackageInfo info = getPackageManager().getPackageInfo(
 	                "gaku.app.prinotoshi",
@@ -86,6 +92,8 @@ public class Result extends Activity {
 	    } catch (NoSuchAlgorithmException e) {
 
 	    }
+	    
+	    // FacebookSDK�̋N��
 		uiHelper = new UiLifecycleHelper(this, new Session.StatusCallback() {
 
             @Override
@@ -94,7 +102,7 @@ public class Result extends Activity {
             }
         });
         uiHelper.onCreate(savedInstanceState);
-
+        
 		uiHelper = new UiLifecycleHelper(this, new Session.StatusCallback() {
 
             @Override
@@ -103,17 +111,52 @@ public class Result extends Activity {
             }
         });
         uiHelper.onCreate(savedInstanceState);
+        saveScore();
 	}
 
+	public void saveScore(){
+
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String nowTime = sdf.format(date);
+		
+		int score = Integer.valueOf(pref.getString("score", "0"));
+		
+		// �ō��X�R�A�̎擾
+		int totalScore = pref.getInt("totalScore",0);
+		if(totalScore < score){
+			totalScore = score;
+		}
+		
+		// �{���X�R�A�̎擾
+		int todayScore = pref.getInt("todayScore", 0);
+		String today = pref.getString("today", nowTime);
+		if(!today.equals(nowTime)){
+			today = nowTime;
+			todayScore = score;
+		}else{
+			if(todayScore < score){
+				todayScore = score;
+			}
+		}
+		
+		// �f�[�^�ۑ�
+		SharedPreferences.Editor editor = pref.edit();
+		editor.putInt("totalScore", totalScore);
+		editor.putInt("todayScore", todayScore);
+		editor.putString("today", today);
+		editor.commit();
+	}
+	
 	public void Line(View view){
-		// 繝ｩ繧､繝ｳ縺ｧ騾√ｋ
-		Uri uri = Uri.parse("line://msg/text/test縺ｧ縺�");
+		// ���C��
+		Uri uri = Uri.parse("line://msg/text/test");
 		Intent intent = new Intent(Intent.ACTION_VIEW,uri);
 		startActivity(intent);
 	}
 
 	public void Twitter(View view){
-		Uri uri = Uri.parse("https://twitter.com/intent/tweet?text=縺ｦ縺吶→縺ｧ縺�");
+		Uri uri = Uri.parse("https://twitter.com/intent/tweet?text=testt");
 		Intent intent = new Intent(Intent.ACTION_VIEW,uri);
 		startActivity(intent);
 	}
@@ -124,20 +167,20 @@ public class Result extends Activity {
             try {
                 String name = "POKIPURI";
                 String url = "http://dummy.com/";
-                String description = "縺薙ｌ縺ｯPOKIPURI縺ｮ繝�繧ｹ繝医〒縺吶��";
+                String description = "Test";
 
-                // Fragment 縺ｧ逋ｺ陦後☆繧九→縺阪�ｯ setFragment() 繧貞他縺ｶ
+                // Fragment �V�F�A��ʂ̊J��
                 FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this).setDescription(description)
                         .setName(name).setLink(url).build();
                 uiHelper.trackPendingDialogCall(shareDialog.present());
             } catch (FacebookException e) {
-                Toast.makeText(this, "Facebook 縺ｧ繧ｨ繝ｩ繝ｼ縺檎匱逕溘＠縺ｾ縺励◆縲�", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Facebook", Toast.LENGTH_SHORT).show();
             }
         }
 	}
 
 	public void Retry(View view){
-    	//繝ｪ繝医Λ繧､
+    	//���g���C
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.StartActivity");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -146,7 +189,7 @@ public class Result extends Activity {
     }
 
 	public void toMenu(View view){
-    	//繝｡繝九Η繝ｼ
+    	//���j���[
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.MainActivity");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
