@@ -17,10 +17,11 @@
 		        android:onClick="recovery"
 		        />
 
-		    <LinearLayout
+		    
+		    <RelativeLayout
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
-		        android:orientation="horizontal" >
+		        android:gravity="center">
 
 		        <ImageView
 		            android:id="@+id/imageView2"
@@ -39,8 +40,44 @@
 		            android:layout_toRightOf="@+id/imageView2"
 		            android:layout_weight="1"
 		            android:src="@drawable/max_score" />
-
-		    </LinearLayout>
+		        
+		     	<TextView
+		     	    android:id="@+id/todayScore"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="50dp"
+		            android:layout_marginRight="5dp"
+		            android:layout_toLeftOf="@+id/ko1"
+		            android:textSize="25dp"
+		            android:text="0"/>
+		     	<TextView
+		     	    android:id="@+id/ko1"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="50dp"
+		            android:layout_marginRight="10dp"
+		            android:layout_alignRight="@+id/imageView2"
+		            android:textSize="25dp"
+		            android:text="個"/>
+		     	<TextView
+		     	    android:id="@+id/totalScore"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="50dp"
+		            android:layout_marginRight="5dp"
+		            android:layout_toLeftOf="@+id/ko2"
+		            android:textSize="25dp"
+		            android:text="0" />
+		     	<TextView
+		     	    android:id="@+id/ko2"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="50dp"
+		            android:layout_marginRight="10dp"
+		            android:layout_alignRight="@+id/imageView3"
+		            android:textSize="25dp"
+		            android:text="個" />
+		    </RelativeLayout>
 
 		    <ImageView
 		        android:id="@+id/imageView4"

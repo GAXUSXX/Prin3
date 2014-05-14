@@ -62,6 +62,7 @@ public class MainActivity extends Activity {
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         
         setStar();
+        setScore();
     }
     
     @Override
@@ -117,6 +118,12 @@ public class MainActivity extends Activity {
     		editor.commit();
     		Start(v);
     	}
+    }
+    
+    public void setScore(){
+    	TextView totalScore = (TextView)findViewById(R.id.totalScore);
+    	int total_score = pref.getInt("totalScore", 0);
+    	totalScore.setText(Integer.toString(total_score));
     }
 
     public void result(View view){
