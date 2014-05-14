@@ -70,6 +70,14 @@ public class MainActivity extends Activity {
     	setStar();
     }
     
+    public void recovery(View v){
+    	int star = 6;
+    	editor = pref.edit();
+		editor.putInt("star", star);
+		editor.commit();
+		setStar();
+    }
+    
     public void setStar(){
     	int star = pref.getInt("star", 6);
     	ImageView starView = (ImageView)findViewById(R.id.star);
