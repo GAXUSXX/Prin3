@@ -165,108 +165,229 @@
 		            android:layout_centerHorizontal="true"
 		            android:layout_marginTop="140dp"
 		            android:src="@drawable/item" />
-
-		        <LinearLayout
+				
+				<RelativeLayout
 		            android:id="@+id/linearLayout1"
 		            android:layout_width="fill_parent"
 		            android:layout_height="wrap_content"
-		            android:layout_alignLeft="@+id/imageView12"
-		            android:layout_below="@+id/imageView6"
-		            android:layout_marginTop="62dp" >
+		            android:layout_alignTop="@+id/imageView7"
+		            android:layout_marginTop="110dp"
+		            android:gravity="center">
 
+
+		            
 		            <ImageView
 		                android:id="@+id/item1"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_weight="1"
+		                android:layout_marginRight="40dp"
+		                android:layout_marginTop="11dp"
 		                android:onClick="select"
 		                android:src="@drawable/muteki5" />
 
+		            <TextView
+		                android:id="@+id/count1"
+		                android:layout_width="30dp"
+		                android:layout_height="30dp"
+		                android:background="@drawable/count"
+		                android:layout_alignTop="@+id/item1"
+		                android:layout_alignRight="@+id/item1"
+		                android:layout_marginTop="-11dp"
+		                android:layout_marginRight="-11dp"
+		                android:paddingLeft="11dp"
+		                android:paddingTop="5dp"
+		                android:text="0" 
+		                />
+		            
 		            <ImageView
 		                android:id="@+id/item2"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_weight="1"
+		                android:layout_marginRight="40dp"
+		                android:layout_marginTop="11dp"
+		                android:layout_toRightOf="@+id/item1"
 		                android:onClick="select"
 		                android:src="@drawable/double1" />
+		            
+		            <TextView
+		                android:id="@+id/count2"
+		                android:layout_width="30dp"
+		                android:layout_height="30dp"
+		                android:background="@drawable/count"
+		                android:layout_alignTop="@+id/item2"
+		                android:layout_alignRight="@+id/item2"
+		                android:layout_marginTop="-11dp"
+		                android:layout_marginRight="-11dp"
+		                android:paddingLeft="11dp"
+		                android:paddingTop="5dp"
+		                android:text="0" 
+		                />
+		            
 		            <ImageView
 		                android:id="@+id/item3"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_weight="1"
+		                android:layout_marginTop="11dp"
+		                android:layout_toRightOf="@+id/item2"
 		                android:onClick="select"
 		                android:src="@drawable/up10" />
-		        </LinearLayout>
-
-		        <LinearLayout
-		            android:id="@+id/linearLayout2"
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-		            android:layout_alignLeft="@+id/linearLayout1"
-		            android:layout_alignTop="@+id/linearLayout1"
-		            android:layout_marginTop="100dp" >
+		          	<TextView
+		                android:id="@+id/count3"
+		                android:layout_width="30dp"
+		                android:layout_height="30dp"
+		                android:background="@drawable/count"
+		                android:layout_alignTop="@+id/item3"
+		                android:layout_alignRight="@+id/item3"
+		                android:layout_marginTop="-11dp"
+		                android:layout_marginRight="-11dp"
+		                android:paddingLeft="11dp"
+		                android:paddingTop="5dp"
+		                android:text="0" 
+		                />
 
 		            <ImageView
 		                android:id="@+id/item4"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_weight="1"
+		                android:layout_marginRight="40dp"
+		                android:layout_marginTop="40dp"
+		                android:layout_below="@+id/item1"
 		                android:onClick="select"
 		                android:src="@drawable/add5" />
+		            <TextView
+		                android:id="@+id/count4"
+		                android:layout_width="30dp"
+		                android:layout_height="30dp"
+		                android:background="@drawable/count"
+		                android:layout_alignTop="@+id/item4"
+		                android:layout_alignRight="@+id/item4"
+		                android:layout_marginTop="-11dp"
+		                android:layout_marginRight="-11dp"
+		                android:paddingLeft="11dp"
+		                android:paddingTop="5dp"
+		                android:text="0" 
+		                />
 
 		            <ImageView
 		                android:id="@+id/item5"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_weight="1"
+		                android:layout_marginRight="40dp"
+		                android:layout_marginTop="40dp"
+		                android:layout_below="@+id/item1"
+		                android:layout_toRightOf="@+id/item4"
 		                android:onClick="select"
 		                android:src="@drawable/purin5" />
+		            <TextView
+		                android:id="@+id/count5"
+		                android:layout_width="30dp"
+		                android:layout_height="30dp"
+		                android:background="@drawable/count"
+		                android:layout_alignTop="@+id/item5"
+		                android:layout_alignRight="@+id/item5"
+		                android:layout_marginTop="-11dp"
+		                android:layout_marginRight="-11dp"
+		                android:paddingLeft="11dp"
+		                android:paddingTop="5dp"
+		                android:text="0" 
+		                />
 
 		            <ImageView
 		                android:id="@+id/item6"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_weight="1"
+		                android:layout_marginTop="40dp"
+		                android:layout_below="@+id/item1"
+		                android:layout_toRightOf="@+id/item5"
 		                android:onClick="select"
 		                android:src="@drawable/add1" />
-		        </LinearLayout>
-
-		        <LinearLayout
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-		            android:layout_alignLeft="@+id/linearLayout2"
-		            android:layout_below="@+id/linearLayout2"
-		            android:layout_weight="1" >
+		            <TextView
+		                android:id="@+id/count6"
+		                android:layout_width="30dp"
+		                android:layout_height="30dp"
+		                android:background="@drawable/count"
+		                android:layout_alignTop="@+id/item6"
+		                android:layout_alignRight="@+id/item6"
+		                android:layout_marginTop="-11dp"
+		                android:layout_marginRight="-11dp"
+		                android:paddingLeft="11dp"
+		                android:paddingTop="5dp"
+		                android:text="0" 
+		                />
 
 		            <ImageView
 		                android:id="@+id/item7"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_marginTop="20dp"
-		                android:layout_weight="1"
+		                android:layout_marginTop="40dp"
+		                android:layout_marginRight="40dp"
+		                android:layout_below="@+id/item4"
 		                android:onClick="select"
 		                android:src="@drawable/up20" />
+		            <TextView
+		                android:id="@+id/count7"
+		                android:layout_width="30dp"
+		                android:layout_height="30dp"
+		                android:background="@drawable/count"
+		                android:layout_alignTop="@+id/item7"
+		                android:layout_alignRight="@+id/item7"
+		                android:layout_marginTop="-11dp"
+		                android:layout_marginRight="-11dp"
+		                android:paddingLeft="11dp"
+		                android:paddingTop="5dp"
+		                android:text="0" 
+		                />
 
 		            <ImageView
 		                android:id="@+id/item8"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_marginTop="20dp"
-		                android:layout_weight="1"
+		                android:layout_marginTop="40dp"
+		                android:layout_marginRight="40dp"
+		                android:layout_below="@+id/item4"
+		                android:layout_toRightOf="@+id/item7"
 		                android:onClick="select"
 		                android:src="@drawable/resurrection" />
+		            <TextView
+		                android:id="@+id/count8"
+		                android:layout_width="30dp"
+		                android:layout_height="30dp"
+		                android:background="@drawable/count"
+		                android:layout_alignTop="@+id/item8"
+		                android:layout_alignRight="@+id/item8"
+		                android:layout_marginTop="-11dp"
+		                android:layout_marginRight="-11dp"
+		                android:paddingLeft="11dp"
+		                android:paddingTop="5dp"
+		                android:text="0" 
+		                />
 
 		            <ImageView
 		                android:id="@+id/item9"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_marginTop="20dp"
-		                android:layout_weight="1"
-		                android:onClick="select"
+		                android:layout_marginTop="40dp"
+		                android:layout_below="@+id/item4"
+		                android:layout_toRightOf="@+id/item8"
 		                android:alpha="0"
 		                android:src="@drawable/lock" />
-		        </LinearLayout>
+		            <TextView
+		                android:id="@+id/count1"
+		                android:layout_width="30dp"
+		                android:layout_height="30dp"
+		                android:background="@drawable/count"
+		                android:layout_alignTop="@+id/item2"
+		                android:layout_alignRight="@+id/item2"
+		                android:layout_marginTop="-11dp"
+		                android:layout_marginRight="-11dp"
+		                android:paddingLeft="11dp"
+		                android:paddingTop="5dp"
+		                android:text="0" 
+		                />
 
+		        </RelativeLayout>
+
+		        
 		        <LinearLayout
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"

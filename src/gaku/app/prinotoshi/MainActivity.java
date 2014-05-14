@@ -38,6 +38,23 @@ public class MainActivity extends Activity {
 	public ImageView SET1;
 	public ImageView SET2;
 	public ImageView SET3;
+	public ImageView item1;
+	public ImageView item2;
+	public ImageView item3;
+	public ImageView item4;
+	public ImageView item5;
+	public ImageView item6;
+	public ImageView item7;
+	public ImageView item8;
+	public TextView count1;
+	public TextView count2;
+	public TextView count3;
+	public TextView count4;
+	public TextView count5;
+	public TextView count6;
+	public TextView count7;
+	public TextView count8;
+	
 	public SharedPreferences pref;
 	public SharedPreferences.Editor editor;
 
@@ -51,6 +68,21 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.v("create","create");
+        
+        getObject();	// オブジェクトの生成
+        setStar();		// スタミナ
+        setScore();		// スコア
+        setLock();		// アイテムLock
+        setItem();
+    }
+    
+    @Override
+    public void onResume(){
+    	super.onResume();
+    	setStar();
+    }
+    
+    public void getObject(){
         ITEM = (ImageView)findViewById(R.id.item0);
         NAME = (TextView)findViewById(R.id.name);
         DESC = (TextView)findViewById(R.id.desc);
@@ -58,17 +90,24 @@ public class MainActivity extends Activity {
         SET1 = (ImageView)findViewById(R.id.set1);
         SET2 = (ImageView)findViewById(R.id.set2);
         SET3 = (ImageView)findViewById(R.id.set3);
+        item1 = (ImageView)findViewById(R.id.item1);
+        item2 = (ImageView)findViewById(R.id.item2);
+        item3 = (ImageView)findViewById(R.id.item3);
+        item4 = (ImageView)findViewById(R.id.item4);
+        item5 = (ImageView)findViewById(R.id.item5);
+        item6 = (ImageView)findViewById(R.id.item6);
+        item7 = (ImageView)findViewById(R.id.item7);
+        item8 = (ImageView)findViewById(R.id.item8);
+        count1 = (TextView)findViewById(R.id.count1);
+        count2 = (TextView)findViewById(R.id.count2);
+        count3 = (TextView)findViewById(R.id.count3);
+        count4 = (TextView)findViewById(R.id.count4);
+        count5 = (TextView)findViewById(R.id.count5);
+        count6 = (TextView)findViewById(R.id.count6);
+        count7 = (TextView)findViewById(R.id.count7);
+        count8 = (TextView)findViewById(R.id.count8);
         ITEMS=new ImageView[]{SET1,SET2,SET3};
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        
-        setStar();
-        setScore();
-    }
-    
-    @Override
-    public void onResume(){
-    	super.onResume();
-    	setStar();
     }
     
     public void recovery(View v){
@@ -128,10 +167,56 @@ public class MainActivity extends Activity {
     	int today_score = pref.getInt("todayScore", 0);
     	todayScore.setText(Integer.toString(today_score));
     }
+    
+    public void setLock(){
+    	int total_score = pref.getInt("totalScore", 0);
 
-    public void result(View view){
-    	Intent intent = new Intent(this,Result.class);
-    	startActivity(intent);
+    	if(50 > total_score){
+    		item1.setImageResource(R.drawable.lock);
+    		count1.setAlpha(0);
+    	}
+    	if(100 > total_score){
+    		item2.setImageResource(R.drawable.lock);
+    		count2.setAlpha(0);
+    	}
+    	if(200 > total_score){
+    		item3.setImageResource(R.drawable.lock);
+    		count3.setAlpha(0);
+    	}
+    	if(250 > total_score){
+    		item4.setImageResource(R.drawable.lock);
+    		count4.setAlpha(0);
+    	}
+    	if(300 > total_score){
+    		item5.setImageResource(R.drawable.lock);
+    		count5.setAlpha(0);
+    	}
+    	if(500 > total_score){
+    		item6.setImageResource(R.drawable.lock);
+    		count6.setAlpha(0);
+    	}
+    	if(750 > total_score){
+    		item7.setImageResource(R.drawable.lock);
+    		count7.setAlpha(0);
+    	}
+    	if(1000 > total_score){
+    		item8.setImageResource(R.drawable.lock);
+    		count8.setAlpha(0);
+    	}
+    	
+    }
+    
+    public void setItem(){
+    	
+    	count1.setText(Integer.toString(pref.getInt("count1", 0)));
+    	count2.setText(Integer.toString(pref.getInt("count2", 0)));
+    	count3.setText(Integer.toString(pref.getInt("count3", 0)));
+    	count4.setText(Integer.toString(pref.getInt("count4", 0)));
+    	count5.setText(Integer.toString(pref.getInt("count5", 0)));
+    	count6.setText(Integer.toString(pref.getInt("count6", 0)));
+    	count7.setText(Integer.toString(pref.getInt("count7", 0)));
+    	count8.setText(Integer.toString(pref.getInt("count8", 0)));
+    	
     }
 
     public void select(View view){
@@ -156,10 +241,6 @@ public class MainActivity extends Activity {
     		break;
     	case R.id.item7:
     		setDesc(R.drawable.up10,R.string.item7,"up10",R.string.desc7,R.string.unlock7);
-    		break;
-    	case R.id.item9:
-    		setDesc(R.drawable.up20,R.string.item9,"up20",R.string.desc9,R.string.unlock9);
-    		setDesc(R.drawable.up20,R.string.item7,"up20",R.string.desc7,R.string.unlock7);
     		break;
     	case R.id.item8:
     		setDesc(R.drawable.resurrection,R.string.item8,"resurrection",R.string.desc8,R.string.unlock8);
@@ -209,8 +290,6 @@ public class MainActivity extends Activity {
 			}
 		}
 		
-		//繧ｲ繝ｼ繝�繧ｹ繧ｿ繝ｼ繝�
-		//郢ｧ�ｽｲ郢晢ｽｼ郢晢ｿｽ郢ｧ�ｽｹ郢ｧ�ｽｿ郢晢ｽｼ郢晢ｿｽ
 		Intent intent = new Intent(Intent.ACTION_MAIN);
 		intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.StartActivity");
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -218,15 +297,12 @@ public class MainActivity extends Activity {
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// 繝｡繝九Η繝ｼ縺ｮ隕∫ｴ�繧定ｿｽ蜉�
-		// 郢晢ｽ｡郢昜ｹ斟礼ｹ晢ｽｼ邵ｺ�ｽｮ髫補悪�ｽｴ�ｿｽ郢ｧ螳夲ｽｿ�ｽｽ陷会ｿｽ
 		super.onCreateOptionsMenu(menu);
 		menu.add(0, 0, 0, "Update");
 
 		return true;
 	}
 
-	// 繧ｪ繝励す繝ｧ繝ｳ繝｡繝九Η繝ｼ驕ｸ謚槭＆繧後◆蝣ｴ蜷医��驕ｸ謚樣��逶ｮ縺ｫ蜷医ｏ縺帙※
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		/* webView邵ｺ�ｽｫlayout.xml邵ｺ�ｽｮwebview郢ｧ蛛ｵ縺晉ｹ晢ｿｽ郢晢ｿｽ */
@@ -235,15 +311,12 @@ public class MainActivity extends Activity {
 		int itemId = item.getItemId();
 		switch (itemId) {
 		case 0:
-			// 繝代ヵ繧ｩ繝ｼ繝槭Φ繧ｹ菴惹ｸ九ｒ讀懷�ｺ縺吶ｋ讖溯�ｽ繧堤┌蜉ｹ縺ｫ縺励※縺翫￥
-			// 郢昜ｻ｣繝ｵ郢ｧ�ｽｩ郢晢ｽｼ郢晄ｧｭﾎｦ郢ｧ�ｽｹ闖ｴ諠ｹ�ｽｸ荵晢ｽ定ｮ�諛ｷ�ｿｽ�ｽｺ邵ｺ蜷ｶ�ｽ玖ｮ匁ｺｯ�ｿｽ�ｽｽ郢ｧ蝣､笏瑚怏�ｽｹ邵ｺ�ｽｫ邵ｺ蜉ｱ窶ｻ邵ｺ鄙ｫ�ｿ･
+
 			StrictMode
 			.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 			.permitAll().build());
 
 			String url0 = "http://pppnexus.ddo.jp/prinotoshi.apk";
-			// 繝�繧ｦ繝ｳ繝ｭ繝ｼ繝峨�ｻ繧､繝ｳ繧ｹ繝医�ｼ繝ｫ髢句ｧ�
-			// 郢晢ｿｽ郢ｧ�ｽｦ郢晢ｽｳ郢晢ｽｭ郢晢ｽｼ郢晏ｳｨ�ｿｽ�ｽｻ郢ｧ�ｽ､郢晢ｽｳ郢ｧ�ｽｹ郢晏現�ｿｽ�ｽｼ郢晢ｽｫ鬮｢蜿･�ｽｧ�ｿｽ
 			download(url0);
 
 			break;
@@ -253,36 +326,25 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	/**
-<<<<<<< HEAD
-	 * 繝�繧ｦ繝ｳ繝ｭ繝ｼ繝峨�ｻ繧､繝ｳ繧ｹ繝医�ｼ繝ｫ繝｡繧ｽ繝�繝�
-=======
-	 * 郢晢ｿｽ郢ｧ�ｽｦ郢晢ｽｳ郢晢ｽｭ郢晢ｽｼ郢晏ｳｨ�ｿｽ�ｽｻ郢ｧ�ｽ､郢晢ｽｳ郢ｧ�ｽｹ郢晏現�ｿｽ�ｽｼ郢晢ｽｫ郢晢ｽ｡郢ｧ�ｽｽ郢晢ｿｽ郢晢ｿｽ
->>>>>>> a14d7fbb98efacb3ee483ce18e9a4529fd4df01a
-	 */
 	public void download(String apkurl) {
 
 		try {
-			// URL險ｭ螳�
+			// URL
 			URL url = new URL(apkurl);
 
-			// HTTP隰暦ｽ･驍ｯ螟仙ｹ戊沂�ｿｽ
+			// HTTP
 			HttpURLConnection c = (HttpURLConnection) url.openConnection();
 			c.setRequestMethod("GET");
 			c.connect();
-			// SD郢ｧ�ｽｫ郢晢ｽｼ郢晏ｳｨ�ｿｽ�ｽｮ髫ｪ�ｽｭ陞ｳ�ｿｽ
+			// SD
 			String PATH = Environment.getExternalStorageDirectory()
 					+ "/download/";
 			File file = new File(PATH);
 			file.mkdirs();
 
-
-			// 繝�繧ｦ繝ｳ繝ｭ繝ｼ繝蛾幕蟋�
-			// 郢晢ｿｽ郢晢ｽｳ郢晄亢ﾎ帷ｹ晢ｽｪ郢晁ｼ斐＜郢ｧ�ｽ､郢晢ｽｫ邵ｺ�ｽｮ髫ｪ�ｽｭ陞ｳ�ｿｽ
 			File outputFile = new File(file, "app.apk");
 			FileOutputStream fos = new FileOutputStream(outputFile);
 
-			// 郢晢ｿｽ郢ｧ�ｽｦ郢晢ｽｳ郢晢ｽｭ郢晢ｽｼ郢晁崟蟷�
 			InputStream is = c.getInputStream();
 			byte[] buffer = new byte[1024];
 			int len = 0;
@@ -292,16 +354,16 @@ public class MainActivity extends Activity {
 			fos.close();
 			is.close();
 
-			// Intent騾墓ｻ難ｿｽ�ｿｽ
+			// Intent
 			Intent intent = new Intent(Intent.ACTION_VIEW);
-			// MIME type髫ｪ�ｽｭ陞ｳ�ｿｽ
+			// MIME type
 			intent.setDataAndType(
 					Uri.fromFile(new File(Environment
 							.getExternalStorageDirectory()
 							+ "/download/"
 							+ "app.apk")),
 					"application/vnd.android.package-archive");
-			// Intent騾具ｽｺ髯ｦ�ｿｽ
+			// Intent
 			startActivity(intent);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
