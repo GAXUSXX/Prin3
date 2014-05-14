@@ -165,7 +165,7 @@ int id com_facebook_usersettingsfragment_login_button 0x7f040036
 int id com_facebook_usersettingsfragment_logo_image 0x7f040034
 int id com_facebook_usersettingsfragment_profile_name 0x7f040035
 int id desc 0x7f04001b
-int id imageView1 0x7f040003
+int id imageView1 0x7f040038
 int id imageView12 0x7f04000c
 int id imageView2 0x7f040004
 int id imageView3 0x7f040005
@@ -189,12 +189,13 @@ int id linearLayout2 0x7f040013
 int id name 0x7f04001a
 int id normal 0x7f040001
 int id picker_subtitle 0x7f04002c
-int id scoreText 0x7f040038
+int id scoreText 0x7f040039
 int id set1 0x7f040008
 int id set2 0x7f040009
 int id set3 0x7f04000a
 int id small 0x7f040000
-int id textView1 0x7f040039
+int id star 0x7f040003
+int id textView1 0x7f04003a
 int id unlock 0x7f04001c
 int layout activity_main 0x7f030000
 int layout com_facebook_friendpickerfragment 0x7f030001

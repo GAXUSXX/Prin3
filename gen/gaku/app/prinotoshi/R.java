@@ -312,7 +312,7 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_logo_image=0x7f040034;
         public static final int com_facebook_usersettingsfragment_profile_name=0x7f040035;
         public static final int desc=0x7f04001b;
-        public static final int imageView1=0x7f040003;
+        public static final int imageView1=0x7f040038;
         public static final int imageView12=0x7f04000c;
         public static final int imageView2=0x7f040004;
         public static final int imageView3=0x7f040005;
@@ -336,12 +336,13 @@ containing a value of this type.
         public static final int name=0x7f04001a;
         public static final int normal=0x7f040001;
         public static final int picker_subtitle=0x7f04002c;
-        public static final int scoreText=0x7f040038;
+        public static final int scoreText=0x7f040039;
         public static final int set1=0x7f040008;
         public static final int set2=0x7f040009;
         public static final int set3=0x7f04000a;
         public static final int small=0x7f040000;
-        public static final int textView1=0x7f040039;
+        public static final int star=0x7f040003;
+        public static final int textView1=0x7f04003a;
         public static final int unlock=0x7f04001c;
     }
     public static final class layout {
