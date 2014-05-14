@@ -2,6 +2,7 @@ package gaku.app.prinotoshi;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 
 import com.facebook.FacebookException;
 import com.facebook.Session;
@@ -12,6 +13,7 @@ import com.facebook.android.Facebook;
 
 import android.app.Activity;
 
+import java.util.Date;
 import java.util.List;
 
 import com.facebook.FacebookException;
@@ -41,6 +43,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
+import android.text.format.Time;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -112,14 +115,36 @@ public class Result extends Activity {
 	}
 
 	public void saveScore(){
+
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String nowTime = sdf.format(date);
+		
 		int score = Integer.valueOf(pref.getString("score", "0"));
-		int maxScore = pref.getInt("totalScore",0);
-		if(maxScore < score){
-			maxScore = score;
+		
+		// 最高スコアの取得
+		int totalScore = pref.getInt("totalScore",0);
+		if(totalScore < score){
+			totalScore = score;
 		}
 		
+		// 本日スコアの取得
+		int todayScore = pref.getInt("todayScore", 0);
+		String today = pref.getString("today", nowTime);
+		if(!today.equals(nowTime)){
+			today = nowTime;
+			todayScore = score;
+		}else{
+			if(todayScore < score){
+				todayScore = score;
+			}
+		}
+		
+		// データ保存
 		SharedPreferences.Editor editor = pref.edit();
-		editor.putInt("totalScore", maxScore);
+		editor.putInt("totalScore", totalScore);
+		editor.putInt("todayScore", todayScore);
+		editor.putString("today", today);
 		editor.commit();
 	}
 	

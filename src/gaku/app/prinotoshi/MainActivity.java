@@ -124,6 +124,9 @@ public class MainActivity extends Activity {
     	TextView totalScore = (TextView)findViewById(R.id.totalScore);
     	int total_score = pref.getInt("totalScore", 0);
     	totalScore.setText(Integer.toString(total_score));
+    	TextView todayScore = (TextView)findViewById(R.id.todayScore);
+    	int today_score = pref.getInt("todayScore", 0);
+    	todayScore.setText(Integer.toString(today_score));
     }
 
     public void result(View view){
