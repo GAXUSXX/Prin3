@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">prinotoshi</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="item1">5秒無敵</string>
+    <string name="item9">20%UP</string>
+    <string name="desc1">5秒の間無敵になる</string>
+    <string name="desc2">5秒の間全てプリンになる</string>
+    <string name="desc3">プリンの出現確率が20秒の間2倍になる</string>
+    <string name="desc4">一回失敗しても継続してプレイできる</string>
+    <string name="desc5">制限時間が+0.5秒される</string>
+    <string name="desc6">制限時間が+1.0秒される</string>
+    <string name="desc7">何かが10%UPする</string>
+    <string name="desc8">何かが10%UPする</string>
+    <string name="desc9">何かが20%UPする</string>
+    <string name="unlock1">50個クリアで解放</string>
+    <string name="unlock2">100個クリアで解放</string>
+    <string name="unlock3">200個クリアで解放</string>
+    <string name="unlock4">300個クリアで解放</string>
+    <string name="unlock5">500個クリアで解放</string>
+    <string name="unlock6">1000個クリアで解放</string>
+    <string name="unlock7">1500個クリアで解放</string>
+    <string name="unlock8">2000個クリアで解放</string>
+    <string name="unlock9">3000個クリアで解放</string>
+    <string name="item2">20秒２倍</string>
+    <string name="item3">10%アップ</string>
+    <string name="item4">+0.5</string>
+    <string name="item5">5秒プリン</string>
+    <string name="item6">+1.0</string>
+    <string name="item7">20%アップ</string>
+    <string name="item8">蘇り</string>
+    <string name="desc1">5秒間何をしても無敵</string>
+    <string name="desc2">プリンの出る確率が20秒2倍になる</string>
+    <string name="desc3">プリンの出る確率が10%アップ</string>
+    <string name="desc4">制限時間が+0.5秒される</string>
+    <string name="desc5">5秒間プリンだけが出てくる</string>
+    <string name="desc6">制限時間が+1.0秒される</string>
+    <string name="desc7">プリンの出る確率が20%アップ</string>
+    <string name="desc8">一回ミスしても蘇る</string>
+    <string name="unlock1">50個クリアで解放</string>
+    <string name="unlock2">100個クリアで解放</string>
+    <string name="unlock3">200個クリアで解放</string>
+    <string name="unlock4">250個クリアで解放</string>
+    <string name="unlock5">300個クリアで解放</string>
+    <string name="unlock6">500個クリアで解放</string>
+    <string name="unlock7">750個クリアで解放</string>
+    <string name="unlock8">1000個クリアで解放</string>
+    <string name="app_id">1447907075451856</string>
+</resources>
