@@ -36,6 +36,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
@@ -185,7 +186,7 @@ public class Result extends Activity {
         intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.StartActivity");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        finish();
+        Result.this.finish();
     }
 
 	public void toMenu(View view){
@@ -194,7 +195,21 @@ public class Result extends Activity {
         intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.MainActivity");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        finish();
+        Result.this.finish();
     }
-
+	  @Override
+	  public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if(keyCode==KeyEvent.KEYCODE_BACK){
+	    	
+	        Intent intent = new Intent(Intent.ACTION_MAIN);
+	        intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.MainActivity");
+	        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	        startActivity(intent);
+	        Result.this.finish();
+	        
+	    	return false;
+	    }
+	    return false;
+	  }
+	
 }

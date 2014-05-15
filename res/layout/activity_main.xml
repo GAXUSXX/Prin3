@@ -140,18 +140,19 @@
 			            android:layout_marginTop="180dp"
 			            android:src="@drawable/item_set" />
 		        	<ImageView
-		        	    android:id="@+id/imageView12"
+		        	    android:id="@+id/buy"
 		        	    android:layout_width="wrap_content"
 		        	    android:layout_height="wrap_content"
 		        	    android:layout_alignTop="@+id/imageView7"
 		        	    android:layout_marginLeft="10dp"
 		        	    android:layout_marginBottom="10dp"
+		        	    android:onClick="itemBuy"
 		        	    android:src="@drawable/buy" />
 		        	<ImageView
 		        	    android:id="@+id/item0"
 		        	    android:layout_width="wrap_content"
 		        	    android:layout_height="wrap_content"
-		        	    android:layout_above="@+id/imageView12"
+		        	    android:layout_above="@+id/buy"
 		        	    android:layout_alignParentLeft="true"
 		        	    android:layout_marginBottom="17dp"
 		        	   	android:layout_marginLeft="10dp"
@@ -372,16 +373,17 @@
 		                android:alpha="0"
 		                android:src="@drawable/lock" />
 		            <TextView
-		                android:id="@+id/count1"
+		                android:id="@+id/count9"
 		                android:layout_width="30dp"
 		                android:layout_height="30dp"
 		                android:background="@drawable/count"
-		                android:layout_alignTop="@+id/item2"
-		                android:layout_alignRight="@+id/item2"
+		                android:layout_alignTop="@+id/item9"
+		                android:layout_alignRight="@+id/item9"
 		                android:layout_marginTop="-11dp"
 		                android:layout_marginRight="-11dp"
 		                android:paddingLeft="11dp"
 		                android:paddingTop="5dp"
+		                android:alpha="0"
 		                android:text="0" 
 		                />
 
