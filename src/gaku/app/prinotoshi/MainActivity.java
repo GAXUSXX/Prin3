@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,13 +32,20 @@ import android.content.SharedPreferences;
 
 public class MainActivity extends Activity {
 
-	public ImageView ITEM;
-	public TextView NAME;
-	public TextView DESC;
-	public TextView UNLOCK;
+	public ImageView ITEM;			// アイコン
+	public TextView NAME;			// アイテム名
+	public TextView DESC;			// アイテム効果
+	public TextView UNLOCK;			// 解放条件
+	public String selected = "";	// 選択中のアイテム
+	
+	// 装備アイテム
 	public ImageView SET1;
 	public ImageView SET2;
 	public ImageView SET3;
+	public ImageView[] ITEMS; //セット中のアイテム
+	public String[] SETS={"none","none","none"};
+	
+	// アイテム
 	public ImageView item1;
 	public ImageView item2;
 	public ImageView item3;
@@ -46,22 +54,33 @@ public class MainActivity extends Activity {
 	public ImageView item6;
 	public ImageView item7;
 	public ImageView item8;
-	public TextView count1;
-	public TextView count2;
-	public TextView count3;
-	public TextView count4;
-	public TextView count5;
-	public TextView count6;
-	public TextView count7;
-	public TextView count8;
 	
+	// カウントビュー
+	public TextView COUNT1;
+	public TextView COUNT2;
+	public TextView COUNT3;
+	public TextView COUNT4;
+	public TextView COUNT5;
+	public TextView COUNT6;
+	public TextView COUNT7;
+	public TextView COUNT8;
+	
+	// アイテム所持数
+	public int count1;
+	public int count2;
+	public int count3;
+	public int count4;
+	public int count5;
+	public int count6;
+	public int count7;
+	public int count8;
+	
+	// スタミナ
+	public int star;
+	
+	// プリファレンス
 	public SharedPreferences pref;
 	public SharedPreferences.Editor editor;
-
-	public String selected = "";
-
-	public String[] SETS={"none","none","none"};
-	public ImageView[] ITEMS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,18 +89,50 @@ public class MainActivity extends Activity {
         Log.v("create","create");
         
         getObject();	// オブジェクトの生成
-        setStar();		// スタミナ
         setScore();		// スコア
+        readStar();		// スタミナ取得
+        setStar();		// スタミナ
         setLock();		// アイテムLock
-        setItem();
+        readItem();		// アイテム所持数の取得
+        setItem();		//　アイテム個数表示
     }
     
     @Override
     public void onResume(){
     	super.onResume();
-    	setStar();
+    	
+        getObject();	// オブジェクトの生成
+        setScore();		// スコア
+        readStar();		// スタミナ取得
+        setStar();		// スタミナ
+        setLock();		// アイテムLock
+        readItem();		// アイテム所持数の取得
+        setItem();		//　アイテム個数表示
     }
     
+    @Override
+    public void onPause(){
+    	super.onPause();
+    	saveData("finish");
+    }
+    
+    @Override
+    public void onStop(){
+    	super.onStop();
+    	saveData("finish");
+    }
+    
+    @Override
+    public void onDestroy(){
+    	super.onDestroy();
+    	saveData("finish");
+    }
+
+    /*******************************
+     * データ取得・表示処理			   *
+     *******************************/
+    
+    // オブジェクトの取得・生成
     public void getObject(){
         ITEM = (ImageView)findViewById(R.id.item0);
         NAME = (TextView)findViewById(R.id.name);
@@ -98,28 +149,39 @@ public class MainActivity extends Activity {
         item6 = (ImageView)findViewById(R.id.item6);
         item7 = (ImageView)findViewById(R.id.item7);
         item8 = (ImageView)findViewById(R.id.item8);
-        count1 = (TextView)findViewById(R.id.count1);
-        count2 = (TextView)findViewById(R.id.count2);
-        count3 = (TextView)findViewById(R.id.count3);
-        count4 = (TextView)findViewById(R.id.count4);
-        count5 = (TextView)findViewById(R.id.count5);
-        count6 = (TextView)findViewById(R.id.count6);
-        count7 = (TextView)findViewById(R.id.count7);
-        count8 = (TextView)findViewById(R.id.count8);
+        COUNT1 = (TextView)findViewById(R.id.count1);
+        COUNT2 = (TextView)findViewById(R.id.count2);
+        COUNT3 = (TextView)findViewById(R.id.count3);
+        COUNT4 = (TextView)findViewById(R.id.count4);
+        COUNT5 = (TextView)findViewById(R.id.count5);
+        COUNT6 = (TextView)findViewById(R.id.count6);
+        COUNT7 = (TextView)findViewById(R.id.count7);
+        COUNT8 = (TextView)findViewById(R.id.count8);
         ITEMS=new ImageView[]{SET1,SET2,SET3};
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
     }
     
-    public void recovery(View v){
-    	int star = 6;
-    	editor = pref.edit();
-		editor.putInt("star", star);
-		editor.commit();
-		setStar();
+    // トータルハイスコアと、当日ハイスコアの表示
+    public void setScore(){
+    	
+    	// さいこうスコアの取得・表示
+    	TextView totalScore = (TextView)findViewById(R.id.totalScore);
+    	int total_score = pref.getInt("totalScore", 0);
+    	totalScore.setText(Integer.toString(total_score));
+    	
+    	// ほんじつスコアの取得・表示
+    	TextView todayScore = (TextView)findViewById(R.id.todayScore);
+    	int today_score = pref.getInt("todayScore", 0);
+    	todayScore.setText(Integer.toString(today_score));
     }
     
+    // スタミナ取得
+    public void readStar(){
+    	star = pref.getInt("star", 6);
+    }
+    
+    // スタミナ画像セット
     public void setStar(){
-    	int star = pref.getInt("star", 6);
     	ImageView starView = (ImageView)findViewById(R.id.star);
     	switch(star){
     	case 0:
@@ -145,80 +207,190 @@ public class MainActivity extends Activity {
     		break;
     	}
     }
-    
-    public void consumeStar(View v){
-    	
-    	int star = pref.getInt("star", 6);
-    	
-    	if(star!=0){
-    		star -= 1;
-    		editor = pref.edit();
-    		editor.putInt("star", star);
-    		editor.commit();
-    		Start(v);
-    	}
-    }
-    
-    public void setScore(){
-    	TextView totalScore = (TextView)findViewById(R.id.totalScore);
-    	int total_score = pref.getInt("totalScore", 0);
-    	totalScore.setText(Integer.toString(total_score));
-    	TextView todayScore = (TextView)findViewById(R.id.todayScore);
-    	int today_score = pref.getInt("todayScore", 0);
-    	todayScore.setText(Integer.toString(today_score));
-    }
-    
+
+    //　アイテムロック
     public void setLock(){
     	int total_score = pref.getInt("totalScore", 0);
 
+    	// さいこうスコアの値に応じて、アイテムにロックをかける
     	if(50 > total_score){
     		item1.setImageResource(R.drawable.lock);
-    		count1.setAlpha(0);
+    		COUNT1.setAlpha(0);
     	}
     	if(100 > total_score){
     		item2.setImageResource(R.drawable.lock);
-    		count2.setAlpha(0);
+    		COUNT2.setAlpha(0);
     	}
     	if(200 > total_score){
     		item3.setImageResource(R.drawable.lock);
-    		count3.setAlpha(0);
+    		COUNT3.setAlpha(0);
     	}
     	if(250 > total_score){
     		item4.setImageResource(R.drawable.lock);
-    		count4.setAlpha(0);
+    		COUNT4.setAlpha(0);
     	}
     	if(300 > total_score){
     		item5.setImageResource(R.drawable.lock);
-    		count5.setAlpha(0);
+    		COUNT5.setAlpha(0);
     	}
     	if(500 > total_score){
     		item6.setImageResource(R.drawable.lock);
-    		count6.setAlpha(0);
+    		COUNT6.setAlpha(0);
     	}
     	if(750 > total_score){
     		item7.setImageResource(R.drawable.lock);
-    		count7.setAlpha(0);
+    		COUNT7.setAlpha(0);
     	}
     	if(1000 > total_score){
     		item8.setImageResource(R.drawable.lock);
-    		count8.setAlpha(0);
+    		COUNT8.setAlpha(0);
     	}
     	
     }
     
+    // アイテム所持数の取得
+    public void readItem(){
+    	
+    	count1 = pref.getInt("count1", 0);
+    	count2 = pref.getInt("count2", 0);
+    	count3 = pref.getInt("count3", 0);
+    	count4 = pref.getInt("count4", 0);
+    	count5 = pref.getInt("count5", 0);
+    	count6 = pref.getInt("count6", 0);
+    	count7 = pref.getInt("count7", 0);
+    	count8 = pref.getInt("count8", 0);
+    	
+    }
+    
+    // アイテム所持数の表示
     public void setItem(){
     	
-    	count1.setText(Integer.toString(pref.getInt("count1", 0)));
-    	count2.setText(Integer.toString(pref.getInt("count2", 0)));
-    	count3.setText(Integer.toString(pref.getInt("count3", 0)));
-    	count4.setText(Integer.toString(pref.getInt("count4", 0)));
-    	count5.setText(Integer.toString(pref.getInt("count5", 0)));
-    	count6.setText(Integer.toString(pref.getInt("count6", 0)));
-    	count7.setText(Integer.toString(pref.getInt("count7", 0)));
-    	count8.setText(Integer.toString(pref.getInt("count8", 0)));
+    	COUNT1.setText(Integer.toString(count1));
+    	COUNT2.setText(Integer.toString(count2));
+    	COUNT3.setText(Integer.toString(count3));
+    	COUNT4.setText(Integer.toString(count4));
+    	COUNT5.setText(Integer.toString(count5));
+    	COUNT6.setText(Integer.toString(count6));
+    	COUNT7.setText(Integer.toString(count7));
+    	COUNT8.setText(Integer.toString(count8));
     	
     }
 
+    
+    /********************************
+     * 各機能						* 
+     ********************************/
+    
+    // スタミナ全回復
+    public void recovery(View v){
+
+    	star = 6;
+		setStar();
+		editor = pref.edit();
+		editor.putInt("totalScore",1000);
+		editor.commit();
+    }
+    
+    // アイテムの購入
+    public void itemBuy(View v){
+    	// さいこうスコアの取得
+    	int total_score = pref.getInt("totalScore", 0);
+    	
+    	if(selected.equals("muteki")){
+    		
+    		// ロック解除されていなければメソッド終了
+    		if(50 > total_score){
+    			return;
+    		}
+    		count1 = buy(count1);
+    		setItem();
+    		saveData("buy");
+    		
+    	}else if(selected.equals("double1")){
+    		
+    		// ロック解除されていなければメソッド終了
+    		if(100 > total_score){
+    			return;
+    		}
+    		count2 = buy(count2);
+    		setItem();
+    		saveData("buy");
+    		
+    	}else if(selected.equals("up10")){
+    		
+    		// ロック解除されていなければメソッド終了
+    		if(200 > total_score){
+    			return;
+    		}
+    		count3 = buy(count3);
+    		setItem();
+    		saveData("buy");
+    		
+    	}else if(selected.equals("add5")){
+    		
+    		// ロック解除されていなければメソッド終了
+    		if(250 > total_score){
+    			return;
+    		}
+    		count4 = buy(count4);
+    		setItem();
+    		saveData("buy");
+    		
+    	}else if(selected.equals("purin5")){
+    		
+    		// ロック解除されていなければメソッド終了
+    		if(300 > total_score){
+    			return;
+    		}
+    		count5 = buy(count5);
+    		setItem();
+    		saveData("buy");
+    		
+    	}else if(selected.equals("add1")){
+    		
+    		// ロック解除されていなければメソッド終了
+    		if(500 > total_score){
+    			return;
+    		}
+    		count6 = buy(count6);
+    		setItem();
+    		saveData("buy");
+    		
+    	}else if(selected.equals("up20")){
+    		
+    		// ロック解除されていなければメソッド終了
+    		if(750 > total_score){
+    			return;
+    		}
+    		count7 = buy(count7);
+    		setItem();
+    		saveData("buy");
+    		
+    	}else if(selected.equals("resurrection")){
+    		
+    		// ロック解除されていなければメソッド終了
+    		if(1000 > total_score){
+    			return;
+    		}
+    		count8 = buy(count8);
+    		setItem();
+    		saveData("buy");
+    		
+    	}
+    }
+    
+    // 購入処理
+    public int buy(int selectedItem){
+    	if(5 <= star){
+    		star -= 5;
+    		setStar();
+    		selectedItem += 1;
+    		return selectedItem;
+    	}
+		return 0;
+    }
+
+    // アイテムの選択処理
     public void select(View view){
     	switch(view.getId()){
     	case R.id.item1:
@@ -240,7 +412,7 @@ public class MainActivity extends Activity {
     		setDesc(R.drawable.add1,R.string.item6,"add1",R.string.desc6,R.string.unlock6);
     		break;
     	case R.id.item7:
-    		setDesc(R.drawable.up10,R.string.item7,"up10",R.string.desc7,R.string.unlock7);
+    		setDesc(R.drawable.up20,R.string.item7,"up20",R.string.desc7,R.string.unlock7);
     		break;
     	case R.id.item8:
     		setDesc(R.drawable.resurrection,R.string.item8,"resurrection",R.string.desc8,R.string.unlock8);
@@ -248,39 +420,167 @@ public class MainActivity extends Activity {
     	}
     }
 
+    // アイテム(名前・説明・解放条件・画像条件)の取得表示
     public void setDesc(int res,int name,String saveName,int desc,int unlock){
+    	
+    	// 選択されたアイテム情報を各ビューに表示
 		ITEM.setImageResource(res);
 		NAME.setText(name);
 		DESC.setText(desc);
 		UNLOCK.setText(unlock);
 
-
+		// 選択済みのアイテムをもういちどタップしたらアイテム欄にアイテムをセット
 		if(selected.equals(saveName)){
 			setItem(saveName,res);
 		}
+		
+		// 選択済みアイテムにアイテム名を保存
 		selected = saveName;
     }
 
+    // アイテム使用欄にアイテムをセットする
     public void setItem(String name,int res){
+    	
     	for(int i=0; i<3; i++){
+    		
+    		// もしアイテムがすでにセットされていたらアイテムを外してメソッド終了
     		if(SETS[i].equals(name)){
+    			cancelItem(name);
     			SETS[i]="none";
     			ITEMS[i].setImageResource(R.drawable.none);
     			return;
     		}
     	}
+    	
 		for(int i=0; i<3; i++){
+			
+			// アイテムがセットされていないので空白の欄があればアイテムをセット
 		 	if(SETS[i].equals("none")){
-		 		SETS[i] = name;
-		 		ITEMS[i].setImageResource(res);
+		 		useItem(name,i,res);
+		 		
 		 		break;
 		 	}
 		}
     }
 
+    // アイテム消費
+    public void useItem(String name,int i, int res){
+		if(name.equals("muteki")){
+			if(0 < count1){
+				count1 -= 1;
+    			setItem();
+		 		SETS[i] = name;
+		 		ITEMS[i].setImageResource(res);
+			}
+		}
+		if(name.equals("double1")){
+			if(0 < count2){
+				count2 -= 1;
+    			setItem();
+    			SETS[i] = name;
+		 		ITEMS[i].setImageResource(res);
+			}
+		}
+		if(name.equals("up10")){
+			if(0 < count3){
+				count3 -= 1;
+    			setItem();
+    			SETS[i] = name;
+		 		ITEMS[i].setImageResource(res);
+			}
+		}
+		if(name.equals("add5")){
+			if(0 < count4){
+				count4 -= 1;
+    			setItem();
+    			SETS[i] = name;
+		 		ITEMS[i].setImageResource(res);
+			}
+		}
+		if(name.equals("purin5")){
+			if(0 < count5){
+				count5 -= 1;
+    			setItem();
+    			SETS[i] = name;
+		 		ITEMS[i].setImageResource(res);
+			}
+		}
+		if(name.equals("add1")){
+			if(0 < count6){
+				count6 -= 1;
+    			setItem();
+    			SETS[i] = name;
+		 		ITEMS[i].setImageResource(res);
+			}
+		}
+		if(name.equals("up20")){
+			if(0 < count7){
+				count7 -= 1;
+    			setItem();
+    			SETS[i] = name;
+		 		ITEMS[i].setImageResource(res);
+			}
+		}
+		if(name.equals("resurrection")){
+			if(0 < count8){
+				count8 -= 1;
+    			setItem();
+    			SETS[i] = name;
+		 		ITEMS[i].setImageResource(res);
+			}
+		}
+    }
+    
+    // アイテムキャンセル
+    public void cancelItem(String name){
+		if(name.equals("muteki")){
+			count1 += 1;
+   			setItem();
+		}
+		if(name.equals("double1")){
+			count2 += 1;
+   			setItem();
+		}
+		if(name.equals("up10")){
+			count3 += 1;
+   			setItem();
+		}
+		if(name.equals("add5")){
+			count4 += 1;
+    		setItem();
+		}
+		if(name.equals("purin5")){
+			count5 += 1;
+   			setItem();
+		}
+		if(name.equals("add1")){
+			count6 += 1;
+   			setItem();
+		}
+		if(name.equals("up20")){
+			count7 += 1;
+   			setItem();
+		}
+		if(name.equals("resurrection")){
+			count8 += 1;
+   			setItem();
+		}
+    }
+    
+    // スタミナ消費(ゲーム開始時)
+    public void consumeStar(View v){
+    	    	
+    	if(star!=0){
+    		star -= 1;
+    		Start(v);
+    	}
+    }
+    
+    // ゲームスタート
+    public void Start(View view){
 
-	public void Start(View view){
-
+    	saveData("start");
+    	
 		view.setBackgroundDrawable(null);
 		if(view instanceof ViewGroup) {
 			ViewGroup vg = (ViewGroup)view;
@@ -295,6 +595,33 @@ public class MainActivity extends Activity {
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
 	}
+    
+    public void saveData(String state){
+    	if(state.equals("start") || state.equals("buy")){
+    		editor = pref.edit();
+    		
+    		editor.putInt("count1", count1);
+    		editor.putInt("count2", count2);
+    		editor.putInt("count3", count3);
+    		editor.putInt("count4", count4);
+    		editor.putInt("count5", count5);
+    		editor.putInt("count6", count6);
+    		editor.putInt("count7", count7);
+    		editor.putInt("count8", count8);
+    	
+    		editor.putInt("star", star);
+    	
+    		editor.commit();
+    	}else if(state.equals("finish")){
+    		editor = pref.edit();
+    				
+    		editor.putInt("star", star);
+        	
+    		editor.commit();
+    	}
+    }
+	
+    // メニュー生成
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
@@ -303,6 +630,7 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	// メニューリスナー
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		/* webView邵ｺ�ｽｫlayout.xml邵ｺ�ｽｮwebview郢ｧ蛛ｵ縺晉ｹ晢ｿｽ郢晢ｿｽ */
@@ -326,6 +654,7 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	// アップデート機能
 	public void download(String apkurl) {
 
 		try {
@@ -373,5 +702,14 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 	}
+	  @Override
+	  public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if(keyCode==KeyEvent.KEYCODE_BACK){
+	    	
+	    	android.os.Process.killProcess(android.os.Process.myPid());
+	    	return false;
+	    }
+	    return false;
+	  }
 
 }
