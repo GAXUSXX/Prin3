@@ -14,23 +14,7 @@ import com.facebook.android.Facebook;
 import android.app.Activity;
 
 import java.util.Date;
-import java.util.List;
 
-import com.facebook.FacebookException;
-import com.facebook.Request;
-import com.facebook.Response;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
-import com.facebook.model.GraphUser;
-import com.facebook.widget.FacebookDialog;
-import com.facebook.android.DialogError;
-import com.facebook.android.Facebook;
-import com.facebook.android.Facebook.DialogListener;
-import com.facebook.android.FacebookError;
-
-import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -44,23 +28,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
-import android.text.format.Time;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.ResolveInfo;
-import android.content.pm.Signature;
-import android.net.Uri;
-import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class Result extends Activity {
@@ -116,7 +85,7 @@ public class Result extends Activity {
 	}
 
 	public void saveScore(){
-
+		
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String nowTime = sdf.format(date);
@@ -187,6 +156,7 @@ public class Result extends Activity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         Result.this.finish();
+        moveTaskToBack(true);
     }
 
 	public void toMenu(View view){
@@ -200,16 +170,15 @@ public class Result extends Activity {
 	  @Override
 	  public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if(keyCode==KeyEvent.KEYCODE_BACK){
-	    	
+	    	//ÉÅÉjÉÖÅ[
 	        Intent intent = new Intent(Intent.ACTION_MAIN);
 	        intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.MainActivity");
 	        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	        startActivity(intent);
 	        Result.this.finish();
-	        
+
 	    	return false;
 	    }
 	    return false;
 	  }
-	
 }
