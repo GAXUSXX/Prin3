@@ -7,35 +7,28 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 public class MainActivity extends Activity {
 
@@ -72,6 +65,11 @@ public class MainActivity extends Activity {
 	public TextView COUNT7;
 	public TextView COUNT8;
 
+	// 回復時間
+	public TextView TIME;
+	public Timer timer;
+	public TimerTask timerTask;
+	
 	// アイテム所持数
 	public int count1;
 	public int count2;
@@ -94,14 +92,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.v("create","create");
-
-        getObject();	// オブジェクトの生成
-        setScore();		// スコア
-        readStar();		// スタミナ取得
-        setStar();		// スタミナ
-        setLock();		// アイテムLock
-        readItem();		// アイテム所持数の取得
-        setItem();		//　アイテム個数表示
     }
 
     @Override
@@ -112,6 +102,7 @@ public class MainActivity extends Activity {
         setScore();		// スコア
         readStar();		// スタミナ取得
         setStar();		// スタミナ
+        setTime();		// 時間
         setLock();		// アイテムLock
         readItem();		// アイテム所持数の取得
         setItem();		//　アイテム個数表示
@@ -164,10 +155,11 @@ public class MainActivity extends Activity {
         COUNT6 = (TextView)findViewById(R.id.count6);
         COUNT7 = (TextView)findViewById(R.id.count7);
         COUNT8 = (TextView)findViewById(R.id.count8);
+        TIME = (TextView)findViewById(R.id.time);
         ITEMS=new ImageView[]{SET1,SET2,SET3};
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
     }
-
+    
     // トータルハイスコアと、当日ハイスコアの表示
     public void setScore(){
 
@@ -213,6 +205,15 @@ public class MainActivity extends Activity {
     		starView.setImageResource(R.drawable.star6);
     		break;
     	}
+    }
+    
+    public void setTime(){
+		if(star != 6){
+			TIME.setAlpha(1);
+			timer = new Timer();
+			timerTask = new timerTask(MainActivity.this);
+			timer.scheduleAtFixedRate(timerTask, 0, 1000);
+		}
     }
 
     //　アイテムロック
@@ -604,7 +605,10 @@ public class MainActivity extends Activity {
 	}
 
     public void saveData(String state){
-    	if(state.equals("start") || state.equals("buy")){
+    	if(state.equals("start")){
+    		
+    		Long nowTime = System.currentTimeMillis();
+    		
     		editor = pref.edit();
 
     		editor.putInt("count1", count1);
@@ -617,6 +621,15 @@ public class MainActivity extends Activity {
     		editor.putInt("count8", count8);
 
     		editor.putInt("star", star);
+    		if(star==5){
+    			editor.putLong("play", nowTime);
+    		}
+
+    		editor.commit();
+    	}else if(state.equals("buy")){
+    		editor = pref.edit();
+
+    		editor.putInt("star", star);
 
     		editor.commit();
     	}else if(state.equals("finish")){
@@ -624,6 +637,15 @@ public class MainActivity extends Activity {
 
     		editor.putInt("star", star);
 
+    		editor.commit();
+    	}else if(state.equals("recovery")){
+    		Long nowTime = System.currentTimeMillis();
+    		
+    		editor = pref.edit();
+    		
+    		editor.putInt("star", star);
+    		editor.putLong("play", nowTime);
+    		
     		editor.commit();
     	}
     }
@@ -717,5 +739,54 @@ public class MainActivity extends Activity {
 	    }
 	    return false;
 	  }
+	  
+	  public class timerTask extends TimerTask{
+		
+		  private Handler handler;
+		  private Context context;
+		  private Toast toast;
+		  
+		  public timerTask(Context context){
+			  
+			  handler = new Handler();
+			  this.context = context;
 
+		  }
+		  
+		  @Override
+		  public void run() {
+			  
+			  handler.post(new Runnable(){
+				  @Override
+				  public void run(){
+					  
+					  Long nowTime = System.currentTimeMillis();
+					  Long savedTime = pref.getLong("play", 0);
+					  
+					  Long diff = 600 - ((nowTime - savedTime)/1000);
+					  
+					  Long second = diff % 60;
+					  Long minute = (diff-second) / 60;
+					  String s = Long.toString(second);
+					  String m = Long.toString(minute);
+					  if(s.length() == 1){
+						  s = "0" + s;
+					  }
+					  String sa = m + ":" + s;
+					  TIME.setText("+1補充まであと" + sa + "残っています");
+					  
+					  if(diff <= 0){
+						  star += 1;
+						  setStar();
+						  saveData("recovery");
+						  if(star == 6){
+							  timer.cancel();
+							  TIME.setAlpha(0);
+						  }
+					  }
+				  }
+			  });
+		  }
+		  
+	  }
 }
