@@ -30,8 +30,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
-	// このサンプルでは実行間隔を 0.016秒間隔（約 60 fps に相当）に設定してみた
-	private static final long INTERVAL_PERIOD = 16;
+	// このサンプルでは実行間隔を 0.010秒間隔（約 60 fps に相当）に設定してみた
+	private static final long INTERVAL_PERIOD = 10;
 	private ScheduledExecutorService scheduledExecutorService;
 	private static final float FONT_SIZE = 64f;
 	private static final float FONT_SIZE2 = 424f;
@@ -57,6 +57,8 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 	private int startFlag = 0;
 	private long startTime = 0;
 	private long curTime = 0;
+	private int timeCount = 0;
+	private double Time = 2.0;
 
 	private Bitmap[] resource = new Bitmap [101];
 
@@ -222,18 +224,88 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 					FlickFlag = 0;
 				}
 
-				if(startTime == 0 && startFlag == 1000){
-					startTime = System.currentTimeMillis();
-				}
-				curTime = System.currentTimeMillis();
-				double sumTime = (curTime - startTime) / 100;
-				double Time = 2.0 - sumTime/10;
-				String TimeText = String.valueOf(Time).substring(0,3);
-				Log.v("Time",TimeText);
-				//残り時間
-				canvas.drawText(TimeText, getWidth()-500, FONT_SIZE*2, paintFps);
+				if(x > 200){
+					double sumTime = timeCount/10;
+					if(sumTime == 1){
+						Time = 1.9;
+					}
+					if(sumTime == 2){
+						Time = 1.8;
+					}
+					if(sumTime == 3){
+						Time = 1.7;
+					}
+					if(sumTime == 4){
+						Time = 1.6;
+					}
+					if(sumTime == 5){
+						Time = 1.5;
+					}
 
-				if(Time < 0 && startFlag == 1000){
+					if(sumTime == 6){
+						Time = 1.4;
+					}
+
+					if(sumTime == 7){
+						Time = 1.3;
+					}
+
+					if(sumTime == 8){
+						Time = 1.2;
+					}
+					if(sumTime == 9){
+						Time = 1.1;
+					}
+					if(sumTime == 10){
+						Time = 1.0;
+					}
+
+					if(sumTime == 11){
+						Time = 0.9;
+					}
+
+					if(sumTime == 12){
+						Time = 0.8;
+					}
+
+					if(sumTime == 13){
+						Time = 0.7;
+					}
+
+					if(sumTime == 14){
+						Time = 0.6;
+					}
+
+					if(sumTime == 15){
+						Time = 0.5;
+					}
+
+					if(sumTime == 16){
+						Time = 0.4;
+					}
+
+					if(sumTime == 17){
+						Time = 0.3;
+					}
+
+					if(sumTime == 18){
+						Time = 0.2;
+					}
+
+					if(sumTime == 19){
+						Time = 0.1;
+					}
+
+					if(sumTime == 20){
+						Time = 0;
+					}
+
+					canvas.drawText(String.valueOf(Time), getWidth()-500, FONT_SIZE*2, paintFps);
+
+					timeCount++;
+				}
+
+				if(Time == 0 && x > 200){
 					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 					Editor edit = prefs.edit();
 					edit.putString("score",String.valueOf(gameCount));
