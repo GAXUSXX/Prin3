@@ -55,6 +55,8 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 	private int gameokFlag = 0;
 	private int yFlickokFlag = 0;
 	private int startFlag = 0;
+	private long startTime = 0;
+	private long curTime = 0;
 
 	private Bitmap[] resource = new Bitmap [101];
 
@@ -219,6 +221,28 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 					startFlag = 1000;
 					FlickFlag = 0;
 				}
+
+				if(startTime == 0 && startFlag == 1000){
+					startTime = System.currentTimeMillis();
+				}
+				curTime = System.currentTimeMillis();
+				double sumTime = (curTime - startTime) / 100;
+				double Time = 2.0 - sumTime/10;
+				String TimeText = String.valueOf(Time).substring(0,3);
+				Log.v("Time",TimeText);
+				//残り時間
+				canvas.drawText(TimeText, getWidth()-500, FONT_SIZE*2, paintFps);
+
+				if(Time < 0 && startFlag == 1000){
+					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+					Editor edit = prefs.edit();
+					edit.putString("score",String.valueOf(gameCount));
+					edit.commit();
+
+					getContext().startActivity(new Intent(getContext(), Result.class));
+					System.gc();
+				}
+
 				//横に移動
 				if(x <= getWidth()/2 && FlickFlag < 10){
 					x = x += getWidth()/25;
@@ -277,6 +301,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 						gameCount++;
 						gameokFlag = 0;
 					}
+					startTime = System.currentTimeMillis();
 				}
 				//フリックされたら判定
 				else if(FlickFlag > 10){
