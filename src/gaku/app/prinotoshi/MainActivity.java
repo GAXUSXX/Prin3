@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Process;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -108,6 +109,16 @@ public class MainActivity extends Activity {
         setLock();		// アイテムLock
         readItem();		// アイテム所持数の取得
         setItem();		//　アイテム個数表示
+    }
+    @Override
+    public void onRestart(){
+    	super.onRestart();
+    	
+		Intent intent = new Intent(Intent.ACTION_MAIN);
+		intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.MainActivity");
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(intent);
+		//finish();
     }
 
     @Override
@@ -645,6 +656,15 @@ public class MainActivity extends Activity {
     		editor = pref.edit();
 
     		editor.putInt("star", star);
+    		
+    		editor.putInt("count1", count1);
+    		editor.putInt("count2", count2);
+    		editor.putInt("count3", count3);
+    		editor.putInt("count4", count4);
+    		editor.putInt("count5", count5);
+    		editor.putInt("count6", count6);
+    		editor.putInt("count7", count7);
+    		editor.putInt("count8", count8);
 
     		editor.commit();
     	}else if(state.equals("finish")){

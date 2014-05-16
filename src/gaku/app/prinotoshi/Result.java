@@ -155,8 +155,7 @@ public class Result extends Activity {
         intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.StartActivity");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        Result.this.finish();
-        moveTaskToBack(true);
+        finish();
     }
 
 	public void toMenu(View view){
@@ -165,7 +164,7 @@ public class Result extends Activity {
         intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.MainActivity");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        Result.this.finish();
+        finish();
     }
 	  @Override
 	  public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -175,7 +174,7 @@ public class Result extends Activity {
 	        intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.MainActivity");
 	        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	        startActivity(intent);
-	        Result.this.finish();
+	        finish();
 
 	    	return false;
 	    }
