@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -166,12 +168,25 @@ public class MainActivity extends Activity {
     	// さいこうスコアの取得・表示
     	TextView totalScore = (TextView)findViewById(R.id.totalScore);
     	int total_score = pref.getInt("totalScore", 0);
-    	totalScore.setText(Integer.toString(total_score));
+    	totalScore.setText(Integer.toString(total_score) + "個");
 
+    	Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String nowTime = sdf.format(date);
+    	
     	// ほんじつスコアの取得・表示
     	TextView todayScore = (TextView)findViewById(R.id.todayScore);
-    	int today_score = pref.getInt("todayScore", 0);
-    	todayScore.setText(Integer.toString(today_score));
+    	
+		// 本日スコアの取得
+		int today_Score = pref.getInt("todayScore", 0);
+		String today = pref.getString("today", nowTime);
+		if(!today.equals(nowTime)){
+	    	todayScore.setText("0");
+			today_Score = 0;
+		}else{
+	    	todayScore.setText(Integer.toString(today_Score) + "個");
+		}
+    	
     }
 
     // スタミナ取得
