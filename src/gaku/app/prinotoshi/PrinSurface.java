@@ -70,7 +70,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private Context mContext;
 	private static int mutekiCount = 0;
 	private static  String[] SETS;
-	private int item1useFlag = 0;
+	private static int item1useFlag = 0;
+	private static int item2useFlag = 0;
+	private static int item3useFlag = 0;
 
 
 	private Bitmap[] resource = new Bitmap [101];
@@ -679,17 +681,20 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 			mutekiCount = 500;
 			Log.v("muteki","ok");
 		}
+		item1useFlag = 1;
 	}
 	public static void item2Go(View view){
 		if(SETS[0].equals("muteki")){
 			mutekiCount = 500;
 			Log.v("muteki","ok");
 		}
+		item2useFlag = 1;
 	}
 	public static void item3Go(View view){
 		if(SETS[0].equals("muteki")){
 			mutekiCount = 500;
 			Log.v("muteki","ok");
 		}
+		item3useFlag = 1;
 	}
 }
