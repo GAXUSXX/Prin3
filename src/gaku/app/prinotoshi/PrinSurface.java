@@ -512,14 +512,19 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							prin2 = null;
 						}
 						if(n <= 20){
-							prin2 = resource[12];
-							SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-							Editor edit = prefs.edit();
-							edit.putString("score",String.valueOf(gameCount));
-							edit.commit();
+							if(mutekiCount > 0){
+								prin2 = resource[6];
+							}
+							else{
+								prin2 = resource[12];
+								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+								Editor edit = prefs.edit();
+								edit.putString("score",String.valueOf(gameCount));
+								edit.commit();
 
-							getContext().startActivity(new Intent(getContext(), Result.class));
-							System.gc();
+								getContext().startActivity(new Intent(getContext(), Result.class));
+								System.gc();
+							}
 						}
 						if(n==21){
 							prin2 = resource[7];
