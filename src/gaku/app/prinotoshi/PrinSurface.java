@@ -25,11 +25,15 @@ import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.View.OnTouchListener;
 
-public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
+public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,  Runnable  {
 	// このサンプルでは実行間隔を 0.010秒間隔（約 60 fps に相当）に設定してみた
 	private static final long INTERVAL_PERIOD = 10;
 	private ScheduledExecutorService scheduledExecutorService;
@@ -59,6 +63,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 	private long curTime = 0;
 	private int timeCount = 0;
 	private double Time = 2.0;
+	private int width = 0;
+	private int height = 0;
+	private Context mContext;
+
 
 	private Bitmap[] resource = new Bitmap [101];
 
@@ -70,21 +78,16 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 	Bitmap sara = BitmapFactory.decodeResource(res, R.drawable.sara);
 	Bitmap desk = BitmapFactory.decodeResource(res, R.drawable.desk);
 
-	public PrinSurface(Context context) {
-		super(context);
-		init();
-	}
+	// コンストラクタ
+    public PrinSurface(Context context, SurfaceView sv) {
+    	super(context);
+    	mContext = context;
+        SurfaceHolder holder = sv.getHolder();
+        holder.addCallback(this);
+        sv.setOnTouchListener(new FlickTouchListener());
 
-	public PrinSurface(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		init();
-	}
-
-	public PrinSurface(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		init();
-	}
-
+        init();
+    }
 	/*
 	 * コンストラクター引数が1〜3個の場合のすべてで共通となる初期化ルーチン
 	 */
@@ -96,8 +99,8 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 		 * に対して、関連するコールバック（surfaceChanged, surfaceCreated, surfaceDestroyed）
 		 * の呼び出し先がこのクラスのインスタンス（this）であることを呼出元アクティビティに登録する。
 		 */
-		SurfaceHolder surfaceHolder = getHolder();
-		surfaceHolder.addCallback(this);
+		//SurfaceHolder surfaceHolder = getHolder();
+		//surfaceHolder.addCallback(this);
 
 		// fps 計測用の設定値の初期化
 		for (int i = 0; i < 19; i++) {
@@ -125,13 +128,18 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 	// コールバック内容の定義 (1/3)
 	@Override
 	public void surfaceCreated(final SurfaceHolder surfaceHolder) {
+		Display disp =
+				((WindowManager)mContext.getSystemService(mContext.WINDOW_SERVICE)).
+				getDefaultDisplay();
+				width = disp.getWidth();
+				height = disp.getHeight();
 		x = 0;
-		y = (float) (getHeight() / 3);
+		y = (float) (height / 3);
 		//標準の上下位置
-		defaultY = (float)(getHeight() /1.4);
+		defaultY = (float)(height /1.4);
 		DrawSurface(surfaceHolder);
 		// 100x100にリサイズ
-		imageSize = getWidth()/3;
+		imageSize = width/3;
 		//bitmap生成
 		// Bitmap生成時のオプション。
 	    BitmapFactory.Options options = new Options();
@@ -143,7 +151,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
         options.inDensity = dm.densityDpi;;
 	    // inPurgeableでBitmapを再利用するかどうかを明示的に決定
 	    options.inPurgeable = true;
-		desk= Bitmap.createScaledBitmap(desk, getWidth(), getHeight(), true);
+		desk= Bitmap.createScaledBitmap(desk, width, height, true);
 		sara= Bitmap.createScaledBitmap(sara, imageSize, imageSize, false);
 		prin= Bitmap.createScaledBitmap(prin, imageSize, imageSize, false);
 		cup= Bitmap.createScaledBitmap(cup, imageSize, imageSize, false);
@@ -217,7 +225,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 					else{
 						countt="3";
 					}
-					canvas.drawText(countt, (float) (getWidth()/2.5), getHeight()/2, paintCount);
+					canvas.drawText(countt, (float) (width/2.5), height/2, paintCount);
 				}
 				else if(startFlag == 300){
 					startFlag = 1000;
@@ -304,7 +312,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 					}
 
 
-					canvas.drawText(String.valueOf(Time), getWidth()-500, FONT_SIZE*2, paintFps);
+					canvas.drawText(String.valueOf(Time), width-500, FONT_SIZE*2, paintFps);
 
 					timeCount++;
 				}
@@ -320,9 +328,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 				}
 
 				//横に移動
-				if(x <= getWidth()/2 && FlickFlag < 10){
-					x = x += getWidth()/25;
-					if(x < getWidth()/24){
+				if(x <= width/2 && FlickFlag < 10){
+					x = x += width/25;
+					if(x < width/24){
 						Random r = new Random();
 						n = r.nextInt(26);
 						if(prinFlag != 1 && n!=beforePrin){
@@ -369,7 +377,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 					itemFlickFlag = 0;
 					FlickFlag = 0;
 					x=0;
-					y=(float) (getHeight() / 3);
+					y=(float) (height / 3);
 					xFlickFlag = 0;
 					yFlickFlag = 0;
 					yFlickokFlag = 0;
@@ -389,7 +397,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 					if(xFlickFlag == 1){
 							canvas.drawBitmap(prin2, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
 							//カップはそのまま
-							canvas.drawBitmap(cup, x-imageSize/2, (float) (getHeight() / 3)-imageSize/2, paintCircle);
+							canvas.drawBitmap(cup, x-imageSize/2, (float) (height / 3)-imageSize/2, paintCircle);
 					}
 					//立てにフリックされたらそのまま
 					else if(yFlickFlag == 1){
@@ -399,7 +407,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 					prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
 					canvas.drawBitmap(prin2, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
 					//横に移動させる
-					x += getWidth()/20;
+					x += width/20;
 				}
 
 				else if(itemFlickFlag == 1){
@@ -466,7 +474,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 						}
 						prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
 						canvas.drawBitmap(prin2, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
-						canvas.drawBitmap(cup, x-imageSize/2, (getHeight() / 3)-imageSize/2, paintCircle);
+						canvas.drawBitmap(cup, x-imageSize/2, (height / 3)-imageSize/2, paintCircle);
 						//canvas.drawBitmap(prin, x-imageSize/2, (float) (getHeight() / 4), paintCircle);
 					}
 					else if(yFlickFlag == 1){
@@ -521,7 +529,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 					canvas.drawBitmap(prin, x-imageSize/2, y-imageSize/2, paintCircle);
 					canvas.drawBitmap(cup, x-imageSize/2, y-imageSize/2, paintCircle);
 				}
-				canvas.drawText(String.valueOf(gameCount), getWidth()-100, FONT_SIZE, paintFps);
+				canvas.drawText(String.valueOf(gameCount), (float) (width/1.3), FONT_SIZE, paintFps);
 				canvas.drawText(String.format("%.1f fps", fps), 0, FONT_SIZE, paintFps);
 				// ロックした Canvas の解放
 				surfaceHolder.unlockCanvasAndPost(canvas);
@@ -529,43 +537,53 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 		}, 100, INTERVAL_PERIOD, TimeUnit.MILLISECONDS);
 	}
 
-	public int TouchFlag = 0;
-	// タッチイベントに対応する処理
 	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		switch (event.getAction()) {
-		case MotionEvent.ACTION_DOWN:
-			touchX = event.getX();
-			touchY = event.getY();
+	public void run() {
+		// TODO 自動生成されたメソッド・スタブ
 
-			//x = event.getX();
-			//y = event.getY();
-			if(event.getX() > getWidth() / 3 && event.getX() < getWidth() / 1.5 && event.getY() > getHeight() / 6 && event.getY() < getHeight() / 2){
-				//x = 0;
-				//y = (float) (getHeight() / 3);
-				Log.v("TOUCH","Flagon");
-				TouchFlag = 1;
-			}
-			break;
-		case MotionEvent.ACTION_UP:
-			if(TouchFlag == 1){
+	}
 
-				Log.v("YPos",String.valueOf(event.getY() - touchY));
-				if(event.getY() - touchY > getHeight()/15){
-					y += getHeight()/7;
-					itemFlickFlag = 1;
-					yFlickFlag = 1;
+	private class FlickTouchListener implements View.OnTouchListener {
+		public int TouchFlag = 0;
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			// TODO 自動生成されたメソッド・スタブ
+			switch (event.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				touchX = event.getX();
+				touchY = event.getY();
+				Log.v("touchX",String.valueOf(touchX));
+				Log.v("touchY",String.valueOf(touchY));
+
+				//x = event.getX();
+				//y = event.getY();
+				if(event.getX() > width / 3 && event.getX() < width / 1.5 && event.getY() > height / 6 && event.getY() < height / 2){
+					//x = 0;
+					//y = (float) (getHeight() / 3);
+					Log.v("TOUCH","Flagon");
+					TouchFlag = 1;
 				}
-				else if(event.getX() - touchX > getWidth()/14){
-					y += getHeight()/7;
-					itemFlickFlag = 1;
-					xFlickFlag = 1;
+				break;
+			case MotionEvent.ACTION_UP:
+				if(TouchFlag == 1){
+
+					Log.v("YPos",String.valueOf(event.getY() - touchY));
+					if(event.getY() - touchY > height/15){
+						y += height/7;
+						itemFlickFlag = 1;
+						yFlickFlag = 1;
+					}
+					else if(event.getX() - touchX > width/14){
+						y += height/7;
+						itemFlickFlag = 1;
+						xFlickFlag = 1;
+					}
 				}
+				prinFlag = 0;
+				TouchFlag = 0;
+				break;
 			}
-			prinFlag = 0;
-			TouchFlag = 0;
-			break;
+			return true;
 		}
-		return true;
 	}
 }

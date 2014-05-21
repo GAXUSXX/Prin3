@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res/gaku.app.prinotoshi"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-<gaku.app.prinotoshi.MainActivity
-    android:id="@+id/MySurfaceView01"
+<SurfaceView
+    android:id="@+id/Surface"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" />
-</LinearLayout>
+
+<ImageView
+    android:id="@+id/imageView1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/buy" />
+
+</RelativeLayout>
