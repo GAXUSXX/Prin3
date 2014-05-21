@@ -54,7 +54,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 	private int gameCount = 0;
 	private int gameokFlag = 0;
 	private int yFlickokFlag = 0;
-	private int startFlag = 0;
+	private int startFlag = 100;
 	private long startTime = 0;
 	private long curTime = 0;
 	private int timeCount = 0;
@@ -201,17 +201,17 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 				canvas.drawColor(Color.WHITE);
 				//背景描画
 				canvas.drawBitmap(desk, 0, 0, paintCircle);
-				if(startFlag < 210){
+				if(startFlag < 310){
 					startFlag++;
 					FlickFlag = 100;
-					String countt = String.valueOf((int)startFlag/62);
-					if((int)startFlag/62 == 1){
+					String countt = String.valueOf((int)startFlag/100);
+					if((int)startFlag/100 == 1){
 						countt="3";
 					}
-					else if((int)startFlag/62 == 2){
+					else if((int)startFlag/100 == 2){
 						countt="2";
 					}
-					else if((int)startFlag/62 == 3){
+					else if((int)startFlag/100 == 3){
 						countt="1";
 					}
 					else{
@@ -219,7 +219,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 					}
 					canvas.drawText(countt, (float) (getWidth()/2.5), getHeight()/2, paintCount);
 				}
-				else if(startFlag == 190){
+				else if(startFlag == 300){
 					startFlag = 1000;
 					FlickFlag = 0;
 				}
@@ -227,78 +227,82 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 				if(x > 200){
 					double sumTime = timeCount/10;
 					if(sumTime == 1){
-						Time = 1.9;
+						Time = 2.0;
 					}
 					if(sumTime == 2){
-						Time = 1.8;
+						Time = 1.9;
 					}
 					if(sumTime == 3){
-						Time = 1.7;
+						Time = 1.8;
 					}
 					if(sumTime == 4){
-						Time = 1.6;
+						Time = 1.7;
 					}
 					if(sumTime == 5){
-						Time = 1.5;
+						Time = 1.6;
 					}
 
 					if(sumTime == 6){
-						Time = 1.4;
+						Time = 1.5;
 					}
 
 					if(sumTime == 7){
-						Time = 1.3;
+						Time = 1.4;
 					}
 
 					if(sumTime == 8){
-						Time = 1.2;
+						Time = 1.3;
 					}
 					if(sumTime == 9){
-						Time = 1.1;
+						Time = 1.2;
 					}
 					if(sumTime == 10){
-						Time = 1.0;
+						Time = 1.1;
 					}
 
 					if(sumTime == 11){
-						Time = 0.9;
+						Time = 1.0;
 					}
 
 					if(sumTime == 12){
-						Time = 0.8;
+						Time = 0.9;
 					}
 
 					if(sumTime == 13){
-						Time = 0.7;
+						Time = 0.8;
 					}
 
 					if(sumTime == 14){
-						Time = 0.6;
+						Time = 0.7;
 					}
 
 					if(sumTime == 15){
-						Time = 0.5;
+						Time = 0.6;
 					}
 
 					if(sumTime == 16){
-						Time = 0.4;
+						Time = 0.5;
 					}
 
 					if(sumTime == 17){
-						Time = 0.3;
+						Time = 0.4;
 					}
 
 					if(sumTime == 18){
-						Time = 0.2;
+						Time = 0.3;
 					}
 
 					if(sumTime == 19){
-						Time = 0.1;
+						Time = 0.2;
 					}
 
 					if(sumTime == 20){
-						Time = 0;
+						Time = 0.1;
 					}
+					if(sumTime == 21){
+						Time = 0.0;
+					}
+
 
 					canvas.drawText(String.valueOf(Time), getWidth()-500, FONT_SIZE*2, paintFps);
 
@@ -373,6 +377,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback {
 						gameCount++;
 						gameokFlag = 0;
 					}
+					timeCount = 0;
 					startTime = System.currentTimeMillis();
 				}
 				//フリックされたら判定
