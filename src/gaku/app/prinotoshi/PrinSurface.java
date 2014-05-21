@@ -67,6 +67,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private int height = 0;
 	private Context mContext;
 	private int mutekiCount = 0;
+	private  String[] SETS;
 
 
 	private Bitmap[] resource = new Bitmap [101];
@@ -178,6 +179,11 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		resource[15] = BitmapFactory.decodeResource(res, R.drawable.moti_1,options);
 		resource[16] = BitmapFactory.decodeResource(res, R.drawable.mushi_1,options);
 		resource[17] = BitmapFactory.decodeResource(res, R.drawable.yogurt_1,options);
+
+		/**セットされているアイテム取得**/
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        SETS = pref.getString("item", "none,none,none").split(",");
 	}
 	// コールバック内容の定義 (2/3)
 	@Override
@@ -564,6 +570,12 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 				canvas.drawText(String.valueOf(gameCount), (float) (width/1.3), FONT_SIZE, paintFps);
 				canvas.drawText(String.format("%.1f fps", fps), 0, FONT_SIZE, paintFps);
+				if(mutekiCount > 0){
+					canvas.drawText("muteki", 300, FONT_SIZE, paintFps);
+				}
+				else{
+					canvas.drawText("notmuteki", 300, FONT_SIZE, paintFps);
+				}
 				// ロックした Canvas の解放
 				surfaceHolder.unlockCanvasAndPost(canvas);
 			}
@@ -613,17 +625,33 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					}
 				}
 
-				Log.v("koj","kokojo");
+				if(touchY < height/1.09 && touchY > height/1.3 && touchX > width/9 && touchX < width/5){
+					Log.v("item1",SETS[0]);
+					if(SETS[0].equals("none")){
+						mutekiCount = 500;
+						Log.v("muteki","ok");
+					}
+				}
+				if(touchY < height/1.09 && touchY > height/1.3 && touchX > width/3 && touchX < width/1.7){
+					Log.v("item1",SETS[0]);
+					if(SETS[0].equals("none")){
+						mutekiCount = 500;
+						Log.v("muteki","ok");
+					}
+				}
 				/**item判定**/
 				Log.v("touchY2",String.valueOf(touchY));
-				Log.v("touchY3",String.valueOf(height/1.3));
-				Log.v("touchY4",String.valueOf(height/1.09));
+				Log.v("touchY3",String.valueOf(height/1.15));
+				Log.v("touchY4",String.valueOf(height/1.05));
 				Log.v("touchX2",String.valueOf(touchX));
-				Log.v("touchX3",String.valueOf(width/9));
-				Log.v("touchX4",String.valueOf(width/5));
-				if(touchY < height/1.09 && touchY > height/1.3 && touchX > width/9 && touchX < width/5){
-					mutekiCount = 500;
-					Log.v("muteki","ok");
+				Log.v("touchX3",String.valueOf(width/1.5));
+				Log.v("touchX4",String.valueOf(width/1.1));
+				if(touchY < height/1.09 && touchY > height/1.3 && touchX > width/1.5 && touchX < width/1.1){
+					Log.v("item1",SETS[0]);
+					if(SETS[0].equals("none")){
+						mutekiCount = 500;
+						Log.v("muteki","ok");
+					}
 				}
 				prinFlag = 0;
 				TouchFlag = 0;
