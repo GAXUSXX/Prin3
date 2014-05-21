@@ -795,6 +795,12 @@ public class MainActivity extends Activity {
 				  @Override
 				  public void run(){
 					  
+					  if(star >= 6){
+						  star=6;
+						  timer.cancel();
+						  TIME.setAlpha(0);
+					  }
+					  
 					  Long nowTime = System.currentTimeMillis();
 					  Long savedTime = pref.getLong("play", 0);
 					  
@@ -814,10 +820,6 @@ public class MainActivity extends Activity {
 						  star += 1;
 						  setStar();
 						  saveData("recovery");
-						  if(star == 6){
-							  timer.cancel();
-							  TIME.setAlpha(0);
-						  }
 					  }
 				  }
 			  });
