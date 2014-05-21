@@ -13,10 +13,10 @@ public class StartActivity extends Activity {
 
 	private SurfaceView mSvMain;
     private PrinSurface mMainDrawArea;
-    
+
     private ImageView item1,item2,item3;
     private ImageView[] ITEM;
-    
+
     private SharedPreferences pref;
 
     @Override
@@ -25,12 +25,12 @@ public class StartActivity extends Activity {
      	// タイトルバーを非表示
      	requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
-        
+
         setItemView();
 
         // SurfaceViewを参照
         mSvMain = (SurfaceView)findViewById(R.id.Surface);
-        
+
 
         // 作成したMainSurfaceViewクラスをインスタンス化
         mMainDrawArea = new PrinSurface(this, mSvMain);
@@ -42,7 +42,7 @@ public class StartActivity extends Activity {
     // SurfaceView のインスタンスを実体化し、ContentView としてセットする
     //SurfaceViewTest surfaceView = new SurfaceViewTest(this);
     setContentView(R.layout.main);
-    
+
     setItemView();
 
     // SurfaceViewを参照
@@ -52,22 +52,22 @@ public class StartActivity extends Activity {
     mMainDrawArea = new PrinSurface(this, mSvMain);
 
     }
-    
+
     public void setItemView(){
     	// ImageViewを参照
         item1 = (ImageView)findViewById(R.id.itemSet1);
         item2 = (ImageView)findViewById(R.id.itemSet2);
         item3 = (ImageView)findViewById(R.id.itemSet3);
-        
+
         ITEM = new ImageView[]{item1,item2,item3};
-        
-        
-        
+
+
+
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        
+
         String[] SETS = pref.getString("item", "none,none,none").split(",");
-        
-        
+
+
         for(int i=0; i<3; i++){
         	Log.v("item",SETS[i]);
         	if(SETS[i].equals("muteki")){

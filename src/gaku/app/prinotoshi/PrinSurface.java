@@ -32,6 +32,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
+import android.widget.ImageView;
 
 public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,  Runnable  {
 	// このサンプルでは実行間隔を 0.010秒間隔（約 60 fps に相当）に設定してみた
@@ -68,6 +69,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private Context mContext;
 	private int mutekiCount = 0;
 	private  String[] SETS;
+	private int item1useFlag = 0;
 
 
 	private Bitmap[] resource = new Bitmap [101];
@@ -79,6 +81,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	Bitmap cup = BitmapFactory.decodeResource(res, R.drawable.cup_1);
 	Bitmap sara = BitmapFactory.decodeResource(res, R.drawable.sara);
 	Bitmap desk = BitmapFactory.decodeResource(res, R.drawable.desk);
+	Bitmap noneitem = BitmapFactory.decodeResource(res, R.drawable.none);
 
 	// コンストラクタ
 	public PrinSurface(Context context, SurfaceView sv) {
@@ -570,6 +573,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 				canvas.drawText(String.valueOf(gameCount), (float) (width/1.3), FONT_SIZE, paintFps);
 				canvas.drawText(String.format("%.1f fps", fps), 0, FONT_SIZE, paintFps);
+				/**無敵状態表示**/
 				if(mutekiCount > 0){
 					canvas.drawText("muteki", 300, FONT_SIZE, paintFps);
 				}
@@ -577,6 +581,11 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					canvas.drawText("notmuteki", 300, FONT_SIZE, paintFps);
 				}
 				// ロックした Canvas の解放
+
+				/**item1使用フラグ**/
+				if(item1useFlag==1){
+					canvas.drawBitmap(noneitem, width/12, (float) (height/1.13), paintCircle);
+				}
 				surfaceHolder.unlockCanvasAndPost(canvas);
 			}
 		}, 100, INTERVAL_PERIOD, TimeUnit.MILLISECONDS);
@@ -628,6 +637,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				if(touchY < height/1.09 && touchY > height/1.3 && touchX > width/9 && touchX < width/5){
 					Log.v("item1",SETS[0]);
 					if(SETS[0].equals("none")){
+						item1useFlag = 1;
 						mutekiCount = 500;
 						Log.v("muteki","ok");
 					}
