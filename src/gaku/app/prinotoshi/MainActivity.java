@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -419,9 +420,10 @@ public class MainActivity extends Activity {
     		star -= 5;
     		setStar();
     		selectedItem += 1;
+    		setTime();
     		return selectedItem;
     	}
-		return 0;
+		return selectedItem;
     }
 
     // アイテムの選択処理
@@ -633,6 +635,7 @@ public class MainActivity extends Activity {
     public void saveData(String state){
     	if(state.equals("start")){
     		
+    		
     		Long nowTime = System.currentTimeMillis();
     		
     		editor = pref.edit();
@@ -645,6 +648,8 @@ public class MainActivity extends Activity {
     		editor.putInt("count6", count6);
     		editor.putInt("count7", count7);
     		editor.putInt("count8", count8);
+    		
+    		editor.putString("item", SETS[0]+","+SETS[1]+","+SETS[2]);
 
     		editor.putInt("star", star);
     		if(star==5){
@@ -653,9 +658,14 @@ public class MainActivity extends Activity {
 
     		editor.commit();
     	}else if(state.equals("buy")){
+    		Long nowTime = System.currentTimeMillis();
+    		
     		editor = pref.edit();
 
     		editor.putInt("star", star);
+    		if(star == 1){
+    			editor.putLong("play", nowTime);
+    		}
     		
     		editor.putInt("count1", count1);
     		editor.putInt("count2", count2);
