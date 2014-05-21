@@ -66,6 +66,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private int width = 0;
 	private int height = 0;
 	private Context mContext;
+	private int mutekiCount = 0;
 
 
 	private Bitmap[] resource = new Bitmap [101];
@@ -79,15 +80,15 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	Bitmap desk = BitmapFactory.decodeResource(res, R.drawable.desk);
 
 	// コンストラクタ
-    public PrinSurface(Context context, SurfaceView sv) {
-    	super(context);
-    	mContext = context;
-        SurfaceHolder holder = sv.getHolder();
-        holder.addCallback(this);
-        sv.setOnTouchListener(new FlickTouchListener());
+	public PrinSurface(Context context, SurfaceView sv) {
+		super(context);
+		mContext = context;
+		SurfaceHolder holder = sv.getHolder();
+		holder.addCallback(this);
+		sv.setOnTouchListener(new FlickTouchListener());
 
-        init();
-    }
+		init();
+	}
 	/*
 	 * コンストラクター引数が1〜3個の場合のすべてで共通となる初期化ルーチン
 	 */
@@ -131,26 +132,26 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		Display disp =
 				((WindowManager)mContext.getSystemService(mContext.WINDOW_SERVICE)).
 				getDefaultDisplay();
-				width = disp.getWidth();
-				height = disp.getHeight();
+		width = disp.getWidth();
+		height = disp.getHeight();
 		x = 0;
 		y = (float) (height / 3);
 		//標準の上下位置
-		defaultY = (float)(height /1.4);
+		defaultY = (float)(height /1.6);
 		DrawSurface(surfaceHolder);
 		// 100x100にリサイズ
 		imageSize = width/3;
 		//bitmap生成
 		// Bitmap生成時のオプション。
-	    BitmapFactory.Options options = new Options();
-	    // 画像を1/20サイズに縮小（メモリ対策）
-        options.inSampleSize = (int) 2.5;
-        // 現在の表示メトリクスの取得
-        DisplayMetrics dm = this.getResources().getDisplayMetrics();
-        // ビットマップのサイズを現在の表示メトリクスに合わせる（メモリ対策）
-        options.inDensity = dm.densityDpi;;
-	    // inPurgeableでBitmapを再利用するかどうかを明示的に決定
-	    options.inPurgeable = true;
+		BitmapFactory.Options options = new Options();
+		// 画像を1/20サイズに縮小（メモリ対策）
+		options.inSampleSize = (int) 2.5;
+		// 現在の表示メトリクスの取得
+		DisplayMetrics dm = this.getResources().getDisplayMetrics();
+		// ビットマップのサイズを現在の表示メトリクスに合わせる（メモリ対策）
+		options.inDensity = dm.densityDpi;;
+		// inPurgeableでBitmapを再利用するかどうかを明示的に決定
+		options.inPurgeable = true;
 		desk= Bitmap.createScaledBitmap(desk, width, height, true);
 		sara= Bitmap.createScaledBitmap(sara, imageSize, imageSize, false);
 		prin= Bitmap.createScaledBitmap(prin, imageSize, imageSize, false);
@@ -232,6 +233,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					FlickFlag = 0;
 				}
 
+				if(mutekiCount > 0){
+					mutekiCount--;
+				}
 				if(x > 200){
 					double sumTime = timeCount/10;
 					if(sumTime == 1){
@@ -394,10 +398,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					canvas.drawBitmap(sara, x-imageSize/2, defaultY, paintCircle);
 
 					//横にフリックされたら折る
-					if(xFlickFlag == 1){
-							canvas.drawBitmap(prin2, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
-							//カップはそのまま
-							canvas.drawBitmap(cup, x-imageSize/2, (float) (height / 3)-imageSize/2, paintCircle);
+					if(xFlickFlag == 1 || mutekiCount > 0){
+						canvas.drawBitmap(prin2, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
+						//カップはそのまま
+						canvas.drawBitmap(cup, x-imageSize/2, (float) (height / 3)-imageSize/2, paintCircle);
 					}
 					//立てにフリックされたらそのまま
 					else if(yFlickFlag == 1){
@@ -585,5 +589,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 			}
 			return true;
 		}
+	}
+
+	public void muteki(View view){
+		/**5秒間無敵**/
+		mutekiCount = 500;
 	}
 }

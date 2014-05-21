@@ -14,6 +14,8 @@ public class StartActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+     	// タイトルバーを非表示
+     	requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
 
         // SurfaceViewを参照
