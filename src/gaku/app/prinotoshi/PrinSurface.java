@@ -427,54 +427,78 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							gameokFlag = 1;
 						}
 						if(n==21){
-							prin2 = resource[13];
-							SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-							Editor edit = prefs.edit();
-							edit.putString("score",String.valueOf(gameCount));
-							edit.commit();
+							if(mutekiCount > 0){
+								prin2 = resource[7];
+							}
+							else{
+								prin2 = resource[13];
+								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+								Editor edit = prefs.edit();
+								edit.putString("score",String.valueOf(gameCount));
+								edit.commit();
 
-							getContext().startActivity(new Intent(getContext(), Result.class));
-							System.gc();
+								getContext().startActivity(new Intent(getContext(), Result.class));
+								System.gc();
+							}
 						}
 						if(n==22){
-							prin2 = resource[14];
-							SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-							Editor edit = prefs.edit();
-							edit.putString("score",String.valueOf(gameCount));
-							edit.commit();
-
-							getContext().startActivity(new Intent(getContext(), Result.class));
-							System.gc();
+							if(mutekiCount > 0){
+								prin2 = resource[8];
+							}
+							else{
+								prin2 = resource[14];
+								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+								Editor edit = prefs.edit();
+								edit.putString("score",String.valueOf(gameCount));
+								edit.commit();
+								getContext().startActivity(new Intent(getContext(), Result.class));
+								System.gc();
+							}
 						}
 						if(n==23){
-							prin2 = resource[15];
-							SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-							Editor edit = prefs.edit();
-							edit.putString("score",String.valueOf(gameCount));
-							edit.commit();
+							if(mutekiCount > 0){
+								prin2 = resource[9];
+							}
+							else{
+								prin2 = resource[15];
+								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+								Editor edit = prefs.edit();
+								edit.putString("score",String.valueOf(gameCount));
+								edit.commit();
 
-							getContext().startActivity(new Intent(getContext(), Result.class));
-							System.gc();
+								getContext().startActivity(new Intent(getContext(), Result.class));
+								System.gc();
+							}
 						}
 						if(n==24){
-							prin2 = resource[16];
-							SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-							Editor edit = prefs.edit();
-							edit.putString("score",String.valueOf(gameCount));
-							edit.commit();
+							if(mutekiCount > 0){
+								prin2 = resource[10];
+							}
+							else{
+								prin2 = resource[16];
+								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+								Editor edit = prefs.edit();
+								edit.putString("score",String.valueOf(gameCount));
+								edit.commit();
 
-							getContext().startActivity(new Intent(getContext(), Result.class));
-							System.gc();
+								getContext().startActivity(new Intent(getContext(), Result.class));
+								System.gc();
+							}
 						}
 						if(n==25){
-							prin2 = resource[17];
-							SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-							Editor edit = prefs.edit();
-							edit.putString("score",String.valueOf(gameCount));
-							edit.commit();
+							if(mutekiCount > 0){
+								prin2 = resource[11];
+							}
+							else{
+								prin2 = resource[17];
+								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+								Editor edit = prefs.edit();
+								edit.putString("score",String.valueOf(gameCount));
+								edit.commit();
 
-							getContext().startActivity(new Intent(getContext(), Result.class));
-							System.gc();
+								getContext().startActivity(new Intent(getContext(), Result.class));
+								System.gc();
+							}
 						}
 						prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
 						canvas.drawBitmap(prin2, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
@@ -582,6 +606,19 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						itemFlickFlag = 1;
 						xFlickFlag = 1;
 					}
+				}
+
+				Log.v("koj","kokojo");
+				/**item判定**/
+				Log.v("touchY2",String.valueOf(touchY));
+				Log.v("touchY3",String.valueOf(height/1.3));
+				Log.v("touchY4",String.valueOf(height/1.11));
+				Log.v("touchX2",String.valueOf(touchX));
+				Log.v("touchX3",String.valueOf(width/8));
+				Log.v("touchX4",String.valueOf(width/5));
+				if(touchY < height/1.11 && touchY > height/1.3 && touchX > width/8 && touchX < width/5){
+					mutekiCount = 500;
+					Log.v("muteki","ok");
 				}
 				prinFlag = 0;
 				TouchFlag = 0;
