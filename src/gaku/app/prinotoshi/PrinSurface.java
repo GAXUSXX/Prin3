@@ -612,11 +612,11 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				/**item判定**/
 				Log.v("touchY2",String.valueOf(touchY));
 				Log.v("touchY3",String.valueOf(height/1.3));
-				Log.v("touchY4",String.valueOf(height/1.11));
+				Log.v("touchY4",String.valueOf(height/1.09));
 				Log.v("touchX2",String.valueOf(touchX));
-				Log.v("touchX3",String.valueOf(width/8));
+				Log.v("touchX3",String.valueOf(width/9));
 				Log.v("touchX4",String.valueOf(width/5));
-				if(touchY < height/1.11 && touchY > height/1.3 && touchX > width/8 && touchX < width/5){
+				if(touchY < height/1.09 && touchY > height/1.3 && touchX > width/9 && touchX < width/5){
 					mutekiCount = 500;
 					Log.v("muteki","ok");
 				}
