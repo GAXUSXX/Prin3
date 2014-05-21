@@ -33,6 +33,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
+import android.widget.RemoteViews;
 
 public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,  Runnable  {
 	// このサンプルでは実行間隔を 0.010秒間隔（約 60 fps に相当）に設定してみた
@@ -67,8 +68,8 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private int width = 0;
 	private int height = 0;
 	private Context mContext;
-	private int mutekiCount = 0;
-	private  String[] SETS;
+	private static int mutekiCount = 0;
+	private static  String[] SETS;
 	private int item1useFlag = 0;
 
 
@@ -186,7 +187,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		/**セットされているアイテム取得**/
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        SETS = pref.getString("item", "none,none,none").split(",");
+		SETS = pref.getString("item", "none,none,none").split(",");
 	}
 	// コールバック内容の定義 (2/3)
 	@Override
@@ -584,7 +585,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 
 				/**item1使用フラグ**/
 				if(item1useFlag==1){
-					canvas.drawBitmap(noneitem, width/12, (float) (height/1.13), paintCircle);
+					//canvas.drawBitmap(noneitem, width/12, (float) (height/1.13), paintCircle);
+					RemoteViews remoteViews = new RemoteViews("gaku.app.prinotoshi", R.layout.main);
+					remoteViews.setImageViewResource(R.id.item1, R.drawable.none);
 				}
 				surfaceHolder.unlockCanvasAndPost(canvas);
 			}
@@ -636,7 +639,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 
 				if(touchY < height/1.09 && touchY > height/1.3 && touchX > width/9 && touchX < width/5){
 					Log.v("item1",SETS[0]);
-					if(SETS[0].equals("none")){
+					if(SETS[0].equals("muteki")){
 						item1useFlag = 1;
 						mutekiCount = 500;
 						Log.v("muteki","ok");
@@ -671,8 +674,22 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		}
 	}
 
-	public void muteki(View view){
-		/**5秒間無敵**/
-		mutekiCount = 500;
+	public static void item1Go(View view){
+		if(SETS[0].equals("muteki")){
+			mutekiCount = 500;
+			Log.v("muteki","ok");
+		}
+	}
+	public static void item2Go(View view){
+		if(SETS[0].equals("muteki")){
+			mutekiCount = 500;
+			Log.v("muteki","ok");
+		}
+	}
+	public static void item3Go(View view){
+		if(SETS[0].equals("muteki")){
+			mutekiCount = 500;
+			Log.v("muteki","ok");
+		}
 	}
 }

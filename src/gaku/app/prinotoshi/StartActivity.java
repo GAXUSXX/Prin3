@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.app.Activity;
@@ -95,5 +96,9 @@ public class StartActivity extends Activity {
         		ITEM[i].setImageResource(R.drawable.resurrection);
         	}
         }
+    }
+    public void item1click (View view){
+    	PrinSurface.item1Go(view);
+    	item1.setImageResource(R.drawable.none);
     }
 }
