@@ -684,14 +684,14 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		item1useFlag = 1;
 	}
 	public static void item2Go(View view){
-		if(SETS[0].equals("muteki")){
+		if(SETS[1].equals("muteki")){
 			mutekiCount = 500;
 			Log.v("muteki","ok");
 		}
 		item2useFlag = 1;
 	}
 	public static void item3Go(View view){
-		if(SETS[0].equals("muteki")){
+		if(SETS[2].equals("muteki")){
 			mutekiCount = 500;
 			Log.v("muteki","ok");
 		}
