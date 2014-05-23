@@ -76,6 +76,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private static int DoubleCount = 0;
 	private static int PrinCount = 0;
 	private int RecoveryFlag = 0;
+	private int RecoveryFlag2 = 0;
 
 
 	private Bitmap[] resource = new Bitmap [101];
@@ -557,13 +558,21 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 
 				if(Time == 0 && x > 200){
-					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-					Editor edit = prefs.edit();
-					edit.putString("score",String.valueOf(gameCount));
-					edit.commit();
+					if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
+						startFlag= 0;
+						RecoveryFlag = 1;
+						timeCount = 1;
+						Time = 2.0;
+					}
+					else{
+						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+						Editor edit = prefs.edit();
+						edit.putString("score",String.valueOf(gameCount));
+						edit.commit();
 
-					getContext().startActivity(new Intent(getContext(), Result.class));
-					System.gc();
+						getContext().startActivity(new Intent(getContext(), Result.class));
+						System.gc();
+					}
 				}
 
 				//横に移動
@@ -575,8 +584,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						if(PrinCount > 0){
 							n= 1000;
 						}
-						if(n ==1000 || prinFlag != 1 && n!=beforePrin){
+						if(n ==1000 || RecoveryFlag2 == 1 || RecoveryFlag2 == 2 || prinFlag != 1 && n!=beforePrin){
 							Log.v("makeprin",String.valueOf(n));
+							RecoveryFlag2 = 2;
 							if(prin != null && n!=beforePrin && beforePrin <= 50){
 								prin.recycle();
 								prin = null;
@@ -755,6 +765,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 				//フリックされたら判定
 				else if(FlickFlag > 10){
+					if(RecoveryFlag2 == 2){
+						RecoveryFlag2 = 3;
+					}
 					//お皿はそのまま
 					canvas.drawBitmap(sara, x-imageSize/2, defaultY, paintCircle);
 
@@ -795,7 +808,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
 								startFlag= 0;
 								RecoveryFlag = 1;
+								RecoveryFlag2 = 1;
 								prin2 = resource[7];
+								n = 2000;
 							}
 							else{
 								prin2 = resource[13];
@@ -815,7 +830,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
 								startFlag= 0;
 								RecoveryFlag = 1;
+								RecoveryFlag2 = 1;
 								prin2 = resource[8];
+								n = 2000;
 							}
 							else{
 								prin2 = resource[14];
@@ -834,7 +851,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
 								startFlag= 0;
 								RecoveryFlag = 1;
+								RecoveryFlag2 = 1;
 								prin2 = resource[9];
+								n = 2000;
 							}
 							else{
 								prin2 = resource[15];
@@ -854,7 +873,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
 								startFlag= 0;
 								RecoveryFlag = 1;
+								RecoveryFlag2 = 1;
 								prin2 = resource[10];
+								n = 2000;
 							}
 							else{
 								prin2 = resource[16];
@@ -874,7 +895,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
 								startFlag= 0;
 								RecoveryFlag = 1;
+								RecoveryFlag2 = 1;
 								prin2 = resource[11];
+								n = 2000;
 							}
 							else{
 								prin2 = resource[17];
@@ -905,7 +928,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
 								startFlag= 0;
 								RecoveryFlag = 1;
+								RecoveryFlag2 = 1;
 								prin2 = resource[6];
+								n = 2000;
 							}
 							else{
 								prin2 = resource[12];
