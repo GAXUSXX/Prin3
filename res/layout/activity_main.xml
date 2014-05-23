@@ -77,10 +77,10 @@
 		     	    android:id="@+id/todayScore"
 		            android:layout_width="0dp"
 		            android:layout_height="wrap_content"
-		            android:layout_marginTop="50dp"
+		            android:layout_marginTop="70dp"
 		            android:layout_weight="1"
 		            android:gravity="right"
-		            android:paddingRight="15dp"
+		            android:paddingRight="20dp"
 		            android:textSize="25dp"
 		            android:text="0個"/>
 
@@ -88,15 +88,23 @@
 		     	    android:id="@+id/totalScore"
 		            android:layout_width="0dp"
 		            android:layout_height="wrap_content"
-		            android:layout_marginTop="50dp"
+		            android:layout_marginTop="70dp"
 		            android:layout_weight="1"
 		            android:gravity="right"
-		            android:paddingRight="15dp"
+		            android:paddingRight="20dp"
 		            android:textSize="25dp"
 		            android:text="0個" />
 
 		     	</LinearLayout>
 		    </RelativeLayout>
+		    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:text="記録更新＆順位確認"
+		        android:onClick="ranking"
+		        android:clickable="true"/>
 
 		    <ImageView
 		        android:id="@+id/imageView4"
