@@ -103,7 +103,7 @@ public class StartActivity extends Activity {
     }
 
     public void item2click (View view){
-    	PrinSurface.item2Go(view);
+    	PrinSurface.item2Go(view);	
     	item2.setImageResource(R.drawable.none);
     }
 

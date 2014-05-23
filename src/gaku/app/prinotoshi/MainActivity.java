@@ -20,17 +20,25 @@ import android.os.Process;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
@@ -86,10 +94,14 @@ public class MainActivity extends Activity {
 
 	// スタミナ
 	public int star;
+	
+	// ランキング
+	public EditText name;
 
 	// プリファレンス
 	public SharedPreferences pref;
 	public SharedPreferences.Editor editor;
+	
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -693,6 +705,53 @@ public class MainActivity extends Activity {
     		
     		editor.commit();
     	}
+    }
+    
+    public void ranking(View v){
+    	
+    	// InflateViewを取得
+    	LayoutInflater inflater = LayoutInflater.from(getBaseContext());
+    				
+    	View view = inflater.inflate(R.layout.alert_ranking, null);
+    	
+    	name = (EditText)view.findViewById(R.id.name);
+    	
+    	AlertDialog.Builder adb = new AlertDialog.Builder(new ContextThemeWrapper(this,R.style.AwesomeDialogTheme));
+    	adb.setTitle("ランキング送信");
+    	adb.setMessage("登録する名前を入力");
+    	
+    	adb.setView(view);
+
+    	adb.setPositiveButton("送信", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				String NAME = name.getText().toString();
+				editor = pref.edit();
+				editor.putString("name",NAME);
+				editor.commit();
+				
+				Intent intent = new Intent(Intent.ACTION_MAIN);
+				intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.Ranking");
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(intent);
+			}
+	
+		});
+    	adb.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+		});
+    	
+    	// アラートダイアログのキャンセルが可能かどうかを設定します
+    	adb.setCancelable(false);
+    	AlertDialog alertDialog = adb.create();
+    	// アラートダイアログを表示します
+    	alertDialog.show();
+    
     }
 
     // メニュー生成
