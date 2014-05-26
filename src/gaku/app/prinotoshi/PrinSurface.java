@@ -73,6 +73,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private static int item1useFlag = 0;
 	private static int item2useFlag = 0;
 	private static int item3useFlag = 0;
+	private static int DoubleCount = 0;
+	private static int PrinCount = 0;
+	private int RecoveryFlag = 0;
+	private int RecoveryFlag2 = 0;
 
 
 	private Bitmap[] resource = new Bitmap [101];
@@ -152,7 +156,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		// Bitmap生成時のオプション。
 		BitmapFactory.Options options = new Options();
 		// 画像を1/20サイズに縮小（メモリ対策）
-		options.inSampleSize = (int) 2.5;
+		options.inSampleSize = (int) 3.0;
 		// 現在の表示メトリクスの取得
 		DisplayMetrics dm = this.getResources().getDisplayMetrics();
 		// ビットマップのサイズを現在の表示メトリクスに合わせる（メモリ対策）
@@ -190,6 +194,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
 
 		SETS = pref.getString("item", "none,none,none").split(",");
+		item1useFlag = 0;
+		item2useFlag = 0;
+		item3useFlag = 0;
 	}
 	// コールバック内容の定義 (2/3)
 	@Override
@@ -248,83 +255,300 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				if(mutekiCount > 0){
 					mutekiCount--;
 				}
+				if(DoubleCount > 0){
+					DoubleCount--;
+				}
+
+				if(PrinCount > 0){
+					PrinCount--;
+				}
+
 				if(x > 200){
 					double sumTime = timeCount/10;
-					if(sumTime == 1){
-						Time = 2.0;
-					}
-					if(sumTime == 2){
-						Time = 1.9;
-					}
-					if(sumTime == 3){
-						Time = 1.8;
-					}
-					if(sumTime == 4){
-						Time = 1.7;
-					}
-					if(sumTime == 5){
-						Time = 1.6;
-					}
+					if(SETS[0].equals("add5") || SETS[1].equals("add5") || SETS[2].equals("add5")){
+						if(sumTime == 1){
+							Time = 2.5;
+						}
+						if(sumTime == 2){
+							Time = 2.4;
+						}
+						if(sumTime == 3){
+							Time = 2.3;
+						}
+						if(sumTime == 4){
+							Time = 2.2;
+						}
+						if(sumTime == 5){
+							Time = 2.1;
+						}
 
-					if(sumTime == 6){
-						Time = 1.5;
-					}
+						if(sumTime == 6){
+							Time = 2.0;
+						}
 
-					if(sumTime == 7){
-						Time = 1.4;
-					}
+						if(sumTime == 7){
+							Time = 1.9;
+						}
 
-					if(sumTime == 8){
-						Time = 1.3;
-					}
-					if(sumTime == 9){
-						Time = 1.2;
-					}
-					if(sumTime == 10){
-						Time = 1.1;
-					}
+						if(sumTime == 8){
+							Time = 1.8;
+						}
+						if(sumTime == 9){
+							Time = 1.7;
+						}
+						if(sumTime == 10){
+							Time = 1.6;
+						}
 
-					if(sumTime == 11){
-						Time = 1.0;
-					}
+						if(sumTime == 11){
+							Time = 1.5;
+						}
 
-					if(sumTime == 12){
-						Time = 0.9;
-					}
+						if(sumTime == 12){
+							Time = 1.4;
+						}
 
-					if(sumTime == 13){
-						Time = 0.8;
-					}
+						if(sumTime == 13){
+							Time = 1.3;
+						}
 
-					if(sumTime == 14){
-						Time = 0.7;
-					}
+						if(sumTime == 14){
+							Time = 1.2;
+						}
 
-					if(sumTime == 15){
-						Time = 0.6;
-					}
+						if(sumTime == 15){
+							Time = 1.1;
+						}
 
-					if(sumTime == 16){
-						Time = 0.5;
-					}
+						if(sumTime == 16){
+							Time = 1.0;
+						}
 
-					if(sumTime == 17){
-						Time = 0.4;
-					}
+						if(sumTime == 17){
+							Time = 0.9;
+						}
 
-					if(sumTime == 18){
-						Time = 0.3;
-					}
+						if(sumTime == 18){
+							Time = 0.8;
+						}
 
-					if(sumTime == 19){
-						Time = 0.2;
-					}
+						if(sumTime == 19){
+							Time = 0.7;
+						}
 
-					if(sumTime == 20){
-						Time = 0.1;
+						if(sumTime == 20){
+							Time = 0.6;
+						}
+						if(sumTime == 21){
+							Time = 0.5;
+						}
+						if(sumTime == 22){
+							Time = 0.4;
+						}
+
+						if(sumTime == 23){
+							Time = 0.3;
+						}
+
+						if(sumTime == 24){
+							Time = 0.2;
+						}
+						if(sumTime == 25){
+							Time = 0.1;
+						}
+						if(sumTime == 26){
+							Time = 0.0;
+						}
 					}
-					if(sumTime == 21){
-						Time = 0.0;
+					else if(SETS[0].equals("add1") || SETS[1].equals("add1") || SETS[2].equals("add1")){
+						if(sumTime == 1){
+							Time = 3.0;
+						}
+						if(sumTime == 2){
+							Time = 2.9;
+						}
+						if(sumTime == 3){
+							Time = 2.8;
+						}
+						if(sumTime == 4){
+							Time = 2.7;
+						}
+						if(sumTime == 5){
+							Time = 2.6;
+						}
+
+						if(sumTime == 6){
+							Time = 2.5;
+						}
+
+						if(sumTime == 7){
+							Time = 2.4;
+						}
+
+						if(sumTime == 8){
+							Time = 2.3;
+						}
+						if(sumTime == 9){
+							Time = 2.2;
+						}
+						if(sumTime == 10){
+							Time = 2.1;
+						}
+
+						if(sumTime == 11){
+							Time = 2.0;
+						}
+
+						if(sumTime == 12){
+							Time = 1.9;
+						}
+
+						if(sumTime == 13){
+							Time = 1.8;
+						}
+
+						if(sumTime == 14){
+							Time = 1.7;
+						}
+
+						if(sumTime == 15){
+							Time = 1.6;
+						}
+
+						if(sumTime == 16){
+							Time = 1.5;
+						}
+
+						if(sumTime == 17){
+							Time = 1.4;
+						}
+
+						if(sumTime == 18){
+							Time = 1.3;
+						}
+
+						if(sumTime == 19){
+							Time = 1.2;
+						}
+
+						if(sumTime == 20){
+							Time = 1.1;
+						}
+						if(sumTime == 21){
+							Time = 1.0;
+						}
+						if(sumTime == 22){
+							Time = 0.9;
+						}
+
+						if(sumTime == 23){
+							Time = 0.8;
+						}
+
+						if(sumTime == 24){
+							Time = 0.7;
+						}
+						if(sumTime == 25){
+							Time = 0.6;
+						}
+						if(sumTime == 26){
+							Time = 0.5;
+						}
+						if(sumTime == 27){
+							Time = 0.4;
+						}
+
+						if(sumTime == 28){
+							Time = 0.3;
+						}
+
+						if(sumTime == 29){
+							Time = 0.2;
+						}
+						if(sumTime == 30){
+							Time = 0.1;
+						}
+						if(sumTime == 31){
+							Time = 0.0;
+						}
+					}
+					else{
+						if(sumTime == 1){
+							Time = 2.0;
+						}
+						if(sumTime == 2){
+							Time = 1.9;
+						}
+						if(sumTime == 3){
+							Time = 1.8;
+						}
+						if(sumTime == 4){
+							Time = 1.7;
+						}
+						if(sumTime == 5){
+							Time = 1.6;
+						}
+
+						if(sumTime == 6){
+							Time = 1.5;
+						}
+
+						if(sumTime == 7){
+							Time = 1.4;
+						}
+
+						if(sumTime == 8){
+							Time = 1.3;
+						}
+						if(sumTime == 9){
+							Time = 1.2;
+						}
+						if(sumTime == 10){
+							Time = 1.1;
+						}
+
+						if(sumTime == 11){
+							Time = 1.0;
+						}
+
+						if(sumTime == 12){
+							Time = 0.9;
+						}
+
+						if(sumTime == 13){
+							Time = 0.8;
+						}
+
+						if(sumTime == 14){
+							Time = 0.7;
+						}
+
+						if(sumTime == 15){
+							Time = 0.6;
+						}
+
+						if(sumTime == 16){
+							Time = 0.5;
+						}
+
+						if(sumTime == 17){
+							Time = 0.4;
+						}
+
+						if(sumTime == 18){
+							Time = 0.3;
+						}
+
+						if(sumTime == 19){
+							Time = 0.2;
+						}
+
+						if(sumTime == 20){
+							Time = 0.1;
+						}
+						if(sumTime == 21){
+							Time = 0.0;
+						}
 					}
 
 
@@ -334,13 +558,21 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 
 				if(Time == 0 && x > 200){
-					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-					Editor edit = prefs.edit();
-					edit.putString("score",String.valueOf(gameCount));
-					edit.commit();
+					if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
+						startFlag= 0;
+						RecoveryFlag = 1;
+						timeCount = 1;
+						Time = 2.0;
+					}
+					else{
+						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+						Editor edit = prefs.edit();
+						edit.putString("score",String.valueOf(gameCount));
+						edit.commit();
 
-					getContext().startActivity(new Intent(getContext(), Result.class));
-					System.gc();
+						getContext().startActivity(new Intent(getContext(), Result.class));
+						System.gc();
+					}
 				}
 
 				//横に移動
@@ -348,31 +580,158 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					x = x += width/25;
 					if(x < width/24){
 						Random r = new Random();
-						n = r.nextInt(26);
-						if(prinFlag != 1 && n!=beforePrin){
+						n = r.nextInt(100);
+						if(PrinCount > 0){
+							n= 1000;
+						}
+						if(n ==1000 || RecoveryFlag2 == 1 || RecoveryFlag2 == 2 || prinFlag != 1 && n!=beforePrin){
 							Log.v("makeprin",String.valueOf(n));
-							if(prin != null && n!=beforePrin && beforePrin <= 20){
+							RecoveryFlag2 = 2;
+							if(prin != null && n!=beforePrin && beforePrin <= 50){
 								prin.recycle();
 								prin = null;
 							}
-							if(n <= 20){
+							int upFlag = 0;
+							if(SETS[0].equals("up10") || SETS[1].equals("up10") || SETS[2].equals("up10")){
+								upFlag +=1;
+							}
+							if(SETS[0].equals("up20") || SETS[1].equals("up20") || SETS[2].equals("up20")){
+								upFlag +=2;
+							}
+							if(DoubleCount > 0){
+								upFlag = 5;
+							}
+							if(upFlag ==1){
+								Log.v("現在","50%");
+								if(n <= 50){
+									prin = resource[0];
+									n= 100;
+								}
+								else{
+									n = r.nextInt(5);
+									if(n==0){
+										prin = resource[1];
+									}
+									if(n==1){
+										prin = resource[2];
+									}
+									if(n==2){
+										prin = resource[3];
+									}
+									if(n==3){
+										prin = resource[4];
+									}
+									if(n==4){
+										prin = resource[5];
+									}
+								}
+							}
+							else if(upFlag ==2){
+								Log.v("現在","60%");
+								if(n <= 60){
+									prin = resource[0];
+									n= 100;
+								}
+								else{
+									n = r.nextInt(5);
+									if(n==0){
+										prin = resource[1];
+									}
+									if(n==1){
+										prin = resource[2];
+									}
+									if(n==2){
+										prin = resource[3];
+									}
+									if(n==3){
+										prin = resource[4];
+									}
+									if(n==4){
+										prin = resource[5];
+									}
+								}
+							}
+							else if(upFlag ==3){
+								Log.v("現在","70%");
+								if(n <= 70){
+									prin = resource[0];
+									n= 100;
+								}
+								else{
+									n = r.nextInt(5);
+									if(n==0){
+										prin = resource[1];
+									}
+									if(n==1){
+										prin = resource[2];
+									}
+									if(n==2){
+										prin = resource[3];
+									}
+									if(n==3){
+										prin = resource[4];
+									}
+									if(n==4){
+										prin = resource[5];
+									}
+								}
+							}
+							else if(upFlag == 5){
+								Log.v("現在","80%");
+								if(n <= 80){
+									prin = resource[0];
+									n= 100;
+								}
+								else{
+									n = r.nextInt(5);
+									if(n==0){
+										prin = resource[1];
+									}
+									if(n==1){
+										prin = resource[2];
+									}
+									if(n==2){
+										prin = resource[3];
+									}
+									if(n==3){
+										prin = resource[4];
+									}
+									if(n==4){
+										prin = resource[5];
+									}
+								}
+							}
+							else if(n == 1000){
 								prin = resource[0];
+								n= 100;
 							}
-							if(n==21){
-								prin = resource[1];
+							else{
+								Log.v("現在","40%");
+								if(n <= 40){
+									prin = resource[0];
+									n = 100;
+								}
+								else{
+									n = r.nextInt(5);
+									if(n==0){
+										prin = resource[1];
+									}
+									if(n==1){
+										prin = resource[2];
+									}
+									if(n==2){
+										prin = resource[3];
+									}
+									if(n==3){
+										prin = resource[4];
+									}
+									if(n==4){
+										prin = resource[5];
+									}
+								}
 							}
-							if(n==22){
-								prin = resource[2];
-							}
-							if(n==23){
-								prin = resource[3];
-							}
-							if(n==24){
-								prin = resource[4];
-							}
-							if(n==25){
-								prin = resource[5];
-							}
+
+
 							prin= Bitmap.createScaledBitmap(prin, imageSize, imageSize, false);
 							prinFlag = 1;
 							beforePrin = n;
@@ -406,6 +765,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 				//フリックされたら判定
 				else if(FlickFlag > 10){
+					if(RecoveryFlag2 == 2){
+						RecoveryFlag2 = 3;
+					}
 					//お皿はそのまま
 					canvas.drawBitmap(sara, x-imageSize/2, defaultY, paintCircle);
 
@@ -434,13 +796,21 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							prin2.recycle();
 							prin2 = null;
 						}
-						if(n <= 20){
+						if(n == 100){
 							prin2 = resource[6];
 							gameokFlag = 1;
 						}
-						if(n==21){
+
+						if(n==0){
 							if(mutekiCount > 0){
 								prin2 = resource[7];
+							}
+							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
+								startFlag= 0;
+								RecoveryFlag = 1;
+								RecoveryFlag2 = 1;
+								prin2 = resource[7];
+								n = 2000;
 							}
 							else{
 								prin2 = resource[13];
@@ -453,9 +823,16 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								System.gc();
 							}
 						}
-						if(n==22){
+						if(n==1){
 							if(mutekiCount > 0){
 								prin2 = resource[8];
+							}
+							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
+								startFlag= 0;
+								RecoveryFlag = 1;
+								RecoveryFlag2 = 1;
+								prin2 = resource[8];
+								n = 2000;
 							}
 							else{
 								prin2 = resource[14];
@@ -467,9 +844,16 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								System.gc();
 							}
 						}
-						if(n==23){
+						if(n==2){
 							if(mutekiCount > 0){
 								prin2 = resource[9];
+							}
+							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
+								startFlag= 0;
+								RecoveryFlag = 1;
+								RecoveryFlag2 = 1;
+								prin2 = resource[9];
+								n = 2000;
 							}
 							else{
 								prin2 = resource[15];
@@ -482,9 +866,16 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								System.gc();
 							}
 						}
-						if(n==24){
+						if(n==3){
 							if(mutekiCount > 0){
 								prin2 = resource[10];
+							}
+							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
+								startFlag= 0;
+								RecoveryFlag = 1;
+								RecoveryFlag2 = 1;
+								prin2 = resource[10];
+								n = 2000;
 							}
 							else{
 								prin2 = resource[16];
@@ -497,9 +888,16 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								System.gc();
 							}
 						}
-						if(n==25){
+						if(n==4){
 							if(mutekiCount > 0){
 								prin2 = resource[11];
+							}
+							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
+								startFlag= 0;
+								RecoveryFlag = 1;
+								RecoveryFlag2 = 1;
+								prin2 = resource[11];
+								n = 2000;
 							}
 							else{
 								prin2 = resource[17];
@@ -523,9 +921,16 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							prin2.recycle();
 							prin2 = null;
 						}
-						if(n <= 20){
+						if(n == 100){
 							if(mutekiCount > 0){
 								prin2 = resource[6];
+							}
+							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
+								startFlag= 0;
+								RecoveryFlag = 1;
+								RecoveryFlag2 = 1;
+								prin2 = resource[6];
+								n = 2000;
 							}
 							else{
 								prin2 = resource[12];
@@ -538,23 +943,23 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								System.gc();
 							}
 						}
-						if(n==21){
+						if(n==0){
 							prin2 = resource[7];
 							gameokFlag = 1;
 						}
-						if(n==22){
+						if(n==1){
 							prin2 = resource[8];
 							gameokFlag = 1;
 						}
-						if(n==23){
+						if(n==2){
 							prin2 = resource[9];
 							gameokFlag = 1;
 						}
-						if(n==24){
+						if(n==3){
 							prin2 = resource[10];
 							gameokFlag = 1;
 						}
-						if(n==25){
+						if(n==4){
 							prin2 = resource[11];
 							gameokFlag = 1;
 						}
@@ -583,6 +988,21 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				else{
 					canvas.drawText("notmuteki", 300, FONT_SIZE, paintFps);
 				}
+				/**2倍状態表示**/
+				if(DoubleCount > 0){
+					canvas.drawText("double", 700, 300, paintFps);
+				}
+				else{
+					canvas.drawText("notdouble", 700, 300, paintFps);
+				}
+				/**プリン確変状態表示**/
+				if(PrinCount > 0){
+					canvas.drawText("Prin", 700, 150, paintFps);
+				}
+				else{
+					canvas.drawText("notPrin", 700, 150, paintFps);
+				}
+
 				// ロックした Canvas の解放
 
 				/**item1使用フラグ**/
@@ -677,23 +1097,47 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	}
 
 	public static void item1Go(View view){
-		if(SETS[0].equals("muteki")){
+		if(SETS[0].equals("muteki") && item1useFlag != 1){
 			mutekiCount = 500;
 			Log.v("muteki","ok");
+		}
+		if(SETS[0].equals("double1") && item1useFlag != 1){
+			DoubleCount = 2000;
+			Log.v("double","ok");
+		}
+		if(SETS[0].equals("purin5") && item1useFlag != 1){
+			PrinCount = 500;
+			Log.v("prin5","ok");
 		}
 		item1useFlag = 1;
 	}
 	public static void item2Go(View view){
-		if(SETS[1].equals("muteki")){
+		if(SETS[1].equals("muteki") && item2useFlag != 1){
 			mutekiCount = 500;
 			Log.v("muteki","ok");
+		}
+		if(SETS[1].equals("double1") && item2useFlag != 1){
+			DoubleCount = 2000;
+			Log.v("double","ok");
+		}
+		if(SETS[1].equals("purin5") && item2useFlag != 1){
+			PrinCount = 500;
+			Log.v("prin5","ok");
 		}
 		item2useFlag = 1;
 	}
 	public static void item3Go(View view){
-		if(SETS[2].equals("muteki")){
+		if(SETS[2].equals("muteki") && item3useFlag != 1){
 			mutekiCount = 500;
 			Log.v("muteki","ok");
+		}
+		if(SETS[2].equals("double1") && item3useFlag != 1){
+			DoubleCount = 2000;
+			Log.v("double","ok");
+		}
+		if(SETS[2].equals("purin5") && item3useFlag != 1){
+			PrinCount = 500;
+			Log.v("prin5","ok");
 		}
 		item3useFlag = 1;
 	}
