@@ -74,8 +74,10 @@ public class MainActivity extends Activity {
 	public TextView COUNT4;
 	public TextView COUNT5;
 	public TextView COUNT6;
-	public TextView COUNT7;
-	public TextView COUNT8;
+	
+	// スコアビュー
+	public TextView totalScore;
+	public TextView todayScore;
 
 	// 回復時間
 	public TextView TIME;
@@ -94,6 +96,10 @@ public class MainActivity extends Activity {
 
 	// スタミナ
 	public int star;
+	
+	// スコア
+	public int today_score;
+	public int total_score;
 	
 	// ランキング
 	public EditText name;
@@ -115,6 +121,7 @@ public class MainActivity extends Activity {
     	super.onResume();
 
         getObject();	// オブジェクトの生成
+        getScore();		// スコア取得
         setScore();		// スコア
         readStar();		// スタミナ取得
         setStar();		// スタミナ
@@ -171,45 +178,51 @@ public class MainActivity extends Activity {
         item4 = (ImageView)findViewById(R.id.item4);
         item5 = (ImageView)findViewById(R.id.item5);
         item6 = (ImageView)findViewById(R.id.item6);
-        item7 = (ImageView)findViewById(R.id.item7);
-        item8 = (ImageView)findViewById(R.id.item8);
         COUNT1 = (TextView)findViewById(R.id.count1);
         COUNT2 = (TextView)findViewById(R.id.count2);
         COUNT3 = (TextView)findViewById(R.id.count3);
         COUNT4 = (TextView)findViewById(R.id.count4);
         COUNT5 = (TextView)findViewById(R.id.count5);
         COUNT6 = (TextView)findViewById(R.id.count6);
-        COUNT7 = (TextView)findViewById(R.id.count7);
-        COUNT8 = (TextView)findViewById(R.id.count8);
+        totalScore = (TextView)findViewById(R.id.totalScore);
+        todayScore = (TextView)findViewById(R.id.todayScore);
         TIME = (TextView)findViewById(R.id.time);
         ITEMS=new ImageView[]{SET1,SET2,SET3};
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
     }
     
-    // トータルハイスコアと、当日ハイスコアの表示
-    public void setScore(){
-
-    	// さいこうスコアの取得・表示
-    	TextView totalScore = (TextView)findViewById(R.id.totalScore);
-    	int total_score = pref.getInt("totalScore", 0);
-    	totalScore.setText(Integer.toString(total_score) + "個");
-
+    // トータルスコアとデイリースコアの取得
+    public void getScore(){
+    	// トータルスコアの取得
+    	total_score = pref.getInt("totalScore", 0);
+    	
+    	// デイリースコアの取得
+    	
+    	// 現在の日付の取得
     	Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String nowTime = sdf.format(date);
     	
-    	// ほんじつスコアの取得・表示
-    	TextView todayScore = (TextView)findViewById(R.id.todayScore);
-    	
-		// 本日スコアの取得
-		int today_Score = pref.getInt("todayScore", 0);
+		today_score = pref.getInt("todayScore", 0);
 		String today = pref.getString("today", nowTime);
+		
+		// 前回保存された日付が今日じゃなかったらデータをリセット
 		if(!today.equals(nowTime)){
-	    	todayScore.setText("0");
-			today_Score = 0;
-		}else{
-	    	todayScore.setText(Integer.toString(today_Score) + "個");
+			today_score = 0;
+			saveData("score");
 		}
+    }
+    
+    // トータルハイスコアと、当日ハイスコアの表示
+    public void setScore(){
+
+    	// さいこうスコア表示
+    	totalScore.setText(Integer.toString(total_score) + "個");
+
+    	
+    	// ほんじつスコアの取得・表示
+    	todayScore.setText(Integer.toString(today_score)+"個");
+    	
     	
     }
 
@@ -257,7 +270,7 @@ public class MainActivity extends Activity {
 
     //　アイテムロック
     public void setLock(){
-    	int total_score = pref.getInt("totalScore", 0);
+    	total_score = pref.getInt("totalScore", 0);
 
     	// さいこうスコアの値に応じて、アイテムにロックをかける
     	if(50 > total_score){
@@ -284,15 +297,6 @@ public class MainActivity extends Activity {
     		item6.setImageResource(R.drawable.lock);
     		COUNT6.setAlpha(0);
     	}
-    	if(750 > total_score){
-    		item7.setImageResource(R.drawable.lock);
-    		COUNT7.setAlpha(0);
-    	}
-    	if(1000 > total_score){
-    		item8.setImageResource(R.drawable.lock);
-    		COUNT8.setAlpha(0);
-    	}
-
     }
 
     // アイテム所持数の取得
@@ -318,9 +322,6 @@ public class MainActivity extends Activity {
     	COUNT4.setText(Integer.toString(count4));
     	COUNT5.setText(Integer.toString(count5));
     	COUNT6.setText(Integer.toString(count6));
-    	COUNT7.setText(Integer.toString(count7));
-    	COUNT8.setText(Integer.toString(count8));
-
     }
 
 
@@ -445,25 +446,19 @@ public class MainActivity extends Activity {
     		setDesc(R.drawable.muteki5,R.string.item1,"muteki",R.string.desc1,R.string.unlock1);
     		break;
     	case R.id.item2:
-    		setDesc(R.drawable.double1,R.string.item2,"double1",R.string.desc2,R.string.unlock2);
+    		setDesc(R.drawable.up10,R.string.item2,"up10",R.string.desc2,R.string.unlock2);
     		break;
     	case R.id.item3:
-    		setDesc(R.drawable.up10,R.string.item3,"up10",R.string.desc3,R.string.unlock3);
+    		setDesc(R.drawable.add5,R.string.item3,"add5",R.string.desc3,R.string.unlock3);
     		break;
     	case R.id.item4:
-    		setDesc(R.drawable.add5,R.string.item4,"add5",R.string.desc4,R.string.unlock4);
+    		setDesc(R.drawable.purin5,R.string.item4,"purin5",R.string.desc4,R.string.unlock4);
     		break;
     	case R.id.item5:
-    		setDesc(R.drawable.purin5,R.string.item5,"purin5",R.string.desc5,R.string.unlock5);
+    		setDesc(R.drawable.add1,R.string.item5,"add1",R.string.desc5,R.string.unlock5);
     		break;
     	case R.id.item6:
-    		setDesc(R.drawable.add1,R.string.item6,"add1",R.string.desc6,R.string.unlock6);
-    		break;
-    	case R.id.item7:
-    		setDesc(R.drawable.up20,R.string.item7,"up20",R.string.desc7,R.string.unlock7);
-    		break;
-    	case R.id.item8:
-    		setDesc(R.drawable.resurrection,R.string.item8,"resurrection",R.string.desc8,R.string.unlock8);
+    		setDesc(R.drawable.resurrection,R.string.item6,"resurrection",R.string.desc6,R.string.unlock6);
     		break;
     	}
     }
@@ -704,6 +699,10 @@ public class MainActivity extends Activity {
     		editor.putLong("play", nowTime);
     		
     		editor.commit();
+    	}else if(state.equals("score")){
+    		editor = pref.edit();
+    		editor.putInt("todayScore", today_score);
+    		editor.commit();
     	}
     }
     
@@ -760,7 +759,7 @@ public class MainActivity extends Activity {
 		super.onCreateOptionsMenu(menu);
 		menu.add(0, 0, 0, "Update");
 
-		return true;
+		return false;
 	}
 
 	// メニューリスナー

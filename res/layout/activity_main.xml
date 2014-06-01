@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--  
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-<!--
+
 <ImageView
     android:id="@+id/background"
     android:layout_width="wrap_content"
@@ -12,7 +13,9 @@
 	android:src="@drawable/desk"
 />
 -->
+
 <ScrollView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:scrollbars=""
@@ -98,21 +101,23 @@
 		     	</LinearLayout>
 		    </RelativeLayout>
 		    
-		    <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center"
-		        android:text="記録更新＆順位確認"
+		    <ImageView
+		        android:layout_width="fill_parent"
+		        android:layout_height="100dp"
+		        android:layout_marginTop="20dp"
+		        android:scaleType="fitCenter"
+		        android:adjustViewBounds="true"
+		        android:src="@drawable/ranking"
 		        android:onClick="ranking"
 		        android:clickable="true"/>
 
 		    <ImageView
 		        android:id="@+id/imageView4"
 		        android:layout_width="fill_parent"
-		        android:layout_height="80dp"
-		        android:layout_gravity="center"
-		        android:layout_marginTop="30dp"
-		        android:scaleType="centerCrop"
+		        android:layout_height="100dp"
+		        android:layout_marginTop="20dp"
+		        android:scaleType="fitCenter"
+		        android:adjustViewBounds="true"
 		        android:onClick="consumeStar"
 		        android:src="@drawable/start" />
 
@@ -127,7 +132,6 @@
 		            android:layout_centerHorizontal="true"
 		            android:layout_marginTop="10dp"
 		            android:src="@drawable/item_set" />
-
 
 		        <LinearLayout
 		            android:layout_width="fill_parent"
@@ -157,60 +161,61 @@
 		                android:layout_marginTop="83dp"
 		                android:layout_weight="1"
 		                android:src="@drawable/none" />
-			        </LinearLayout>
+		        </LinearLayout>
 
-			        <ImageView
-			            android:id="@+id/imageView6"
-			            android:layout_width="fill_parent"
-			            android:layout_height="200dp"
-			            android:layout_alignTop="@id/imageView5"
-			            android:layout_centerHorizontal="true"
-			            android:layout_marginTop="180dp"
-			            android:src="@drawable/item_set" />
-		        	<ImageView
-		        	    android:id="@+id/buy"
-		        	    android:layout_width="wrap_content"
-		        	    android:layout_height="wrap_content"
-		        	    android:layout_alignTop="@+id/imageView7"
-		        	    android:layout_marginLeft="10dp"
-		        	    android:layout_marginBottom="10dp"
-		        	    android:onClick="itemBuy"
-		        	    android:src="@drawable/buy" />
-		        	<ImageView
-		        	    android:id="@+id/item0"
-		        	    android:layout_width="wrap_content"
-		        	    android:layout_height="wrap_content"
-		        	    android:layout_above="@+id/buy"
-		        	    android:layout_alignParentLeft="true"
-		        	    android:layout_marginBottom="17dp"
-		        	   	android:layout_marginLeft="10dp"
-		        	    android:src="@drawable/none" />
+		        <ImageView
+		            android:id="@+id/imageView6"
+		            android:layout_width="fill_parent"
+		            android:layout_height="160dp"
+		            android:layout_alignTop="@id/imageView5"
+		            android:layout_centerHorizontal="true"
+		            android:layout_marginTop="180dp"
+		            android:adjustViewBounds="true"
+		            android:scaleType="fitXY"
+		            android:src="@drawable/item_set" />
+		        
 
-				<ImageView
+		        <ImageView
+		            android:id="@+id/item0"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_alignTop="@+id/imageView6"
+		            android:layout_marginTop="35dp"
+		            android:layout_marginLeft="10dp"
+		            android:src="@drawable/none" />
+		        <ImageView
+		            android:id="@+id/buy"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_below="@+id/item0"
+		            android:layout_marginLeft="10dp"
+		            android:layout_marginTop="10dp"
+		            android:onClick="itemBuy"
+		            android:src="@drawable/buy" />
+
+		        <ImageView
 		            android:id="@+id/imageView7"
 		            android:layout_width="fill_parent"
-		            android:layout_height="480dp"
-		            android:layout_alignTop="@id/imageView6"
+		            android:layout_height="212dp"
+		            android:scaleType="fitXY"
+		            android:layout_below="@+id/imageView6"
 		            android:layout_centerHorizontal="true"
-		            android:layout_marginTop="140dp"
 		            android:src="@drawable/item" />
-				
-				<RelativeLayout
+
+		        <RelativeLayout
 		            android:id="@+id/linearLayout1"
 		            android:layout_width="fill_parent"
 		            android:layout_height="wrap_content"
 		            android:layout_alignTop="@+id/imageView7"
-		            android:layout_marginTop="100dp"
-		            android:gravity="center">
+		            android:layout_marginTop="12dp"
+		            android:paddingBottom="20dp"
+		            android:gravity="center" >
 
-
-		            
 		            <ImageView
 		                android:id="@+id/item1"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_marginRight="30dp"
-		                android:layout_marginTop="12dp"
+		                android:layout_marginTop="20dp"
 		                android:onClick="select"
 		                android:src="@drawable/muteki5" />
 
@@ -218,240 +223,164 @@
 		                android:id="@+id/count1"
 		                android:layout_width="30dp"
 		                android:layout_height="30dp"
-		                android:background="@drawable/count"
-		                android:layout_alignTop="@+id/item1"
 		                android:layout_alignRight="@+id/item1"
-		                android:layout_marginTop="-10dp"
+		                android:layout_alignTop="@+id/item1"
 		                android:layout_marginRight="-11dp"
+		                android:layout_marginTop="-10dp"
+		                android:background="@drawable/count"
 		                android:paddingLeft="11dp"
 		                android:paddingTop="5dp"
-		                android:text="0" 
-		                />
-		            
+		                android:text="0" />
+
 		            <ImageView
 		                android:id="@+id/item2"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_marginRight="30dp"
-		                android:layout_marginTop="12dp"
+		                android:layout_marginTop="20dp"
+		                android:layout_marginLeft="20dp"
+		                android:layout_marginRight="20dp"
 		                android:layout_toRightOf="@+id/item1"
 		                android:onClick="select"
-		                android:src="@drawable/double1" />
-		            
+		                android:src="@drawable/up10" />
+
 		            <TextView
 		                android:id="@+id/count2"
 		                android:layout_width="30dp"
 		                android:layout_height="30dp"
 		                android:background="@drawable/count"
-		                android:layout_alignTop="@+id/item2"
-		                android:layout_alignRight="@+id/item2"
-		                android:layout_marginTop="-10dp"
 		                android:layout_marginRight="-11dp"
+		                android:layout_marginTop="-10dp"
+		                android:layout_alignRight="@+id/item2"
+		                android:layout_alignTop="@+id/item2"
 		                android:paddingLeft="11dp"
 		                android:paddingTop="5dp"
-		                android:text="0" 
-		                />
-		            
+		                android:text="0" />
+
 		            <ImageView
 		                android:id="@+id/item3"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_marginTop="12dp"
+		                android:layout_marginTop="20dp"
 		                android:layout_toRightOf="@+id/item2"
 		                android:onClick="select"
-		                android:src="@drawable/up10" />
-		          	<TextView
+		                android:src="@drawable/add5" />
+
+		            <TextView
 		                android:id="@+id/count3"
 		                android:layout_width="30dp"
 		                android:layout_height="30dp"
 		                android:background="@drawable/count"
-		                android:layout_alignTop="@+id/item3"
-		                android:layout_alignRight="@+id/item3"
-		                android:layout_marginTop="-10dp"
 		                android:layout_marginRight="-11dp"
+		                android:layout_marginTop="-10dp"
+		                android:layout_alignRight="@+id/item3"
+		                android:layout_alignTop="@+id/item3"
 		                android:paddingLeft="11dp"
 		                android:paddingTop="5dp"
-		                android:text="0" 
-		                />
+		                android:text="0" />
 
 		            <ImageView
 		                android:id="@+id/item4"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_marginRight="30dp"
-		                android:layout_marginTop="30dp"
+		                android:layout_marginTop="20dp"
 		                android:layout_below="@+id/item1"
 		                android:onClick="select"
-		                android:src="@drawable/add5" />
+		                android:src="@drawable/purin5" />
+
 		            <TextView
 		                android:id="@+id/count4"
 		                android:layout_width="30dp"
 		                android:layout_height="30dp"
 		                android:background="@drawable/count"
-		                android:layout_alignTop="@+id/item4"
-		                android:layout_alignRight="@+id/item4"
-		                android:layout_marginTop="-11dp"
 		                android:layout_marginRight="-11dp"
+		                android:layout_marginTop="-10dp"
+		                android:layout_alignRight="@+id/item4"
+		                android:layout_alignTop="@+id/item4"
 		                android:paddingLeft="11dp"
 		                android:paddingTop="5dp"
-		                android:text="0" 
-		                />
+		                android:text="0" />
 
 		            <ImageView
 		                android:id="@+id/item5"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_marginRight="30dp"
-		                android:layout_marginTop="30dp"
+		                android:layout_marginTop="20dp"
+		                android:layout_marginLeft="20dp"
+		                android:layout_marginRight="20dp"
 		                android:layout_below="@+id/item1"
 		                android:layout_toRightOf="@+id/item4"
 		                android:onClick="select"
-		                android:src="@drawable/purin5" />
+		                android:src="@drawable/add1" />
+
 		            <TextView
 		                android:id="@+id/count5"
 		                android:layout_width="30dp"
 		                android:layout_height="30dp"
 		                android:background="@drawable/count"
-		                android:layout_alignTop="@+id/item5"
-		                android:layout_alignRight="@+id/item5"
-		                android:layout_marginTop="-11dp"
 		                android:layout_marginRight="-11dp"
+		                android:layout_marginTop="-10dp"
+		                android:layout_alignRight="@+id/item5"
+		                android:layout_alignTop="@+id/item5"
 		                android:paddingLeft="11dp"
 		                android:paddingTop="5dp"
-		                android:text="0" 
-		                />
+		                android:text="0" />
 
 		            <ImageView
 		                android:id="@+id/item6"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_marginTop="30dp"
+		                android:layout_marginTop="20dp"
 		                android:layout_below="@+id/item1"
 		                android:layout_toRightOf="@+id/item5"
 		                android:onClick="select"
-		                android:src="@drawable/add1" />
+		                android:src="@drawable/resurrection" />
+
 		            <TextView
 		                android:id="@+id/count6"
 		                android:layout_width="30dp"
 		                android:layout_height="30dp"
 		                android:background="@drawable/count"
-		                android:layout_alignTop="@+id/item6"
+		                android:layout_marginRight="-11dp"
+		                android:layout_marginTop="-10dp"
 		                android:layout_alignRight="@+id/item6"
-		                android:layout_marginTop="-11dp"
-		                android:layout_marginRight="-11dp"
+		                android:layout_alignTop="@+id/item6"
 		                android:paddingLeft="11dp"
 		                android:paddingTop="5dp"
-		                android:text="0" 
-		                />
-
-		            <ImageView
-		                android:id="@+id/item7"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_marginTop="30dp"
-		                android:layout_marginRight="30dp"
-		                android:layout_below="@+id/item4"
-		                android:onClick="select"
-		                android:src="@drawable/up20" />
-		            <TextView
-		                android:id="@+id/count7"
-		                android:layout_width="30dp"
-		                android:layout_height="30dp"
-		                android:background="@drawable/count"
-		                android:layout_alignTop="@+id/item7"
-		                android:layout_alignRight="@+id/item7"
-		                android:layout_marginTop="-11dp"
-		                android:layout_marginRight="-11dp"
-		                android:paddingLeft="11dp"
-		                android:paddingTop="5dp"
-		                android:text="0" 
-		                />
-
-		            <ImageView
-		                android:id="@+id/item8"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_marginTop="30dp"
-		                android:layout_marginRight="30dp"
-		                android:layout_below="@+id/item4"
-		                android:layout_toRightOf="@+id/item7"
-		                android:onClick="select"
-		                android:src="@drawable/resurrection" />
-		            <TextView
-		                android:id="@+id/count8"
-		                android:layout_width="30dp"
-		                android:layout_height="30dp"
-		                android:background="@drawable/count"
-		                android:layout_alignTop="@+id/item8"
-		                android:layout_alignRight="@+id/item8"
-		                android:layout_marginTop="-11dp"
-		                android:layout_marginRight="-11dp"
-		                android:paddingLeft="11dp"
-		                android:paddingTop="5dp"
-		                android:text="0" 
-		                />
-
-		            <ImageView
-		                android:id="@+id/item9"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_marginTop="30dp"
-		                android:layout_below="@+id/item4"
-		                android:layout_toRightOf="@+id/item8"
-		                android:alpha="0"
-		                android:src="@drawable/lock" />
-		            <TextView
-		                android:id="@+id/count9"
-		                android:layout_width="30dp"
-		                android:layout_height="30dp"
-		                android:background="@drawable/count"
-		                android:layout_alignTop="@+id/item9"
-		                android:layout_alignRight="@+id/item9"
-		                android:layout_marginTop="-11dp"
-		                android:layout_marginRight="-11dp"
-		                android:paddingLeft="11dp"
-		                android:paddingTop="5dp"
-		                android:alpha="0"
-		                android:text="0" 
-		                />
-
+		                android:text="0" />
 		        </RelativeLayout>
 
-		        
 		        <LinearLayout
+		            android:id="@+id/linearLayout2"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_alignTop="@+id/item0"
-		            android:layout_toRightOf="@+id/item0"
 		            android:layout_marginLeft="5dp"
+		            android:layout_toRightOf="@+id/item0"
 		            android:orientation="vertical" >
 
 		            <TextView
 		                android:id="@+id/name"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:textSize="20sp"/>
+		                android:textSize="20sp" />
 
 		            <TextView
 		                android:id="@+id/desc"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:textSize="14sp"
 		                android:layout_marginTop="10dp"
-		                />
+		                android:textSize="14sp" />
 
 		            <TextView
 		                android:id="@+id/unlock"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:textSize="20sp"
 		                android:layout_marginTop="35dp"
-		                />
+		                android:textSize="20sp" />
 		        </LinearLayout>
-
 		    </RelativeLayout>
 			
 	</LinearLayout>
 </ScrollView>
-</RelativeLayout>
+<!-- </RelativeLayout> -->
 

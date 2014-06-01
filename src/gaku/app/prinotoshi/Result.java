@@ -1,18 +1,15 @@
 package gaku.app.prinotoshi;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 
-import com.facebook.FacebookException;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
-import com.facebook.widget.FacebookDialog;
-import com.facebook.android.Facebook;
-
 import android.app.Activity;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import android.content.Intent;
@@ -33,10 +30,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class Result extends Activity {
+	public final String APP_ID = "1447907075451856";
 	public final String CONSUMER_KEY = "KfRlaUS74T6Ea9YQ1qGXUdVmX";
 	public final String CONSUMER_SECRET = "6Paic5Rsq6JV07DasFK9hyAiDCtRonIA71p7l8tnuFSkLqCqhL";
-	private Facebook facebook = null;
-	private UiLifecycleHelper uiHelper;
+	
+	
 	private SharedPreferences pref;
 
 	public void onCreate(Bundle savedInstanceState){
@@ -62,25 +60,6 @@ public class Result extends Activity {
 	    } catch (NoSuchAlgorithmException e) {
 
 	    }
-	    
-	    // FacebookSDKÇÃãNìÆ
-		uiHelper = new UiLifecycleHelper(this, new Session.StatusCallback() {
-
-            @Override
-            public void call(Session session, SessionState state, Exception exception) {
-                Log.i("Activity", "SessionState : " + state);
-            }
-        });
-        uiHelper.onCreate(savedInstanceState);
-        
-		uiHelper = new UiLifecycleHelper(this, new Session.StatusCallback() {
-
-            @Override
-            public void call(Session session, SessionState state, Exception exception) {
-                Log.i("Activity", "SessionState : " + state);
-            }
-        });
-        uiHelper.onCreate(savedInstanceState);
         saveScore();
 	}
 
@@ -92,13 +71,13 @@ public class Result extends Activity {
 		
 		int score = Integer.valueOf(pref.getString("score", "0"));
 		
-		// ç≈çÇÉXÉRÉAÇÃéÊìæ
+		// ÔøΩ≈çÔøΩÔøΩXÔøΩRÔøΩAÔøΩÃéÊìæ
 		int totalScore = pref.getInt("totalScore",0);
 		if(totalScore < score){
 			totalScore = score;
 		}
 		
-		// ñ{ì˙ÉXÉRÉAÇÃéÊìæ
+		// ÔøΩ{ÔøΩÔøΩÔøΩXÔøΩRÔøΩAÔøΩÃéÊìæ
 		int todayScore = pref.getInt("todayScore", 0);
 		String today = pref.getString("today", nowTime);
 		if(!today.equals(nowTime)){
@@ -110,7 +89,7 @@ public class Result extends Activity {
 			}
 		}
 		
-		// ÉfÅ[É^ï€ë∂
+		// ÔøΩfÔøΩ[ÔøΩ^ÔøΩ€ëÔøΩ
 		SharedPreferences.Editor editor = pref.edit();
 		editor.putInt("totalScore", totalScore);
 		editor.putInt("todayScore", todayScore);
@@ -119,19 +98,39 @@ public class Result extends Activity {
 	}
 	
 	public void Line(View view){
-		// ÉâÉCÉì
-		Uri uri = Uri.parse("line://msg/text/test");
+		// Line„Å´ÊäïÁ®ø„Åô„Çã
+		
+		String score = pref.getString("score", "0");
+		
+		String URL = "line://msg/text/"
+					+ "[„ÅΩ„Å£„Åç„Çì„Éó„É™„É≥]" + score + "ÂÄã„Çí„Éù„Ç≠„Å£„Åü„ÇàÔºÅ"
+					+ " http://dummy.php" + " #pokipuri";
+		
+		
+		Uri uri = Uri.parse(URL);
 		Intent intent = new Intent(Intent.ACTION_VIEW,uri);
 		startActivity(intent);
 	}
 
 	public void Twitter(View view){
-		Uri uri = Uri.parse("https://twitter.com/intent/tweet?text=testt");
+		String score = pref.getString("score", "0");
+		
+		String URL = "https://twitter.com/intent/tweet?text="
+					+ "[„ÅΩ„Å£„Åç„Çì„Éó„É™„É≥]" + score + "ÂÄã„Çí„Éù„Ç≠„Å£„Åü„ÇàÔºÅ"
+					+ "&hashtags=" + "pokipuri" 
+					+ "&url=" +"http://dummy.php";
+		Uri uri = Uri.parse(URL);
 		Intent intent = new Intent(Intent.ACTION_VIEW,uri);
 		startActivity(intent);
 	}
 
 	public void Facebook(View view){
+		
+		Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.Facebook");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+		/*
 		if (FacebookDialog.canPresentShareDialog(getApplicationContext(),
                 FacebookDialog.ShareDialogFeature.SHARE_DIALOG)) {
             try {
@@ -139,18 +138,17 @@ public class Result extends Activity {
                 String url = "http://dummy.com/";
                 String description = "Test";
 
-                // Fragment ÉVÉFÉAâÊñ ÇÃäJÇ≠
                 FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this).setDescription(description)
                         .setName(name).setLink(url).build();
                 uiHelper.trackPendingDialogCall(shareDialog.present());
             } catch (FacebookException e) {
                 Toast.makeText(this, "Facebook", Toast.LENGTH_SHORT).show();
             }
-        }
+        }*/
 	}
 
 	public void Retry(View view){
-    	//ÉäÉgÉâÉC
+    	//ÔøΩÔøΩÔøΩgÔøΩÔøΩÔøΩC
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.StartActivity");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -159,7 +157,7 @@ public class Result extends Activity {
     }
 
 	public void toMenu(View view){
-    	//ÉÅÉjÉÖÅ[
+    	//ÔøΩÔøΩÔøΩjÔøΩÔøΩÔøΩ[
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.MainActivity");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -169,7 +167,6 @@ public class Result extends Activity {
 	  @Override
 	  public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if(keyCode==KeyEvent.KEYCODE_BACK){
-	    	//ÉÅÉjÉÖÅ[
 	        Intent intent = new Intent(Intent.ACTION_MAIN);
 	        intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.MainActivity");
 	        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -180,4 +177,9 @@ public class Result extends Activity {
 	    }
 	    return false;
 	  }
+	  
+	  public void Toast(String msg){
+		  Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
+	  }	
+	  
 }

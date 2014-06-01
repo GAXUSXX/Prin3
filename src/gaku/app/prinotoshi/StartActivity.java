@@ -74,9 +74,6 @@ public class StartActivity extends Activity {
         	if(SETS[i].equals("muteki")){
         		ITEM[i].setImageResource(R.drawable.muteki5);
         	}
-        	else if(SETS[i].equals("double1")){
-        		ITEM[i].setImageResource(R.drawable.double1);
-        	}
         	else if(SETS[i].equals("up10")){
         		ITEM[i].setImageResource(R.drawable.up10);
         	}
@@ -88,9 +85,6 @@ public class StartActivity extends Activity {
         	}
         	else if(SETS[i].equals("add1")){
         		ITEM[i].setImageResource(R.drawable.add1);
-        	}
-        	else if(SETS[i].equals("up20")){
-        		ITEM[i].setImageResource(R.drawable.up20);
         	}
         	else if(SETS[i].equals("resurrection")){
         		ITEM[i].setImageResource(R.drawable.resurrection);
