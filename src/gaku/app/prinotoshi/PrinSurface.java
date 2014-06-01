@@ -756,7 +756,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					xFlickFlag = 0;
 					yFlickFlag = 0;
 					yFlickokFlag = 0;
-					SetY = 0;
+					SetY = defaultY - defaultY /20;
 					if(gameokFlag == 1){
 						gameCount++;
 						gameokFlag = 0;
@@ -972,7 +972,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					}
 
 					SetX = x-imageSize/2;
-					SetY += defaultY /5;
+					SetY += defaultY / 50;
 				}
 				else{
 					//Log.v("prin","描画");
