@@ -748,7 +748,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 
 				//下に落として一定以上落ちたらスライド
-				if(FlickFlag > 30){
+				if(FlickFlag > 15){
 					itemFlickFlag = 0;
 					FlickFlag = 0;
 					x=0;
@@ -756,7 +756,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					xFlickFlag = 0;
 					yFlickFlag = 0;
 					yFlickokFlag = 0;
-					SetY = defaultY - defaultY /20;
+					SetY = height/3;
 					if(gameokFlag == 1){
 						gameCount++;
 						gameokFlag = 0;
@@ -776,12 +776,12 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					if(xFlickFlag == 1 || mutekiCount > 0){
 						canvas.drawBitmap(prin2, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
 						//カップはそのまま
-						canvas.drawBitmap(cup, x-imageSize/2, (float) (height / 3)-imageSize/2, paintCircle);
+						canvas.drawBitmap(cup, x-imageSize/2, SetY, paintCircle);
 					}
 					//立てにフリックされたらそのまま
 					else if(yFlickFlag == 1){
 						canvas.drawBitmap(prin, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
-						canvas.drawBitmap(cup, x-imageSize/2,(float) (defaultY-(imageSize/2.3)), paintCircle);
+						canvas.drawBitmap(cup, x-imageSize/2,SetY, paintCircle);
 					}
 					prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
 					canvas.drawBitmap(prin2, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
@@ -790,6 +790,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 
 				else if(itemFlickFlag == 1){
+					SetX = x-imageSize/2;
+					if(SetY + height/10 < defaultY){
+						SetY += defaultY / 15;
+					}
 					canvas.drawBitmap(sara, (float) (x-imageSize*1.03), (float)(defaultY+imageSize/4.2), paintCircle);
 					if(xFlickFlag == 1){
 						Log.v("prin",String.valueOf(n));
@@ -912,8 +916,8 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 						}
 						prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
-						canvas.drawBitmap(prin2, x-imageSize/2, (float) y + SetY, paintCircle);
-						canvas.drawBitmap(cup, x-imageSize/2, (height / 3)-imageSize/2, paintCircle);
+						canvas.drawBitmap(prin2, x-imageSize/2, SetY, paintCircle);
+						canvas.drawBitmap(cup, x-imageSize/2, SetY, paintCircle);
 						//canvas.drawBitmap(prin, x-imageSize/2, (float) (getHeight() / 4), paintCircle);
 					}
 					else if(yFlickFlag == 1){
@@ -965,14 +969,11 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							gameokFlag = 1;
 						}
 						prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
-						canvas.drawBitmap(prin2, x-imageSize/2, (float) y + SetY, paintCircle);
-						canvas.drawBitmap(cup, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
-						canvas.drawBitmap(prin, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
+						canvas.drawBitmap(prin2, x-imageSize/2, SetY, paintCircle);
+						canvas.drawBitmap(cup, x-imageSize/2, SetY, paintCircle);
+						canvas.drawBitmap(prin, x-imageSize/2, SetY, paintCircle);
 						yFlickokFlag = 1;
 					}
-
-					SetX = x-imageSize/2;
-					SetY += defaultY / 50;
 				}
 				else{
 					//Log.v("prin","描画");
