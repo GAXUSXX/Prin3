@@ -41,7 +41,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private ScheduledExecutorService scheduledExecutorService;
 	private static final float FONT_SIZE = 64f;
 	private static final float FONT_SIZE2 = 424f;
-	private Paint paintCircle, paintFps, paintCount;
+	private Paint paintCircle, paintFps, paintCount, CountDraw, TimeDraw;
 	private float x, y, r;
 	private ArrayList<Long> intervalTime = new ArrayList<Long>(20);
 	private float touchX = 0;
@@ -77,8 +77,8 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private static int PrinCount = 0;
 	private int RecoveryFlag = 0;
 	private int RecoveryFlag2 = 0;
-
-
+	private Bitmap scoreimg = null;
+	private Bitmap timeimg = null;
 	private Bitmap[] resource = new Bitmap [101];
 
 	//画像読み込み
@@ -135,6 +135,12 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		paintCount.setColor(Color.BLACK);
 		paintCount.setTextSize(FONT_SIZE2);
 		paintCount.setAntiAlias(false);
+
+		CountDraw = new Paint();
+		CountDraw.setStyle(Style.FILL);
+		CountDraw.setColor(Color.BLACK);
+		CountDraw.setTextSize(120);
+		CountDraw.setAntiAlias(false);
 	}
 
 	// コールバック内容の定義 (1/3)
@@ -167,6 +173,11 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		sara= Bitmap.createScaledBitmap(sara, imageSize*2, imageSize/2, false);
 		prin= Bitmap.createScaledBitmap(prin, imageSize, imageSize, false);
 		cup= Bitmap.createScaledBitmap(cup, imageSize, imageSize, false);
+		scoreimg = BitmapFactory.decodeResource(res, R.drawable.score);
+		scoreimg = Bitmap.createScaledBitmap(scoreimg, (int) (imageSize*1.1), (int) (imageSize*0.8), false);
+
+		timeimg = BitmapFactory.decodeResource(res, R.drawable.time);;
+		timeimg = Bitmap.createScaledBitmap(timeimg, imageSize, imageSize, false);
 
 		//リソースセット
 		resource[0] = BitmapFactory.decodeResource(res, R.drawable.purin_2,options);
@@ -229,6 +240,12 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				canvas.drawColor(Color.WHITE);
 				//背景描画
 				canvas.drawBitmap(desk, 0, 0, paintCircle);
+				//スコア背景描画
+				canvas.drawBitmap(scoreimg, (float) (width/1.6), (height/100), paintCircle);
+
+				//Time背景描画
+				canvas.drawBitmap(timeimg, 0, (height/100), paintCircle);
+
 				if(startFlag < 310){
 					startFlag++;
 					FlickFlag = 100;
@@ -552,7 +569,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					}
 
 
-					canvas.drawText(String.valueOf(Time), width-500, FONT_SIZE*2, paintFps);
+					canvas.drawText(String.valueOf(Time), (float) (width/11.5), (float) (height/7.5), CountDraw);
 
 					timeCount++;
 				}
@@ -776,7 +793,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					if(xFlickFlag == 1 || mutekiCount > 0){
 						canvas.drawBitmap(prin2, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
 						//カップはそのまま
-						canvas.drawBitmap(cup, x-imageSize/2, SetY, paintCircle);
+						canvas.drawBitmap(cup, x-imageSize/2, (float) (height / 3)-imageSize/2, paintCircle);
 					}
 					//立てにフリックされたらそのまま
 					else if(yFlickFlag == 1){
@@ -917,7 +934,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						}
 						prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
 						canvas.drawBitmap(prin2, x-imageSize/2, SetY, paintCircle);
-						canvas.drawBitmap(cup, x-imageSize/2, SetY, paintCircle);
+						canvas.drawBitmap(cup, x-imageSize/2, (height / 3)-imageSize/2, paintCircle);
 						//canvas.drawBitmap(prin, x-imageSize/2, (float) (getHeight() / 4), paintCircle);
 					}
 					else if(yFlickFlag == 1){
@@ -981,7 +998,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					canvas.drawBitmap(prin, x-imageSize/2, y-imageSize/2, paintCircle);
 					canvas.drawBitmap(cup, x-imageSize/2, y-imageSize/2, paintCircle);
 				}
-				canvas.drawText(String.valueOf(gameCount), (float) (width/1.3), FONT_SIZE, paintFps);
+				canvas.drawText(String.valueOf(gameCount) + "個", (float) (width/1.55), (float) (height/8.2), CountDraw);
 				canvas.drawText(String.format("%.1f fps", fps), 0, FONT_SIZE, paintFps);
 				/**無敵状態表示**/
 				if(mutekiCount > 0){
