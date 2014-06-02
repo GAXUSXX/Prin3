@@ -64,8 +64,6 @@ public class MainActivity extends Activity {
 	public ImageView item4;
 	public ImageView item5;
 	public ImageView item6;
-	public ImageView item7;
-	public ImageView item8;
 
 	// カウントビュー
 	public TextView COUNT1;
@@ -91,8 +89,6 @@ public class MainActivity extends Activity {
 	public int count4;
 	public int count5;
 	public int count6;
-	public int count7;
-	public int count8;
 
 	// スタミナ
 	public int star;
@@ -277,23 +273,23 @@ public class MainActivity extends Activity {
     		item1.setImageResource(R.drawable.lock);
     		COUNT1.setAlpha(0);
     	}
-    	if(100 > total_score){
+    	if(200 > total_score){
     		item2.setImageResource(R.drawable.lock);
     		COUNT2.setAlpha(0);
     	}
-    	if(200 > total_score){
+    	if(250 > total_score){
     		item3.setImageResource(R.drawable.lock);
     		COUNT3.setAlpha(0);
     	}
-    	if(250 > total_score){
+    	if(300 > total_score){
     		item4.setImageResource(R.drawable.lock);
     		COUNT4.setAlpha(0);
     	}
-    	if(300 > total_score){
+    	if(500 > total_score){
     		item5.setImageResource(R.drawable.lock);
     		COUNT5.setAlpha(0);
     	}
-    	if(500 > total_score){
+    	if(1000 > total_score){
     		item6.setImageResource(R.drawable.lock);
     		COUNT6.setAlpha(0);
     	}
@@ -308,8 +304,6 @@ public class MainActivity extends Activity {
     	count4 = pref.getInt("count4", 0);
     	count5 = pref.getInt("count5", 0);
     	count6 = pref.getInt("count6", 0);
-    	count7 = pref.getInt("count7", 0);
-    	count8 = pref.getInt("count8", 0);
 
     }
 
@@ -336,6 +330,12 @@ public class MainActivity extends Activity {
 		setStar();
 		editor = pref.edit();
 		editor.putInt("totalScore",1000);
+		editor.putInt("count1", 9);
+		editor.putInt("count2", 9);
+		editor.putInt("count3", 9);
+		editor.putInt("count4", 9);
+		editor.putInt("count5", 9);
+		editor.putInt("count6", 9);
 		editor.commit();
     }
 
@@ -354,23 +354,13 @@ public class MainActivity extends Activity {
     		setItem();
     		saveData("buy");
 
-    	}else if(selected.equals("double1")){
-
-    		// ロック解除されていなければメソッド終了
-    		if(100 > total_score){
-    			return;
-    		}
-    		count2 = buy(count2);
-    		setItem();
-    		saveData("buy");
-
     	}else if(selected.equals("up10")){
 
     		// ロック解除されていなければメソッド終了
     		if(200 > total_score){
     			return;
     		}
-    		count3 = buy(count3);
+    		count2 = buy(count2);
     		setItem();
     		saveData("buy");
 
@@ -380,7 +370,7 @@ public class MainActivity extends Activity {
     		if(250 > total_score){
     			return;
     		}
-    		count4 = buy(count4);
+    		count3 = buy(count3);
     		setItem();
     		saveData("buy");
 
@@ -390,7 +380,7 @@ public class MainActivity extends Activity {
     		if(300 > total_score){
     			return;
     		}
-    		count5 = buy(count5);
+    		count4 = buy(count4);
     		setItem();
     		saveData("buy");
 
@@ -400,17 +390,7 @@ public class MainActivity extends Activity {
     		if(500 > total_score){
     			return;
     		}
-    		count6 = buy(count6);
-    		setItem();
-    		saveData("buy");
-
-    	}else if(selected.equals("up20")){
-
-    		// ロック解除されていなければメソッド終了
-    		if(750 > total_score){
-    			return;
-    		}
-    		count7 = buy(count7);
+    		count5 = buy(count5);
     		setItem();
     		saveData("buy");
 
@@ -420,7 +400,7 @@ public class MainActivity extends Activity {
     		if(1000 > total_score){
     			return;
     		}
-    		count8 = buy(count8);
+    		count6 = buy(count6);
     		setItem();
     		saveData("buy");
 
@@ -516,7 +496,7 @@ public class MainActivity extends Activity {
 		 		ITEMS[i].setImageResource(res);
 			}
 		}
-		if(name.equals("double1")){
+		if(name.equals("up10")){
 			if(0 < count2){
 				count2 -= 1;
     			setItem();
@@ -524,7 +504,7 @@ public class MainActivity extends Activity {
 		 		ITEMS[i].setImageResource(res);
 			}
 		}
-		if(name.equals("up10")){
+		if(name.equals("add5")){
 			if(0 < count3){
 				count3 -= 1;
     			setItem();
@@ -532,7 +512,7 @@ public class MainActivity extends Activity {
 		 		ITEMS[i].setImageResource(res);
 			}
 		}
-		if(name.equals("add5")){
+		if(name.equals("purin5")){
 			if(0 < count4){
 				count4 -= 1;
     			setItem();
@@ -540,7 +520,7 @@ public class MainActivity extends Activity {
 		 		ITEMS[i].setImageResource(res);
 			}
 		}
-		if(name.equals("purin5")){
+		if(name.equals("add1")){
 			if(0 < count5){
 				count5 -= 1;
     			setItem();
@@ -548,25 +528,9 @@ public class MainActivity extends Activity {
 		 		ITEMS[i].setImageResource(res);
 			}
 		}
-		if(name.equals("add1")){
+		if(name.equals("resurrection")){
 			if(0 < count6){
 				count6 -= 1;
-    			setItem();
-    			SETS[i] = name;
-		 		ITEMS[i].setImageResource(res);
-			}
-		}
-		if(name.equals("up20")){
-			if(0 < count7){
-				count7 -= 1;
-    			setItem();
-    			SETS[i] = name;
-		 		ITEMS[i].setImageResource(res);
-			}
-		}
-		if(name.equals("resurrection")){
-			if(0 < count8){
-				count8 -= 1;
     			setItem();
     			SETS[i] = name;
 		 		ITEMS[i].setImageResource(res);
@@ -580,32 +544,24 @@ public class MainActivity extends Activity {
 			count1 += 1;
    			setItem();
 		}
-		if(name.equals("double1")){
+		if(name.equals("up10")){
 			count2 += 1;
    			setItem();
 		}
-		if(name.equals("up10")){
+		if(name.equals("add5")){
 			count3 += 1;
    			setItem();
 		}
-		if(name.equals("add5")){
+		if(name.equals("purin5")){
 			count4 += 1;
     		setItem();
 		}
-		if(name.equals("purin5")){
+		if(name.equals("add1")){
 			count5 += 1;
    			setItem();
 		}
-		if(name.equals("add1")){
-			count6 += 1;
-   			setItem();
-		}
-		if(name.equals("up20")){
-			count7 += 1;
-   			setItem();
-		}
 		if(name.equals("resurrection")){
-			count8 += 1;
+			count6 += 1;
    			setItem();
 		}
     }
@@ -653,8 +609,6 @@ public class MainActivity extends Activity {
     		editor.putInt("count4", count4);
     		editor.putInt("count5", count5);
     		editor.putInt("count6", count6);
-    		editor.putInt("count7", count7);
-    		editor.putInt("count8", count8);
     		
     		editor.putString("item", SETS[0]+","+SETS[1]+","+SETS[2]);
 
@@ -680,8 +634,6 @@ public class MainActivity extends Activity {
     		editor.putInt("count4", count4);
     		editor.putInt("count5", count5);
     		editor.putInt("count6", count6);
-    		editor.putInt("count7", count7);
-    		editor.putInt("count8", count8);
 
     		editor.commit();
     	}else if(state.equals("finish")){
