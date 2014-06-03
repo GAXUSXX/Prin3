@@ -72,7 +72,7 @@ public class MainActivity extends Activity {
 	public TextView COUNT4;
 	public TextView COUNT5;
 	public TextView COUNT6;
-	
+
 	// スコアビュー
 	public TextView totalScore;
 	public TextView todayScore;
@@ -81,7 +81,7 @@ public class MainActivity extends Activity {
 	public TextView TIME;
 	public Timer timer;
 	public TimerTask timerTask;
-	
+
 	// アイテム所持数
 	public int count1;
 	public int count2;
@@ -92,18 +92,18 @@ public class MainActivity extends Activity {
 
 	// スタミナ
 	public int star;
-	
+
 	// スコア
 	public int today_score;
 	public int total_score;
-	
+
 	// ランキング
 	public EditText name;
 
 	// プリファレンス
 	public SharedPreferences pref;
 	public SharedPreferences.Editor editor;
-	
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +129,7 @@ public class MainActivity extends Activity {
     @Override
     public void onRestart(){
     	super.onRestart();
-    	
+
 		Intent intent = new Intent(Intent.ACTION_MAIN);
 		intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.MainActivity");
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -186,40 +186,40 @@ public class MainActivity extends Activity {
         ITEMS=new ImageView[]{SET1,SET2,SET3};
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
     }
-    
+
     // トータルスコアとデイリースコアの取得
     public void getScore(){
     	// トータルスコアの取得
     	total_score = pref.getInt("totalScore", 0);
-    	
+
     	// デイリースコアの取得
-    	
+
     	// 現在の日付の取得
     	Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String nowTime = sdf.format(date);
-    	
+
 		today_score = pref.getInt("todayScore", 0);
 		String today = pref.getString("today", nowTime);
-		
+
 		// 前回保存された日付が今日じゃなかったらデータをリセット
 		if(!today.equals(nowTime)){
 			today_score = 0;
 			saveData("score");
 		}
     }
-    
+
     // トータルハイスコアと、当日ハイスコアの表示
     public void setScore(){
 
     	// さいこうスコア表示
     	totalScore.setText(Integer.toString(total_score) + "個");
 
-    	
+
     	// ほんじつスコアの取得・表示
     	todayScore.setText(Integer.toString(today_score)+"個");
-    	
-    	
+
+
     }
 
     // スタミナ取得
@@ -254,7 +254,7 @@ public class MainActivity extends Activity {
     		break;
     	}
     }
-    
+
     public void setTime(){
 		if(star != 6){
 			TIME.setAlpha(1);
@@ -597,10 +597,10 @@ public class MainActivity extends Activity {
 
     public void saveData(String state){
     	if(state.equals("start")){
-    		
-    		
+
+
     		Long nowTime = System.currentTimeMillis();
-    		
+
     		editor = pref.edit();
 
     		editor.putInt("count1", count1);
@@ -609,7 +609,7 @@ public class MainActivity extends Activity {
     		editor.putInt("count4", count4);
     		editor.putInt("count5", count5);
     		editor.putInt("count6", count6);
-    		
+
     		editor.putString("item", SETS[0]+","+SETS[1]+","+SETS[2]);
 
     		editor.putInt("star", star);
@@ -620,14 +620,14 @@ public class MainActivity extends Activity {
     		editor.commit();
     	}else if(state.equals("buy")){
     		Long nowTime = System.currentTimeMillis();
-    		
+
     		editor = pref.edit();
 
     		editor.putInt("star", star);
     		if(star == 1){
     			editor.putLong("play", nowTime);
     		}
-    		
+
     		editor.putInt("count1", count1);
     		editor.putInt("count2", count2);
     		editor.putInt("count3", count3);
@@ -644,12 +644,12 @@ public class MainActivity extends Activity {
     		editor.commit();
     	}else if(state.equals("recovery")){
     		Long nowTime = System.currentTimeMillis();
-    		
+
     		editor = pref.edit();
-    		
+
     		editor.putInt("star", star);
     		editor.putLong("play", nowTime);
-    		
+
     		editor.commit();
     	}else if(state.equals("score")){
     		editor = pref.edit();
@@ -657,20 +657,20 @@ public class MainActivity extends Activity {
     		editor.commit();
     	}
     }
-    
+
     public void ranking(View v){
-    	
+
     	// InflateViewを取得
     	LayoutInflater inflater = LayoutInflater.from(getBaseContext());
-    				
+
     	View view = inflater.inflate(R.layout.alert_ranking, null);
-    	
+
     	name = (EditText)view.findViewById(R.id.name);
-    	
+
     	AlertDialog.Builder adb = new AlertDialog.Builder(new ContextThemeWrapper(this,R.style.AwesomeDialogTheme));
     	adb.setTitle("ランキング送信");
     	adb.setMessage("登録する名前を入力");
-    	
+
     	adb.setView(view);
 
     	adb.setPositiveButton("送信", new DialogInterface.OnClickListener() {
@@ -681,28 +681,28 @@ public class MainActivity extends Activity {
 				editor = pref.edit();
 				editor.putString("name",NAME);
 				editor.commit();
-				
+
 				Intent intent = new Intent(Intent.ACTION_MAIN);
 				intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.Ranking");
 				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(intent);
 			}
-	
+
 		});
     	adb.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				
+
 			}
 		});
-    	
+
     	// アラートダイアログのキャンセルが可能かどうかを設定します
     	adb.setCancelable(false);
     	AlertDialog alertDialog = adb.create();
     	// アラートダイアログを表示します
     	alertDialog.show();
-    
+
     }
 
     // メニュー生成
@@ -711,7 +711,7 @@ public class MainActivity extends Activity {
 		super.onCreateOptionsMenu(menu);
 		menu.add(0, 0, 0, "Update");
 
-		return false;
+		return true;
 	}
 
 	// メニューリスナー
@@ -794,38 +794,38 @@ public class MainActivity extends Activity {
 	    }
 	    return false;
 	  }
-	  
+
 	  public class timerTask extends TimerTask{
-		
+
 		  private Handler handler;
 		  private Context context;
 		  private Toast toast;
-		  
+
 		  public timerTask(Context context){
-			  
+
 			  handler = new Handler();
 			  this.context = context;
 
 		  }
-		  
+
 		  @Override
 		  public void run() {
-			  
+
 			  handler.post(new Runnable(){
 				  @Override
 				  public void run(){
-					  
+
 					  if(star >= 6){
 						  star=6;
 						  timer.cancel();
 						  TIME.setAlpha(0);
 					  }
-					  
+
 					  Long nowTime = System.currentTimeMillis();
 					  Long savedTime = pref.getLong("play", 0);
-					  
+
 					  Long diff = 600 - ((nowTime - savedTime)/1000);
-					  
+
 					  Long second = diff % 60;
 					  Long minute = (diff-second) / 60;
 					  String s = Long.toString(second);
@@ -835,7 +835,7 @@ public class MainActivity extends Activity {
 					  }
 					  String sa = m + ":" + s;
 					  TIME.setText("+1補充まであと" + sa + "残っています");
-					  
+
 					  if(diff <= 0){
 						  star += 1;
 						  setStar();
@@ -844,6 +844,6 @@ public class MainActivity extends Activity {
 				  }
 			  });
 		  }
-		  
+
 	  }
 }
