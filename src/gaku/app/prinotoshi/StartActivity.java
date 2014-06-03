@@ -29,6 +29,7 @@ public class StartActivity extends Activity {
      	requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
         
+        pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         SETS = pref.getString("item", "none,none,none").split(",");
 
         setItemView();
@@ -120,6 +121,7 @@ public class StartActivity extends Activity {
     	for(int i=0;i<3;i++){
     		if(SETS[i].equals("resurrection")){
     			ITEM[i].setImageResource(R.drawable.u_resurrection);
+    			
     		}
     	}
     }
