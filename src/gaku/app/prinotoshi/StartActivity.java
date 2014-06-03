@@ -3,11 +3,13 @@ package gaku.app.prinotoshi;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 
 public class StartActivity extends Activity {
@@ -19,8 +21,13 @@ public class StartActivity extends Activity {
     private static ImageView[] ITEM;
 
     private static String[] SETS;
-    
+
     private SharedPreferences pref;
+
+    // コンストラクタ
+ 	public StartActivity() {
+ 		super();
+ 	}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,7 +35,8 @@ public class StartActivity extends Activity {
      	// タイトルバーを非表示
      	requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
-        
+
+        pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         SETS = pref.getString("item", "none,none,none").split(",");
 
         setItemView();
@@ -98,7 +106,7 @@ public class StartActivity extends Activity {
     }
 
     public void item2click (View view){
-    	PrinSurface.item2Go(view);	
+    	PrinSurface.item2Go(view);
     	use(SETS[1],view);
     }
 
@@ -106,7 +114,7 @@ public class StartActivity extends Activity {
     	PrinSurface.item3Go(view);
     	use(SETS[2],view);
     }
-    
+
     public void use(String itemName,View view){
     	ImageView imageView = (ImageView)view;
     	if(itemName.equals("muteki")){
@@ -115,13 +123,14 @@ public class StartActivity extends Activity {
     		imageView.setImageResource(R.drawable.u_purin5);
     	}
     }
-    
-    public static void useResurrection(){
+
+    public static int useResurrection(){
     	for(int i=0;i<3;i++){
     		if(SETS[i].equals("resurrection")){
     			ITEM[i].setImageResource(R.drawable.u_resurrection);
     		}
     	}
+		return 0;
     }
-    
+
 }

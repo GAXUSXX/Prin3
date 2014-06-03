@@ -596,6 +596,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						RecoveryFlag = 1;
 						timeCount = 1;
 						Time = 2.0;
+						StartActivity.useResurrection();
 					}
 					else{
 						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -850,6 +851,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								RecoveryFlag2 = 1;
 								prin2 = resource[7];
 								n = 2000;
+								StartActivity.useResurrection();
 							}
 							else{
 								prin2 = resource[13];
@@ -872,6 +874,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								RecoveryFlag2 = 1;
 								prin2 = resource[8];
 								n = 2000;
+								StartActivity.useResurrection();
 							}
 							else{
 								prin2 = resource[14];
@@ -893,6 +896,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								RecoveryFlag2 = 1;
 								prin2 = resource[9];
 								n = 2000;
+								StartActivity.useResurrection();
 							}
 							else{
 								prin2 = resource[15];
@@ -915,6 +919,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								RecoveryFlag2 = 1;
 								prin2 = resource[10];
 								n = 2000;
+								StartActivity.useResurrection();
 							}
 							else{
 								prin2 = resource[16];
@@ -937,6 +942,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								RecoveryFlag2 = 1;
 								prin2 = resource[11];
 								n = 2000;
+								StartActivity.useResurrection();
 							}
 							else{
 								prin2 = resource[17];
@@ -970,6 +976,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								RecoveryFlag2 = 1;
 								prin2 = resource[6];
 								n = 2000;
+								StartActivity.useResurrection();
 							}
 							else{
 								prin2 = resource[12];
