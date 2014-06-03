@@ -170,7 +170,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		// inPurgeableでBitmapを再利用するかどうかを明示的に決定
 		options.inPurgeable = true;
 		desk= Bitmap.createScaledBitmap(desk, width, height, true);
-		sara= Bitmap.createScaledBitmap(sara, imageSize*2, imageSize/2, false);
+		sara= Bitmap.createScaledBitmap(sara, imageSize*2, (int) (imageSize/1.5), false);
 		prin= Bitmap.createScaledBitmap(prin, imageSize, imageSize, false);
 		cup= Bitmap.createScaledBitmap(cup, imageSize, imageSize, false);
 		scoreimg = BitmapFactory.decodeResource(res, R.drawable.score);
@@ -755,9 +755,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						}
 					}
 					Log.v("prin","描画");
-					canvas.drawBitmap(sara, (float) (x-imageSize*1.03), (float)(defaultY+imageSize/4.2), paintCircle);
-					canvas.drawBitmap(cup, x-imageSize/2, y-imageSize/2, paintCircle);
-					canvas.drawBitmap(prin, x-imageSize/2, y-imageSize/2, paintCircle);
+					canvas.drawBitmap(sara, (float) (x-imageSize*1.03), (float)(defaultY-imageSize/11.2), paintCircle);
+					canvas.drawBitmap(cup, x-imageSize/2, (float) (y-imageSize/1.5), paintCircle);
+					canvas.drawBitmap(prin, x-imageSize/2, (float) (y-imageSize/1.5), paintCircle);
 				}
 				//フリックしたらフラグを立てる
 				if(itemFlickFlag == 1){
@@ -765,7 +765,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 
 				//下に落として一定以上落ちたらスライド
-				if(FlickFlag > 15){
+				if(FlickFlag > 25){
 					itemFlickFlag = 0;
 					FlickFlag = 0;
 					x=0;
@@ -782,36 +782,37 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					startTime = System.currentTimeMillis();
 				}
 				//フリックされたら判定
-				else if(FlickFlag > 10){
+				else if(FlickFlag > 5){
 					if(RecoveryFlag2 == 2){
 						RecoveryFlag2 = 3;
 					}
 					//お皿はそのまま
-					canvas.drawBitmap(sara, (float) (x-imageSize*1.03), (float)(defaultY+imageSize/4.2), paintCircle);
+					canvas.drawBitmap(sara, (float) (x-imageSize*1.03), (float)(defaultY-imageSize/11.2), paintCircle);
 
 					//横にフリックされたら折る
 					if(xFlickFlag == 1 || mutekiCount > 0){
-						canvas.drawBitmap(prin2, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
+						canvas.drawBitmap(prin2, x-imageSize/2, SetY, paintCircle);
 						//カップはそのまま
 						canvas.drawBitmap(cup, x-imageSize/2, (float) (height / 3)-imageSize/2, paintCircle);
 					}
 					//立てにフリックされたらそのまま
 					else if(yFlickFlag == 1){
-						canvas.drawBitmap(prin, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
+						canvas.drawBitmap(prin, x-imageSize/2, SetY, paintCircle);
 						canvas.drawBitmap(cup, x-imageSize/2,SetY, paintCircle);
 					}
 					prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
-					canvas.drawBitmap(prin2, x-imageSize/2, (float) (defaultY-(imageSize/2.3)), paintCircle);
+					canvas.drawBitmap(prin2, x-imageSize/2, SetY, paintCircle);
 					//横に移動させる
 					x += width/15;
 				}
 
+				//落下時の処理(8回分落下)
 				else if(itemFlickFlag == 1){
 					SetX = x-imageSize/2;
 					if(SetY + height/10 < defaultY){
-						SetY += defaultY / 15;
+						SetY += defaultY / 20;
 					}
-					canvas.drawBitmap(sara, (float) (x-imageSize*1.03), (float)(defaultY+imageSize/4.2), paintCircle);
+					canvas.drawBitmap(sara, (float) (x-imageSize*1.03), (float)(defaultY-imageSize/11.2), paintCircle);
 					if(xFlickFlag == 1){
 						Log.v("prin",String.valueOf(n));
 						if(prin2 != null){
@@ -934,7 +935,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						}
 						prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
 						canvas.drawBitmap(prin2, x-imageSize/2, SetY, paintCircle);
-						canvas.drawBitmap(cup, x-imageSize/2, (height / 3)-imageSize/2, paintCircle);
+						canvas.drawBitmap(cup, x-imageSize/2, SetY, paintCircle);
 						//canvas.drawBitmap(prin, x-imageSize/2, (float) (getHeight() / 4), paintCircle);
 					}
 					else if(yFlickFlag == 1){
@@ -994,9 +995,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 				else{
 					//Log.v("prin","描画");
-					canvas.drawBitmap(sara, (float) (x-imageSize*1.03), (float)(defaultY+imageSize/4.2), paintCircle);
-					canvas.drawBitmap(prin, x-imageSize/2, y-imageSize/2, paintCircle);
-					canvas.drawBitmap(cup, x-imageSize/2, y-imageSize/2, paintCircle);
+					canvas.drawBitmap(sara, (float) (x-imageSize*1.03), (float)(defaultY-imageSize/11.2), paintCircle);
+					canvas.drawBitmap(prin, x-imageSize/2, (float) (y-imageSize/1.5), paintCircle);
+					canvas.drawBitmap(cup, x-imageSize/2, (float) (y-imageSize/1.5), paintCircle);
 				}
 				canvas.drawText(String.valueOf(gameCount) + "個", (float) (width/1.55), (float) (height/8.2), CountDraw);
 				canvas.drawText(String.format("%.1f fps", fps), 0, FONT_SIZE, paintFps);
