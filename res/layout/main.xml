@@ -10,11 +10,12 @@
 	    android:id="@+id/Surface"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent" />
+
 	<LinearLayout
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true"
-	    >
+	    android:layout_marginBottom="70dp" >
 
 		<ImageView
 		    android:id="@+id/itemSet1"
