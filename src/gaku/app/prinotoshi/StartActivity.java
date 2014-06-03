@@ -16,8 +16,10 @@ public class StartActivity extends Activity {
     private PrinSurface mMainDrawArea;
 
     private ImageView item1,item2,item3;
-    private ImageView[] ITEM;
+    private static ImageView[] ITEM;
 
+    private static String[] SETS;
+    
     private SharedPreferences pref;
 
     @Override
@@ -26,6 +28,8 @@ public class StartActivity extends Activity {
      	// タイトルバーを非表示
      	requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
+        
+        SETS = pref.getString("item", "none,none,none").split(",");
 
         setItemView();
 
@@ -66,9 +70,6 @@ public class StartActivity extends Activity {
 
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
-        String[] SETS = pref.getString("item", "none,none,none").split(",");
-
-
         for(int i=0; i<3; i++){
         	Log.v("item",SETS[i]);
         	if(SETS[i].equals("muteki")){
@@ -93,19 +94,16 @@ public class StartActivity extends Activity {
     }
     public void item1click (View view){
     	PrinSurface.item1Go(view);
-    	String[] SETS = pref.getString("item", "none,none,none").split(",");
     	use(SETS[0],view);
     }
 
     public void item2click (View view){
     	PrinSurface.item2Go(view);	
-    	String[] SETS = pref.getString("item", "none,none,none").split(",");
     	use(SETS[1],view);
     }
 
     public void item3click (View view){
     	PrinSurface.item3Go(view);
-    	String[] SETS = pref.getString("item", "none,none,none").split(",");
     	use(SETS[2],view);
     }
     
@@ -117,4 +115,13 @@ public class StartActivity extends Activity {
     		imageView.setImageResource(R.drawable.u_purin5);
     	}
     }
+    
+    public static void useResurrection(){
+    	for(int i=0;i<3;i++){
+    		if(SETS[i].equals("resurrection")){
+    			ITEM[i].setImageResource(R.drawable.u_resurrection);
+    		}
+    	}
+    }
+    
 }
