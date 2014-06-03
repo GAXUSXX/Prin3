@@ -93,16 +93,28 @@ public class StartActivity extends Activity {
     }
     public void item1click (View view){
     	PrinSurface.item1Go(view);
-    	item1.setImageResource(R.drawable.none);
+    	String[] SETS = pref.getString("item", "none,none,none").split(",");
+    	use(SETS[0],view);
     }
 
     public void item2click (View view){
     	PrinSurface.item2Go(view);	
-    	item2.setImageResource(R.drawable.none);
+    	String[] SETS = pref.getString("item", "none,none,none").split(",");
+    	use(SETS[1],view);
     }
 
     public void item3click (View view){
     	PrinSurface.item3Go(view);
-    	item3.setImageResource(R.drawable.none);
+    	String[] SETS = pref.getString("item", "none,none,none").split(",");
+    	use(SETS[2],view);
+    }
+    
+    public void use(String itemName,View view){
+    	ImageView imageView = (ImageView)view;
+    	if(itemName.equals("muteki")){
+    		imageView.setImageResource(R.drawable.u_muteki5);
+    	}else if(itemName.equals("purin5")){
+    		imageView.setImageResource(R.drawable.u_purin5);
+    	}
     }
 }
