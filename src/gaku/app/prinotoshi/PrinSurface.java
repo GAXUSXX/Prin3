@@ -41,7 +41,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private ScheduledExecutorService scheduledExecutorService;
 	private static final float FONT_SIZE = 64f;
 	private static final float FONT_SIZE2 = 424f;
-	private Paint paintCircle, paintFps, paintCount, CountDraw, TimeDraw;
+	private Paint paintCircle, paintFps, paintCount, CountDraw, TimeDraw, ItemCount;
 	private float x, y, r;
 	private ArrayList<Long> intervalTime = new ArrayList<Long>(20);
 	private float touchX = 0;
@@ -141,6 +141,12 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		CountDraw.setColor(Color.BLACK);
 		CountDraw.setTextSize(120);
 		CountDraw.setAntiAlias(false);
+
+		ItemCount = new Paint();
+		ItemCount.setStyle(Style.FILL);
+		ItemCount.setColor(Color.RED);
+		ItemCount.setTextSize(90);
+		ItemCount.setAntiAlias(false);
 	}
 
 	// コールバック内容の定義 (1/3)
@@ -270,7 +276,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 
 				if(mutekiCount > 0){
-					canvas.drawText(String.valueOf((float)mutekiCount/100), (float) (width/2.5), height/2, paintCount);
+					canvas.drawText(String.valueOf((float)mutekiCount/100), (float) (width/2.2), (float) (height/5.1), ItemCount);
 					mutekiCount--;
 
 				}
