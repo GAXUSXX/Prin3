@@ -279,7 +279,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					canvas.drawText(String.valueOf((float)mutekiCount/100), (float) (width/2.2), (float) (height/5.1), ItemCount);
 					mutekiCount--;
 					if(PrinCount > 0){
-						PrinCount = 0;
+						if(PrinCount < mutekiCount){
+							PrinCount = 0;
+						}
 					}
 
 				}
@@ -287,7 +289,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				if(PrinCount > 0){
 					canvas.drawText(String.valueOf((float)PrinCount/100), (float) (width/2.2), (float) (height/5.1), ItemCount);
 					if(mutekiCount > 0){
-						mutekiCount = 0;
+						if(PrinCount > mutekiCount){
+							mutekiCount = 0;
+						}
 					}
 					PrinCount--;
 				}
