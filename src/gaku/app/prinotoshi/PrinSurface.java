@@ -1079,35 +1079,6 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					}
 				}
 
-				if(touchY < height/1.09 && touchY > height/1.3 && touchX > width/9 && touchX < width/5){
-					Log.v("item1",SETS[0]);
-					if(SETS[0].equals("muteki")){
-						item1useFlag = 1;
-						mutekiCount = 500;
-						Log.v("muteki","ok");
-					}
-				}
-				if(touchY < height/1.09 && touchY > height/1.3 && touchX > width/3 && touchX < width/1.7){
-					Log.v("item1",SETS[0]);
-					if(SETS[0].equals("none")){
-						mutekiCount = 500;
-						Log.v("muteki","ok");
-					}
-				}
-				/**item判定**/
-				Log.v("touchY2",String.valueOf(touchY));
-				Log.v("touchY3",String.valueOf(height/1.15));
-				Log.v("touchY4",String.valueOf(height/1.05));
-				Log.v("touchX2",String.valueOf(touchX));
-				Log.v("touchX3",String.valueOf(width/1.5));
-				Log.v("touchX4",String.valueOf(width/1.1));
-				if(touchY < height/1.09 && touchY > height/1.3 && touchX > width/1.5 && touchX < width/1.1){
-					Log.v("item1",SETS[0]);
-					if(SETS[0].equals("none")){
-						mutekiCount = 500;
-						Log.v("muteki","ok");
-					}
-				}
 				prinFlag = 0;
 				TouchFlag = 0;
 				break;
