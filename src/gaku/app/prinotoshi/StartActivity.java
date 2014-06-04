@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 public class StartActivity extends Activity {
@@ -29,6 +30,17 @@ public class StartActivity extends Activity {
  		super();
  	}
 
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		stopService(new Intent(getBaseContext(), overrayservice.class));
+	}
+
+	@Override
+	public void onPause(){
+		super.onPause();
+		stopService(new Intent(getBaseContext(), overrayservice.class));
+	}
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,7 +136,9 @@ public class StartActivity extends Activity {
     	}
     }
 
-    public static int useResurrection(){
+    public static int useResurrection(Context context){
+    	SharedPreferences pref2 = PreferenceManager.getDefaultSharedPreferences(context);
+        SETS = pref2.getString("item", "none,none,none").split(",");
     	for(int i=0;i<3;i++){
     		if(SETS[i].equals("resurrection")){
     			ITEM[i].setImageResource(R.drawable.u_resurrection);

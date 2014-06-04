@@ -225,6 +225,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
 		// SingleThreadScheduledExecutor を停止する
 		scheduledExecutorService.shutdown();
+		getContext().stopService(new Intent(getContext(), overrayservice.class));
 
 		// 呼出元アクティビティ側のこのクラスのインスタンスに対するコールバック登録を解除する
 		surfaceHolder.removeCallback(this);
@@ -591,12 +592,12 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 
 				if(Time == 0.0 && x > 200){
-					if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
+					if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
 						startFlag= 0;
 						RecoveryFlag = 1;
 						timeCount = 1;
 						Time = 2.0;
-						StartActivity.useResurrection();
+						getContext().startService(new Intent(getContext(), overrayservice.class));
 					}
 					else{
 						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -604,6 +605,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						edit.putString("score",String.valueOf(gameCount));
 						edit.commit();
 
+						getContext().stopService(new Intent(getContext(), overrayservice.class));
 						getContext().startActivity(new Intent(getContext(), Result.class));
 						System.gc();
 					}
@@ -845,13 +847,14 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							if(mutekiCount > 0){
 								prin2 = resource[7];
 							}
-							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
+							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
+								Log.v("RecoveryFlag ",String.valueOf(RecoveryFlag));
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
 								prin2 = resource[7];
 								n = 2000;
-								StartActivity.useResurrection();
+								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
 								prin2 = resource[13];
@@ -861,6 +864,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.commit();
 
 								getContext().startActivity(new Intent(getContext(), Result.class));
+								getContext().stopService(new Intent(getContext(), overrayservice.class));
 								System.gc();
 							}
 						}
@@ -868,13 +872,14 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							if(mutekiCount > 0){
 								prin2 = resource[8];
 							}
-							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
+							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
+								Log.v("RecoveryFlag ",String.valueOf(RecoveryFlag));
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
 								prin2 = resource[8];
 								n = 2000;
-								StartActivity.useResurrection();
+								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
 								prin2 = resource[14];
@@ -882,6 +887,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								Editor edit = prefs.edit();
 								edit.putString("score",String.valueOf(gameCount));
 								edit.commit();
+								getContext().stopService(new Intent(getContext(), overrayservice.class));
 								getContext().startActivity(new Intent(getContext(), Result.class));
 								System.gc();
 							}
@@ -890,13 +896,14 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							if(mutekiCount > 0){
 								prin2 = resource[9];
 							}
-							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
+							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
+								Log.v("RecoveryFlag ",String.valueOf(RecoveryFlag));
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
 								prin2 = resource[9];
 								n = 2000;
-								StartActivity.useResurrection();
+								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
 								prin2 = resource[15];
@@ -906,6 +913,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.commit();
 
 								getContext().startActivity(new Intent(getContext(), Result.class));
+								getContext().stopService(new Intent(getContext(), overrayservice.class));
 								System.gc();
 							}
 						}
@@ -913,13 +921,14 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							if(mutekiCount > 0){
 								prin2 = resource[10];
 							}
-							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
+							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
+								Log.v("RecoveryFlag ",String.valueOf(RecoveryFlag));
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
 								prin2 = resource[10];
 								n = 2000;
-								StartActivity.useResurrection();
+								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
 								prin2 = resource[16];
@@ -929,6 +938,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.commit();
 
 								getContext().startActivity(new Intent(getContext(), Result.class));
+								getContext().stopService(new Intent(getContext(), overrayservice.class));
 								System.gc();
 							}
 						}
@@ -936,13 +946,14 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							if(mutekiCount > 0){
 								prin2 = resource[11];
 							}
-							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
+							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
+								Log.v("RecoveryFlag ",String.valueOf(RecoveryFlag));
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
 								prin2 = resource[11];
 								n = 2000;
-								StartActivity.useResurrection();
+								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
 								prin2 = resource[17];
@@ -952,6 +963,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.commit();
 
 								getContext().startActivity(new Intent(getContext(), Result.class));
+								getContext().stopService(new Intent(getContext(), overrayservice.class));
 								System.gc();
 							}
 						}
@@ -970,13 +982,13 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							if(mutekiCount > 0){
 								prin2 = resource[6];
 							}
-							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || SETS[1].equals("resurrection") || SETS[2].equals("resurrection")){
+							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
 								prin2 = resource[6];
 								n = 2000;
-								StartActivity.useResurrection();
+								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
 								prin2 = resource[12];
@@ -986,6 +998,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.commit();
 
 								getContext().startActivity(new Intent(getContext(), Result.class));
+								getContext().stopService(new Intent(getContext(), overrayservice.class));
 								System.gc();
 							}
 						}
@@ -1026,24 +1039,24 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				canvas.drawText(String.format("%.1f fps", fps), 0, FONT_SIZE, paintFps);
 				/**無敵状態表示**/
 				if(mutekiCount > 0){
-					canvas.drawText("muteki", 300, FONT_SIZE, paintFps);
+					//canvas.drawText("muteki", 300, FONT_SIZE, paintFps);
 				}
 				else{
-					canvas.drawText("notmuteki", 300, FONT_SIZE, paintFps);
+					//canvas.drawText("notmuteki", 300, FONT_SIZE, paintFps);
 				}
 				/**2倍状態表示**/
 				if(DoubleCount > 0){
-					canvas.drawText("double", 700, 300, paintFps);
+					//canvas.drawText("double", 700, 300, paintFps);
 				}
 				else{
-					canvas.drawText("notdouble", 700, 300, paintFps);
+					//canvas.drawText("notdouble", 700, 300, paintFps);
 				}
 				/**プリン確変状態表示**/
 				if(PrinCount > 0){
-					canvas.drawText("Prin", 700, 150, paintFps);
+					//canvas.drawText("Prin", 700, 150, paintFps);
 				}
 				else{
-					canvas.drawText("notPrin", 700, 150, paintFps);
+					//canvas.drawText("notPrin", 700, 150, paintFps);
 				}
 
 				// ロックした Canvas の解放
