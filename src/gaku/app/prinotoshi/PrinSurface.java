@@ -80,6 +80,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private Bitmap scoreimg = null;
 	private Bitmap timeimg = null;
 	private Bitmap[] resource = new Bitmap [101];
+	private BitmapFactory.Options options;
 
 	//画像読み込み
 	Resources res = this.getContext().getResources();
@@ -172,7 +173,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		imageSize = width/3;
 		//bitmap生成
 		// Bitmap生成時のオプション。
-		BitmapFactory.Options options = new Options();
+		options = new Options();
 		// 画像を1/20サイズに縮小（メモリ対策）
 		//options.inSampleSize = (int) 1.5;
 		// 現在の表示メトリクスの取得
@@ -199,19 +200,19 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		resource[4] = BitmapFactory.decodeResource(res, R.drawable.mushi_2,options);
 		resource[5] = BitmapFactory.decodeResource(res, R.drawable.yogurt_2,options);
 
-		resource[6] = BitmapFactory.decodeResource(res, R.drawable.purin_0,options);
-		resource[7] = BitmapFactory.decodeResource(res, R.drawable.coffee_0,options);
-		resource[8] = BitmapFactory.decodeResource(res, R.drawable.jerry_0,options);
-		resource[9] = BitmapFactory.decodeResource(res, R.drawable.moti_0,options);
-		resource[10] = BitmapFactory.decodeResource(res, R.drawable.mushi_0,options);
-		resource[11] = BitmapFactory.decodeResource(res, R.drawable.yogurt_0,options);
+		//resource[6] = BitmapFactory.decodeResource(res, R.drawable.purin_0,options);
+		//resource[7] = BitmapFactory.decodeResource(res, R.drawable.coffee_0,options);
+		//resource[8] = BitmapFactory.decodeResource(res, R.drawable.jerry_0,options);
+		//resource[9] = BitmapFactory.decodeResource(res, R.drawable.moti_0,options);
+		//resource[10] = BitmapFactory.decodeResource(res, R.drawable.mushi_0,options);
+		//resource[11] = BitmapFactory.decodeResource(res, R.drawable.yogurt_0,options);
 
-		resource[12] = BitmapFactory.decodeResource(res, R.drawable.purin_1,options);
-		resource[13] = BitmapFactory.decodeResource(res, R.drawable.coffee_1,options);
-		resource[14] = BitmapFactory.decodeResource(res, R.drawable.jerry_1,options);
-		resource[15] = BitmapFactory.decodeResource(res, R.drawable.moti_1,options);
-		resource[16] = BitmapFactory.decodeResource(res, R.drawable.mushi_1,options);
-		resource[17] = BitmapFactory.decodeResource(res, R.drawable.yogurt_1,options);
+		//resource[12] = BitmapFactory.decodeResource(res, R.drawable.purin_1,options);
+		//resource[13] = BitmapFactory.decodeResource(res, R.drawable.coffee_1,options);
+		//resource[14] = BitmapFactory.decodeResource(res, R.drawable.jerry_1,options);
+		//resource[15] = BitmapFactory.decodeResource(res, R.drawable.moti_1,options);
+		//resource[16] = BitmapFactory.decodeResource(res, R.drawable.mushi_1,options);
+		//resource[17] = BitmapFactory.decodeResource(res, R.drawable.yogurt_1,options);
 
 		/**セットされているアイテム取得**/
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -846,12 +847,14 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							prin2 = null;
 						}
 						if(n == 100){
+							resource[6] = BitmapFactory.decodeResource(res, R.drawable.purin_0,options);
 							prin2 = resource[6];
 							gameokFlag = 1;
 						}
 
 						if(n==0){
 							if(mutekiCount > 0){
+								resource[7] = BitmapFactory.decodeResource(res, R.drawable.coffee_0,options);
 								prin2 = resource[7];
 							}
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
@@ -859,6 +862,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
+								resource[7] = BitmapFactory.decodeResource(res, R.drawable.coffee_0,options);
 								prin2 = resource[7];
 								n = 2000;
 								getContext().startService(new Intent(getContext(), overrayservice.class));
@@ -866,6 +870,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
 								endGame();
+								resource[13] = BitmapFactory.decodeResource(res, R.drawable.coffee_1,options);
 								prin2 = resource[13];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -878,6 +883,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						}
 						if(n==1){
 							if(mutekiCount > 0){
+								resource[8] = BitmapFactory.decodeResource(res, R.drawable.jerry_0,options);
 								prin2 = resource[8];
 							}
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
@@ -885,6 +891,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
+								resource[8] = BitmapFactory.decodeResource(res, R.drawable.jerry_0,options);
 								prin2 = resource[8];
 								n = 2000;
 								getContext().startService(new Intent(getContext(), overrayservice.class));
@@ -892,6 +899,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
 								endGame();
+								resource[14] = BitmapFactory.decodeResource(res, R.drawable.jerry_1,options);
 								prin2 = resource[14];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -904,6 +912,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						}
 						if(n==2){
 							if(mutekiCount > 0){
+								resource[9] = BitmapFactory.decodeResource(res, R.drawable.moti_0,options);
 								prin2 = resource[9];
 							}
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
@@ -911,6 +920,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
+								resource[9] = BitmapFactory.decodeResource(res, R.drawable.moti_0,options);
 								prin2 = resource[9];
 								n = 2000;
 								getContext().startService(new Intent(getContext(), overrayservice.class));
@@ -918,6 +928,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
 								endGame();
+								resource[15] = BitmapFactory.decodeResource(res, R.drawable.moti_1,options);
 								prin2 = resource[15];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -930,6 +941,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						}
 						if(n==3){
 							if(mutekiCount > 0){
+								resource[10] = BitmapFactory.decodeResource(res, R.drawable.mushi_0,options);
 								prin2 = resource[10];
 							}
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
@@ -937,6 +949,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
+								resource[10] = BitmapFactory.decodeResource(res, R.drawable.mushi_0,options);
 								prin2 = resource[10];
 								n = 2000;
 								getContext().startService(new Intent(getContext(), overrayservice.class));
@@ -944,6 +957,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
 								endGame();
+								resource[16] = BitmapFactory.decodeResource(res, R.drawable.mushi_1,options);
 								prin2 = resource[16];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -956,6 +970,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						}
 						if(n==4){
 							if(mutekiCount > 0){
+								resource[11] = BitmapFactory.decodeResource(res, R.drawable.yogurt_0,options);
 								prin2 = resource[11];
 							}
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
@@ -963,6 +978,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
+								resource[11] = BitmapFactory.decodeResource(res, R.drawable.yogurt_0,options);
 								prin2 = resource[11];
 								n = 2000;
 								getContext().startService(new Intent(getContext(), overrayservice.class));
@@ -970,6 +986,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
 								endGame();
+								resource[17] = BitmapFactory.decodeResource(res, R.drawable.yogurt_1,options);
 								prin2 = resource[17];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -1006,6 +1023,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
 								endGame();
+								resource[12] = BitmapFactory.decodeResource(res, R.drawable.purin_1,options);
 								prin2 = resource[12];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -1017,22 +1035,27 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 						}
 						if(n==0){
+							resource[7] = BitmapFactory.decodeResource(res, R.drawable.coffee_0,options);
 							prin2 = resource[7];
 							gameokFlag = 1;
 						}
 						if(n==1){
+							resource[8] = BitmapFactory.decodeResource(res, R.drawable.jerry_0,options);
 							prin2 = resource[8];
 							gameokFlag = 1;
 						}
 						if(n==2){
+							resource[9] = BitmapFactory.decodeResource(res, R.drawable.moti_0,options);
 							prin2 = resource[9];
 							gameokFlag = 1;
 						}
 						if(n==3){
+							resource[10] = BitmapFactory.decodeResource(res, R.drawable.mushi_0,options);
 							prin2 = resource[10];
 							gameokFlag = 1;
 						}
 						if(n==4){
+							resource[11] = BitmapFactory.decodeResource(res, R.drawable.yogurt_0,options);
 							prin2 = resource[11];
 							gameokFlag = 1;
 						}
