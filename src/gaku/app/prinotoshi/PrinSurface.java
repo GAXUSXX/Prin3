@@ -41,7 +41,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private ScheduledExecutorService scheduledExecutorService;
 	private static final float FONT_SIZE = 64f;
 	private static final float FONT_SIZE2 = 424f;
-	private Paint paintCircle, paintFps, paintCount, CountDraw, TimeDraw, ItemCount;
+	private Paint paintCircle, paintFps, paintCount, CountDraw, TimeDraw, ItemCount, endText;
 	private float x, y, r;
 	private ArrayList<Long> intervalTime = new ArrayList<Long>(20);
 	private float touchX = 0;
@@ -147,6 +147,12 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		ItemCount.setColor(Color.RED);
 		ItemCount.setTextSize(90);
 		ItemCount.setAntiAlias(false);
+
+		endText = new Paint();
+		endText.setStyle(Style.FILL);
+		endText.setColor(Color.RED);
+		endText.setTextSize(240);
+		endText.setAntiAlias(false);
 	}
 
 	// コールバック内容の定義 (1/3)
@@ -600,6 +606,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						getContext().startService(new Intent(getContext(), overrayservice.class));
 					}
 					else{
+						canvas.drawText("失敗", (float) (width/3.7), (float) (height/1.9), endText);
 						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 						Editor edit = prefs.edit();
 						edit.putString("score",String.valueOf(gameCount));
@@ -856,6 +863,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
+								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
 								prin2 = resource[13];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -880,6 +888,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
+								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
 								prin2 = resource[14];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -904,6 +913,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
+								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
 								prin2 = resource[15];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -928,6 +938,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
+								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
 								prin2 = resource[16];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -952,6 +963,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
+								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
 								prin2 = resource[17];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -986,6 +998,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
+								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
 								prin2 = resource[12];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
