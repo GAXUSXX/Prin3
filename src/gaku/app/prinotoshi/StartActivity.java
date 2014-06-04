@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 
 public class StartActivity extends Activity {
@@ -24,6 +26,7 @@ public class StartActivity extends Activity {
     private static String[] SETS;
 
     private SharedPreferences pref;
+    private HomeButtonReceive m_HomeButtonReceive;
 
     // コンストラクタ
  	public StartActivity() {
@@ -31,15 +34,9 @@ public class StartActivity extends Activity {
  	}
 
 	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		stopService(new Intent(getBaseContext(), overrayservice.class));
-	}
-
-	@Override
 	public void onPause(){
 		super.onPause();
-		stopService(new Intent(getBaseContext(), overrayservice.class));
+		unregisterReceiver(m_HomeButtonReceive);
 	}
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +56,23 @@ public class StartActivity extends Activity {
 
         // 作成したMainSurfaceViewクラスをインスタンス化
         mMainDrawArea = new PrinSurface(this, mSvMain);
+
+      //HOMEキーが押されたときのレシーバ設定
+      m_HomeButtonReceive = new HomeButtonReceive();
+      IntentFilter iFilter = new IntentFilter();
+      iFilter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+      this.registerReceiver(m_HomeButtonReceive, iFilter);
     }
+
+  //HOMEボタンで終了する。
+  	public class HomeButtonReceive extends BroadcastReceiver{
+  		@Override
+  		public void onReceive(Context arg0, Intent arg1){
+  			Log.v("onHomeDestroy","再起動します。");
+  			unregisterReceiver(m_HomeButtonReceive);
+  			stopService(new Intent(getBaseContext(), overrayservice.class));
+  		}
+  	}
 
     @Override
     protected void onResume() {

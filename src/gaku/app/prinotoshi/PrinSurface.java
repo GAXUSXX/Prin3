@@ -605,7 +605,6 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						edit.putString("score",String.valueOf(gameCount));
 						edit.commit();
 
-						getContext().stopService(new Intent(getContext(), overrayservice.class));
 						getContext().startActivity(new Intent(getContext(), Result.class));
 						System.gc();
 					}
@@ -864,7 +863,6 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.commit();
 
 								getContext().startActivity(new Intent(getContext(), Result.class));
-								getContext().stopService(new Intent(getContext(), overrayservice.class));
 								System.gc();
 							}
 						}
@@ -887,7 +885,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								Editor edit = prefs.edit();
 								edit.putString("score",String.valueOf(gameCount));
 								edit.commit();
-								getContext().stopService(new Intent(getContext(), overrayservice.class));
+
 								getContext().startActivity(new Intent(getContext(), Result.class));
 								System.gc();
 							}
@@ -913,7 +911,6 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.commit();
 
 								getContext().startActivity(new Intent(getContext(), Result.class));
-								getContext().stopService(new Intent(getContext(), overrayservice.class));
 								System.gc();
 							}
 						}
@@ -938,7 +935,6 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.commit();
 
 								getContext().startActivity(new Intent(getContext(), Result.class));
-								getContext().stopService(new Intent(getContext(), overrayservice.class));
 								System.gc();
 							}
 						}
@@ -963,7 +959,6 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.commit();
 
 								getContext().startActivity(new Intent(getContext(), Result.class));
-								getContext().stopService(new Intent(getContext(), overrayservice.class));
 								System.gc();
 							}
 						}
@@ -998,7 +993,6 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.commit();
 
 								getContext().startActivity(new Intent(getContext(), Result.class));
-								getContext().stopService(new Intent(getContext(), overrayservice.class));
 								System.gc();
 							}
 						}

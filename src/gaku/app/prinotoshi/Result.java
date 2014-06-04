@@ -33,8 +33,8 @@ public class Result extends Activity {
 	public final String APP_ID = "1447907075451856";
 	public final String CONSUMER_KEY = "KfRlaUS74T6Ea9YQ1qGXUdVmX";
 	public final String CONSUMER_SECRET = "6Paic5Rsq6JV07DasFK9hyAiDCtRonIA71p7l8tnuFSkLqCqhL";
-	
-	
+
+
 	private SharedPreferences pref;
 
 	public void onCreate(Bundle savedInstanceState){
@@ -64,19 +64,19 @@ public class Result extends Activity {
 	}
 
 	public void saveScore(){
-		
+
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String nowTime = sdf.format(date);
-		
+
 		int score = Integer.valueOf(pref.getString("score", "0"));
-		
+
 		// �ō��X�R�A�̎擾
 		int totalScore = pref.getInt("totalScore",0);
 		if(totalScore < score){
 			totalScore = score;
 		}
-		
+
 		// �{���X�R�A�̎擾
 		int todayScore = pref.getInt("todayScore", 0);
 		String today = pref.getString("today", nowTime);
@@ -88,25 +88,26 @@ public class Result extends Activity {
 				todayScore = score;
 			}
 		}
-		
+
 		// �f�[�^�ۑ�
 		SharedPreferences.Editor editor = pref.edit();
 		editor.putInt("totalScore", totalScore);
 		editor.putInt("todayScore", todayScore);
 		editor.putString("today", today);
 		editor.commit();
+		stopService(new Intent(getBaseContext(), overrayservice.class));
 	}
-	
+
 	public void Line(View view){
 		// Lineに投稿する
-		
+
 		String score = pref.getString("score", "0");
-		
+
 		String URL = "line://msg/text/"
 					+ "[ぽっきんプリン]" + score + "個をポキったよ！"
 					+ " http://dummy.php" + " #pokipuri";
-		
-		
+
+
 		Uri uri = Uri.parse(URL);
 		Intent intent = new Intent(Intent.ACTION_VIEW,uri);
 		startActivity(intent);
@@ -114,10 +115,10 @@ public class Result extends Activity {
 
 	public void Twitter(View view){
 		String score = pref.getString("score", "0");
-		
+
 		String URL = "https://twitter.com/intent/tweet?text="
 					+ "[ぽっきんプリン]" + score + "個をポキったよ！"
-					+ "&hashtags=" + "pokipuri" 
+					+ "&hashtags=" + "pokipuri"
 					+ "&url=" +"http://dummy.php";
 		Uri uri = Uri.parse(URL);
 		Intent intent = new Intent(Intent.ACTION_VIEW,uri);
@@ -125,7 +126,7 @@ public class Result extends Activity {
 	}
 
 	public void Facebook(View view){
-		
+
 		Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.Facebook");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -177,9 +178,9 @@ public class Result extends Activity {
 	    }
 	    return false;
 	  }
-	  
+
 	  public void Toast(String msg){
 		  Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
-	  }	
-	  
+	  }
+
 }

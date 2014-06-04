@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
+import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
@@ -75,14 +76,20 @@ public class overrayservice extends Service{
 		wm.addView(chatHead, params);
 	}
 
+	private int count = 0;
+    private final Context context = this;
+    private final Handler handler = new Handler();
+    private final Runnable showMessageTask = new Runnable() {
+        @Override
+        public void run() {
+        	if (chatHead != null) wm.removeView(chatHead);
+        }
+    };
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		Log.v("service","Destroy");
-		int i = 0;
-		while(i<1000000000){
-			i++;
-		}
-		if (chatHead != null) wm.removeView(chatHead);
+		handler.postDelayed(showMessageTask, 380);
 	}
 }
