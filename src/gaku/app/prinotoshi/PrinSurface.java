@@ -174,7 +174,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		// Bitmap生成時のオプション。
 		BitmapFactory.Options options = new Options();
 		// 画像を1/20サイズに縮小（メモリ対策）
-		//options.inSampleSize = (int) 4.0;
+		//options.inSampleSize = (int) 1.5;
 		// 現在の表示メトリクスの取得
 		DisplayMetrics dm = this.getResources().getDisplayMetrics();
 		// ビットマップのサイズを現在の表示メトリクスに合わせる（メモリ対策）
