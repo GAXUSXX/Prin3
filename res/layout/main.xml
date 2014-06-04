@@ -19,25 +19,25 @@
 
 		<ImageView
 		    android:id="@+id/itemSet1"
-		    android:layout_width="0dp"
+		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_weight="1"
+		    android:layout_marginLeft="38dp"
 		    android:onClick="item1click"
 		    android:src="@drawable/none" />
 
 		<ImageView
 		    android:id="@+id/itemSet2"
-		    android:layout_width="0dp"
+		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_weight="1"
+		    android:layout_marginLeft="38dp"
 		    android:onClick="item2click"
 		    android:src="@drawable/none" />
 
 		<ImageView
 		    android:id="@+id/itemSet3"
-		    android:layout_width="0dp"
+		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_weight="1"
+		    android:layout_marginLeft="38dp"
 		    android:onClick="item3click"
 		    android:src="@drawable/none" />
 

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -33,8 +34,8 @@ public class overrayservice extends Service{
 		chatHead = new ImageView(this);
 		chatHead.setImageResource(R.drawable.resurrectionnone);
 		WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-				disp.getWidth()/5,
-				disp.getWidth()/5,
+				(int) (disp.getWidth()/4.8),
+				(int) (disp.getWidth()/4.8),
 				WindowManager.LayoutParams.TYPE_PHONE,
 				WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
 				PixelFormat.TRANSLUCENT);
@@ -46,13 +47,25 @@ public class overrayservice extends Service{
         int SetHeight = 0;
     	for(int i=0;i<3;i++){
     		if(SETS[i].equals("resurrection")){
-    			SetHeight = (int) (disp.getHeight()/1.38);
-    			SetWidth = (int) ((disp.getWidth()/13.9) * (i+1)) * 3;
+    			SetHeight = (int) (disp.getHeight()/1.39);
+    			if(i == 0){
+    				// 38dp に相当する px 値を取得
+    		        DisplayMetrics metrics = getResources().getDisplayMetrics();
+    		        int padding = (int) (metrics.density * 36);
+    				SetWidth = (int) padding;
+    			}
     			if(i == 1){
-        			SetWidth -= disp.getWidth()/39;
-        		}
-    			if(i==2){
-    				SetWidth += disp.getWidth()/11;
+    				// 152dp に相当する px 値を取得
+    		        DisplayMetrics metrics = getResources().getDisplayMetrics();
+    		        int padding = (int) (metrics.density * 144);
+    				SetWidth = (int) padding;
+    			}
+
+    			if(i == 2){
+    				// 114dp に相当する px 値を取得
+    		        DisplayMetrics metrics = getResources().getDisplayMetrics();
+    		        int padding = (int) (metrics.density * 252);
+    				SetWidth = (int) padding;
     			}
     		}
     	}
