@@ -607,6 +607,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					}
 					else{
 						canvas.drawText("失敗", (float) (width/3.7), (float) (height/1.9), endText);
+						endGame();
 						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 						Editor edit = prefs.edit();
 						edit.putString("score",String.valueOf(gameCount));
@@ -864,6 +865,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
+								endGame();
 								prin2 = resource[13];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -889,6 +891,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
+								endGame();
 								prin2 = resource[14];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -914,6 +917,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
+								endGame();
 								prin2 = resource[15];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -939,6 +943,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
+								endGame();
 								prin2 = resource[16];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -964,6 +969,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
+								endGame();
 								prin2 = resource[17];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -999,6 +1005,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
+								endGame();
 								prin2 = resource[12];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 								Editor edit = prefs.edit();
@@ -1174,5 +1181,11 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 			Log.v("prin5","ok");
 		}
 		item3useFlag = 1;
+	}
+
+	public void endGame(){
+		DoubleCount = 0;
+		PrinCount = 0;
+		mutekiCount = 0;
 	}
 }
