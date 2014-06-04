@@ -150,11 +150,16 @@ public class Result extends Activity {
 
 	public void Retry(View view){
     	//���g���C
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.StartActivity");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
+		int star = pref.getInt("star", 6);
+		if(star!=0){
+			star -= 1;
+			pref.edit().putInt("star", star).commit();
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.StartActivity");
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+			finish();
+		}
     }
 
 	public void toMenu(View view){
