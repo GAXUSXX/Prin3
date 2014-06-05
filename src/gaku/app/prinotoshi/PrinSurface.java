@@ -82,14 +82,13 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private Bitmap[] resource = new Bitmap [101];
 	private BitmapFactory.Options options;
 
-	//画像読み込み
 	Resources res = this.getContext().getResources();
-	Bitmap prin = BitmapFactory.decodeResource(res, R.drawable.purin_2);
-	Bitmap prin2 = BitmapFactory.decodeResource(res, R.drawable.purin_0);
-	Bitmap cup = BitmapFactory.decodeResource(res, R.drawable.cup_1);
-	Bitmap sara = BitmapFactory.decodeResource(res, R.drawable.sara);
-	Bitmap desk = BitmapFactory.decodeResource(res, R.drawable.desk);
-	Bitmap noneitem = BitmapFactory.decodeResource(res, R.drawable.none);
+	Bitmap prin;
+	Bitmap prin2;
+	Bitmap cup;
+	Bitmap sara;
+	Bitmap desk;
+	Bitmap noneitem;
 
 	// コンストラクタ
 	public PrinSurface(Context context, SurfaceView sv) {
@@ -182,6 +181,19 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		options.inDensity = dm.densityDpi;;
 		// inPurgeableでBitmapを再利用するかどうかを明示的に決定
 		options.inPurgeable = true;
+		if(desk!= null){
+			desk.recycle();
+			desk = null;
+		}
+		//画像読み込み
+		res = this.getContext().getResources();
+		prin = BitmapFactory.decodeResource(res, R.drawable.purin_2);
+		prin2 = BitmapFactory.decodeResource(res, R.drawable.purin_0);
+		cup = BitmapFactory.decodeResource(res, R.drawable.cup_1);
+		sara = BitmapFactory.decodeResource(res, R.drawable.sara);
+		desk = BitmapFactory.decodeResource(res, R.drawable.desk,options);
+		noneitem = BitmapFactory.decodeResource(res, R.drawable.none);
+
 		desk= Bitmap.createScaledBitmap(desk, width, height, true);
 		sara= Bitmap.createScaledBitmap(sara, imageSize*2, (int) (imageSize/1.5), false);
 		prin= Bitmap.createScaledBitmap(prin, imageSize, imageSize, false);
@@ -193,12 +205,12 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		timeimg = Bitmap.createScaledBitmap(timeimg, imageSize, imageSize, false);
 
 		//リソースセット
-		resource[0] = BitmapFactory.decodeResource(res, R.drawable.purin_2,options);
-		resource[1] = BitmapFactory.decodeResource(res, R.drawable.coffee_2,options);
-		resource[2] = BitmapFactory.decodeResource(res, R.drawable.jerry_2,options);
-		resource[3] = BitmapFactory.decodeResource(res, R.drawable.moti_2,options);
-		resource[4] = BitmapFactory.decodeResource(res, R.drawable.mushi_2,options);
-		resource[5] = BitmapFactory.decodeResource(res, R.drawable.yogurt_2,options);
+		//resource[0] = BitmapFactory.decodeResource(res, R.drawable.purin_2,options);
+		//resource[1] = BitmapFactory.decodeResource(res, R.drawable.coffee_2,options);
+		//resource[2] = BitmapFactory.decodeResource(res, R.drawable.jerry_2,options);
+		//resource[3] = BitmapFactory.decodeResource(res, R.drawable.moti_2,options);
+		//resource[4] = BitmapFactory.decodeResource(res, R.drawable.mushi_2,options);
+		//resource[5] = BitmapFactory.decodeResource(res, R.drawable.yogurt_2,options);
 
 		//resource[6] = BitmapFactory.decodeResource(res, R.drawable.purin_0,options);
 		//resource[7] = BitmapFactory.decodeResource(res, R.drawable.coffee_0,options);
@@ -614,8 +626,8 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						edit.putString("score",String.valueOf(gameCount));
 						edit.commit();
 
-						getContext().startActivity(new Intent(getContext(), Result.class));
 						System.gc();
+						getContext().startActivity(new Intent(getContext(), Result.class));
 					}
 				}
 
@@ -648,24 +660,30 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							if(upFlag ==1){
 								Log.v("現在","50%");
 								if(n <= 50){
+									resource[0] = BitmapFactory.decodeResource(res, R.drawable.purin_2,options);
 									prin = resource[0];
 									n= 100;
 								}
 								else{
 									n = r.nextInt(5);
 									if(n==0){
+										resource[1] = BitmapFactory.decodeResource(res, R.drawable.coffee_2,options);
 										prin = resource[1];
 									}
 									if(n==1){
+										resource[2] = BitmapFactory.decodeResource(res, R.drawable.jerry_2,options);
 										prin = resource[2];
 									}
 									if(n==2){
+										resource[3] = BitmapFactory.decodeResource(res, R.drawable.moti_2,options);
 										prin = resource[3];
 									}
 									if(n==3){
+										resource[4] = BitmapFactory.decodeResource(res, R.drawable.mushi_2,options);
 										prin = resource[4];
 									}
 									if(n==4){
+										resource[5] = BitmapFactory.decodeResource(res, R.drawable.yogurt_2,options);
 										prin = resource[5];
 									}
 								}
@@ -673,24 +691,30 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							else if(upFlag ==2){
 								Log.v("現在","60%");
 								if(n <= 60){
+									resource[0] = BitmapFactory.decodeResource(res, R.drawable.purin_2,options);
 									prin = resource[0];
 									n= 100;
 								}
 								else{
 									n = r.nextInt(5);
 									if(n==0){
+										resource[1] = BitmapFactory.decodeResource(res, R.drawable.coffee_2,options);
 										prin = resource[1];
 									}
 									if(n==1){
+										resource[2] = BitmapFactory.decodeResource(res, R.drawable.jerry_2,options);
 										prin = resource[2];
 									}
 									if(n==2){
+										resource[3] = BitmapFactory.decodeResource(res, R.drawable.moti_2,options);
 										prin = resource[3];
 									}
 									if(n==3){
+										resource[4] = BitmapFactory.decodeResource(res, R.drawable.mushi_2,options);
 										prin = resource[4];
 									}
 									if(n==4){
+										resource[5] = BitmapFactory.decodeResource(res, R.drawable.yogurt_2,options);
 										prin = resource[5];
 									}
 								}
@@ -698,24 +722,30 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							else if(upFlag ==3){
 								Log.v("現在","70%");
 								if(n <= 70){
+									resource[0] = BitmapFactory.decodeResource(res, R.drawable.purin_2,options);
 									prin = resource[0];
 									n= 100;
 								}
 								else{
 									n = r.nextInt(5);
 									if(n==0){
+										resource[1] = BitmapFactory.decodeResource(res, R.drawable.coffee_2,options);
 										prin = resource[1];
 									}
 									if(n==1){
+										resource[2] = BitmapFactory.decodeResource(res, R.drawable.jerry_2,options);
 										prin = resource[2];
 									}
 									if(n==2){
+										resource[3] = BitmapFactory.decodeResource(res, R.drawable.moti_2,options);
 										prin = resource[3];
 									}
 									if(n==3){
+										resource[4] = BitmapFactory.decodeResource(res, R.drawable.mushi_2,options);
 										prin = resource[4];
 									}
 									if(n==4){
+										resource[5] = BitmapFactory.decodeResource(res, R.drawable.yogurt_2,options);
 										prin = resource[5];
 									}
 								}
@@ -723,53 +753,66 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							else if(upFlag == 5){
 								Log.v("現在","80%");
 								if(n <= 80){
+									resource[0] = BitmapFactory.decodeResource(res, R.drawable.purin_2,options);
 									prin = resource[0];
 									n= 100;
 								}
 								else{
 									n = r.nextInt(5);
 									if(n==0){
+										resource[1] = BitmapFactory.decodeResource(res, R.drawable.coffee_2,options);
 										prin = resource[1];
 									}
 									if(n==1){
+										resource[2] = BitmapFactory.decodeResource(res, R.drawable.jerry_2,options);
 										prin = resource[2];
 									}
 									if(n==2){
+										resource[3] = BitmapFactory.decodeResource(res, R.drawable.moti_2,options);
 										prin = resource[3];
 									}
 									if(n==3){
+										resource[4] = BitmapFactory.decodeResource(res, R.drawable.mushi_2,options);
 										prin = resource[4];
 									}
 									if(n==4){
+										resource[5] = BitmapFactory.decodeResource(res, R.drawable.yogurt_2,options);
 										prin = resource[5];
 									}
 								}
 							}
 							else if(n == 1000){
+								resource[0] = BitmapFactory.decodeResource(res, R.drawable.purin_2,options);
 								prin = resource[0];
 								n= 100;
 							}
 							else{
 								Log.v("現在","40%");
 								if(n <= 40){
+									resource[0] = BitmapFactory.decodeResource(res, R.drawable.purin_2,options);
 									prin = resource[0];
 									n = 100;
 								}
 								else{
 									n = r.nextInt(5);
 									if(n==0){
+										resource[1] = BitmapFactory.decodeResource(res, R.drawable.coffee_2,options);
 										prin = resource[1];
 									}
 									if(n==1){
+										resource[2] = BitmapFactory.decodeResource(res, R.drawable.jerry_2,options);
 										prin = resource[2];
 									}
 									if(n==2){
+										resource[3] = BitmapFactory.decodeResource(res, R.drawable.moti_2,options);
 										prin = resource[3];
 									}
 									if(n==3){
+										resource[4] = BitmapFactory.decodeResource(res, R.drawable.mushi_2,options);
 										prin = resource[4];
 									}
 									if(n==4){
+										resource[5] = BitmapFactory.decodeResource(res, R.drawable.yogurt_2,options);
 										prin = resource[5];
 									}
 								}
@@ -869,7 +912,6 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
-								endGame();
 								resource[13] = BitmapFactory.decodeResource(res, R.drawable.coffee_1,options);
 								prin2 = resource[13];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -877,8 +919,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.putString("score",String.valueOf(gameCount));
 								edit.commit();
 
-								getContext().startActivity(new Intent(getContext(), Result.class));
+								endGame();
 								System.gc();
+								getContext().startActivity(new Intent(getContext(), Result.class));
 							}
 						}
 						if(n==1){
@@ -898,7 +941,6 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
-								endGame();
 								resource[14] = BitmapFactory.decodeResource(res, R.drawable.jerry_1,options);
 								prin2 = resource[14];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -906,8 +948,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.putString("score",String.valueOf(gameCount));
 								edit.commit();
 
-								getContext().startActivity(new Intent(getContext(), Result.class));
+								endGame();
 								System.gc();
+								getContext().startActivity(new Intent(getContext(), Result.class));
 							}
 						}
 						if(n==2){
@@ -927,7 +970,6 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
-								endGame();
 								resource[15] = BitmapFactory.decodeResource(res, R.drawable.moti_1,options);
 								prin2 = resource[15];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -935,8 +977,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.putString("score",String.valueOf(gameCount));
 								edit.commit();
 
-								getContext().startActivity(new Intent(getContext(), Result.class));
+								endGame();
 								System.gc();
+								getContext().startActivity(new Intent(getContext(), Result.class));
 							}
 						}
 						if(n==3){
@@ -956,7 +999,6 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
-								endGame();
 								resource[16] = BitmapFactory.decodeResource(res, R.drawable.mushi_1,options);
 								prin2 = resource[16];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -964,8 +1006,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.putString("score",String.valueOf(gameCount));
 								edit.commit();
 
-								getContext().startActivity(new Intent(getContext(), Result.class));
+								endGame();
 								System.gc();
+								getContext().startActivity(new Intent(getContext(), Result.class));
 							}
 						}
 						if(n==4){
@@ -985,7 +1028,6 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
-								endGame();
 								resource[17] = BitmapFactory.decodeResource(res, R.drawable.yogurt_1,options);
 								prin2 = resource[17];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -993,8 +1035,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.putString("score",String.valueOf(gameCount));
 								edit.commit();
 
-								getContext().startActivity(new Intent(getContext(), Result.class));
+								endGame();
 								System.gc();
+								getContext().startActivity(new Intent(getContext(), Result.class));
 							}
 						}
 						prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
@@ -1022,7 +1065,6 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 							else{
 								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
-								endGame();
 								resource[12] = BitmapFactory.decodeResource(res, R.drawable.purin_1,options);
 								prin2 = resource[12];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -1030,8 +1072,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								edit.putString("score",String.valueOf(gameCount));
 								edit.commit();
 
-								getContext().startActivity(new Intent(getContext(), Result.class));
+								endGame();
 								System.gc();
+								getContext().startActivity(new Intent(getContext(), Result.class));
 							}
 						}
 						if(n==0){
