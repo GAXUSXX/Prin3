@@ -79,16 +79,17 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private int RecoveryFlag2 = 0;
 	private Bitmap scoreimg = null;
 	private Bitmap timeimg = null;
+	private Bitmap desk = null;
 	private Bitmap[] resource = new Bitmap [101];
 	private BitmapFactory.Options options;
 
+	//画像読み込み
 	Resources res = this.getContext().getResources();
-	Bitmap prin;
-	Bitmap prin2;
-	Bitmap cup;
-	Bitmap sara;
-	Bitmap desk;
-	Bitmap noneitem;
+	Bitmap prin = BitmapFactory.decodeResource(res, R.drawable.purin_2);
+	Bitmap prin2 = BitmapFactory.decodeResource(res, R.drawable.purin_0);
+	Bitmap cup = BitmapFactory.decodeResource(res, R.drawable.cup_1);
+	Bitmap sara = BitmapFactory.decodeResource(res, R.drawable.sara);
+	Bitmap noneitem = BitmapFactory.decodeResource(res, R.drawable.none);
 
 	// コンストラクタ
 	public PrinSurface(Context context, SurfaceView sv) {
@@ -181,19 +182,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		options.inDensity = dm.densityDpi;;
 		// inPurgeableでBitmapを再利用するかどうかを明示的に決定
 		options.inPurgeable = true;
-		if(desk!= null){
-			desk.recycle();
-			desk = null;
-		}
-		//画像読み込み
-		res = this.getContext().getResources();
-		prin = BitmapFactory.decodeResource(res, R.drawable.purin_2);
-		prin2 = BitmapFactory.decodeResource(res, R.drawable.purin_0);
-		cup = BitmapFactory.decodeResource(res, R.drawable.cup_1);
-		sara = BitmapFactory.decodeResource(res, R.drawable.sara);
-		desk = BitmapFactory.decodeResource(res, R.drawable.desk,options);
-		noneitem = BitmapFactory.decodeResource(res, R.drawable.none);
+		options.inPreferredConfig = Config.RGB_565;
 
+		desk = BitmapFactory.decodeResource(res, R.drawable.desk,options);
+		options.inPreferredConfig = Config.ARGB_4444;
 		desk= Bitmap.createScaledBitmap(desk, width, height, true);
 		sara= Bitmap.createScaledBitmap(sara, imageSize*2, (int) (imageSize/1.5), false);
 		prin= Bitmap.createScaledBitmap(prin, imageSize, imageSize, false);
