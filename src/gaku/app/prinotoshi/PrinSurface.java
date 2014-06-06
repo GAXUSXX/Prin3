@@ -138,22 +138,27 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		paintCount.setTextSize(FONT_SIZE2);
 		paintCount.setAntiAlias(false);
 
+		// 152dp に相当する px 値を取得
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        padding = (int) (metrics.density * 124);
+
+		int FONT_SIZE2 = padding;
 		CountDraw = new Paint();
 		CountDraw.setStyle(Style.FILL);
 		CountDraw.setColor(Color.BLACK);
-		CountDraw.setTextSize(120);
+		CountDraw.setTextSize(FONT_SIZE2/3);
 		CountDraw.setAntiAlias(false);
 
 		ItemCount = new Paint();
 		ItemCount.setStyle(Style.FILL);
 		ItemCount.setColor(Color.RED);
-		ItemCount.setTextSize(90);
+		ItemCount.setTextSize((float) (FONT_SIZE2/6));
 		ItemCount.setAntiAlias(false);
 
 		endText = new Paint();
 		endText.setStyle(Style.FILL);
 		endText.setColor(Color.RED);
-		endText.setTextSize(240);
+		endText.setTextSize(FONT_SIZE2/2);
 		endText.setAntiAlias(false);
 	}
 
@@ -294,7 +299,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 
 				if(mutekiCount > 0){
-					canvas.drawText(String.valueOf((float)mutekiCount/100), (float) ((float) padding*1.3), (float) (padding * 0.9), ItemCount);
+					canvas.drawText(String.valueOf((float)mutekiCount/100), (float) ((float) padding*1.35), (float) (padding * 0.9), ItemCount);
 					mutekiCount--;
 					if(PrinCount > 0){
 						if(PrinCount < mutekiCount){
@@ -305,7 +310,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 
 				if(PrinCount > 0){
-					canvas.drawText(String.valueOf((float)PrinCount/100), (float) ((float) padding * 1.3), (float) (padding * 0.9), ItemCount);
+					canvas.drawText(String.valueOf((float)PrinCount/100), (float) ((float) padding * 1.35), (float) (padding * 0.9), ItemCount);
 					if(mutekiCount > 0){
 						if(PrinCount > mutekiCount){
 							mutekiCount = 0;
@@ -617,7 +622,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						getContext().startService(new Intent(getContext(), overrayservice.class));
 					}
 					else{
-						canvas.drawText("失敗", (float) (width/3.7), (float) (height/1.9), endText);
+						canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*2.4), endText);
 						endGame();
 						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 						Editor edit = prefs.edit();
@@ -910,7 +915,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
-								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
+								canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*1.4), endText);
 								resource[13] = BitmapFactory.decodeResource(res, R.drawable.coffee_1,options);
 								prin2 = resource[13];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -939,7 +944,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
-								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
+								canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*1.4), endText);
 								resource[14] = BitmapFactory.decodeResource(res, R.drawable.jerry_1,options);
 								prin2 = resource[14];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -968,7 +973,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
-								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
+								canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*1.4), endText);
 								resource[15] = BitmapFactory.decodeResource(res, R.drawable.moti_1,options);
 								prin2 = resource[15];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -997,7 +1002,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
-								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
+								canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*1.4), endText);
 								resource[16] = BitmapFactory.decodeResource(res, R.drawable.mushi_1,options);
 								prin2 = resource[16];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -1026,7 +1031,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
-								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
+								canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*1.4), endText);
 								resource[17] = BitmapFactory.decodeResource(res, R.drawable.yogurt_1,options);
 								prin2 = resource[17];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -1063,7 +1068,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
-								canvas.drawText("失敗", (float) (width/3.7), (float) (height/3.7), endText);
+								canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*2.4), endText);
 								resource[12] = BitmapFactory.decodeResource(res, R.drawable.purin_1,options);
 								prin2 = resource[12];
 								SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
