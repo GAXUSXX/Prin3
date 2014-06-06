@@ -192,7 +192,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 
 		desk = BitmapFactory.decodeResource(res, R.drawable.desk,options);
 		options.inPreferredConfig = Config.ARGB_4444;
-		desk= Bitmap.createScaledBitmap(desk, width, padding*2, true);
+		//desk= Bitmap.createScaledBitmap(desk, width, padding*2, true);
 		sara= Bitmap.createScaledBitmap(sara, imageSize*2, (int) (imageSize/1.5), false);
 		prin= Bitmap.createScaledBitmap(prin, imageSize, imageSize, false);
 		cup= Bitmap.createScaledBitmap(cup, imageSize, imageSize, false);
