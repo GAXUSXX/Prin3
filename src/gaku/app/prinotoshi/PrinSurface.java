@@ -132,17 +132,18 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		paintFps.setColor(Color.BLACK);
 		paintFps.setAntiAlias(true);
 
+		// 152dp に相当する px 値を取得
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        padding = (int) (metrics.density * 124);
+
+		int FONT_SIZE2 = padding;
+
 		paintCount = new Paint();
 		paintCount.setStyle(Style.FILL);
 		paintCount.setColor(Color.BLACK);
 		paintCount.setTextSize(FONT_SIZE2);
 		paintCount.setAntiAlias(false);
 
-		// 152dp に相当する px 値を取得
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
-        padding = (int) (metrics.density * 124);
-
-		int FONT_SIZE2 = padding;
 		CountDraw = new Paint();
 		CountDraw.setStyle(Style.FILL);
 		CountDraw.setColor(Color.BLACK);
@@ -270,7 +271,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				//背景描画
 				canvas.drawBitmap(desk, 0, padding*3, paintCircle);
 				//スコア背景描画
-				canvas.drawBitmap(scoreimg, (float) (padding*1.8), padding/14, paintCircle);
+				canvas.drawBitmap(scoreimg, (float) (padding*1.8), padding/13, paintCircle);
 
 				//Time背景描画
 				canvas.drawBitmap(timeimg, 0, padding/14, paintCircle);
@@ -1119,7 +1120,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					canvas.drawBitmap(prin, (float) (x-imageSize/1.8), (float) (y-imageSize/1.5), paintCircle);
 					canvas.drawBitmap(cup, (float) (x-imageSize/1.8), (float) (y-imageSize/1.5), paintCircle);
 				}
-				canvas.drawText(String.valueOf(gameCount) + "個", (float) (width/1.55), (float) (height/8.2), CountDraw);
+				canvas.drawText(String.valueOf(gameCount) + "個", (float) ((float) padding * 1.9), (float) ((float) padding * 0.65), CountDraw);
 				canvas.drawText(String.format("%.1f fps", fps), 0, FONT_SIZE, paintFps);
 				/**無敵状態表示**/
 				if(mutekiCount > 0){
