@@ -301,7 +301,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				if(DEBUG == 1){
 					Log.v("CountBreak","Break");
 				}
-				if(startFlag < 310){
+				if(startFlag < 410){
 					startFlag+=3;
 					FlickFlag = 100;
 					String countt = String.valueOf((int)startFlag/100);
@@ -315,11 +315,11 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						countt="1";
 					}
 					else{
-						countt="3";
+						countt="1";
 					}
 					canvas.drawText(countt, (float) (padding*1.2), padding * 2, paintCount);
 				}
-				else if(startFlag == 300){
+				else if(startFlag == 400){
 					startFlag = 1000;
 					FlickFlag = 0;
 				}

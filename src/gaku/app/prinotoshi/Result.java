@@ -8,10 +8,12 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 
 import java.util.Arrays;
 import java.util.Date;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -131,21 +133,7 @@ public class Result extends Activity {
         intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.Facebook");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-		/*
-		if (FacebookDialog.canPresentShareDialog(getApplicationContext(),
-                FacebookDialog.ShareDialogFeature.SHARE_DIALOG)) {
-            try {
-                String name = "POKIPURI";
-                String url = "http://dummy.com/";
-                String description = "Test";
 
-                FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this).setDescription(description)
-                        .setName(name).setLink(url).build();
-                uiHelper.trackPendingDialogCall(shareDialog.present());
-            } catch (FacebookException e) {
-                Toast.makeText(this, "Facebook", Toast.LENGTH_SHORT).show();
-            }
-        }*/
 	}
 
 	public void Retry(View view){
@@ -154,11 +142,25 @@ public class Result extends Activity {
 		if(star!=0){
 			star -= 1;
 			pref.edit().putInt("star", star).commit();
+			pref.edit().putString("item", "none,none,none").commit();
 			Intent intent = new Intent(Intent.ACTION_MAIN);
 			intent.setClassName( "gaku.app.prinotoshi","gaku.app.prinotoshi.StartActivity");
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 			finish();
+		}else if(star==0){
+			AlertDialog alertDialog;
+			AlertDialog.Builder adb = new AlertDialog.Builder(Result.this);
+			adb.setMessage("スタミナがありません\n回復まで待ちましょう!");
+			adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) {
+
+				}
+			});
+			alertDialog = adb.create();
+			alertDialog.show();
 		}
     }
 
