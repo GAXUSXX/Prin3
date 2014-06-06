@@ -878,7 +878,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						canvas.drawBitmap(cup, (float) (x-imageSize/1.8),SetY, paintCircle);
 					}
 					prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
-					canvas.drawBitmap(prin2, x-imageSize/2, SetY, paintCircle);
+					canvas.drawBitmap(prin2, (float) (x-imageSize/1.8), SetY, paintCircle);
 					//横に移動させる
 
 					x += padding/2;
