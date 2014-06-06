@@ -82,6 +82,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private Bitmap desk = null;
 	private Bitmap[] resource = new Bitmap [101];
 	private BitmapFactory.Options options;
+	private int padding;
 
 	//画像読み込み
 	Resources res = this.getContext().getResources();
@@ -164,13 +165,18 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				getDefaultDisplay();
 		width = disp.getWidth();
 		height = disp.getHeight();
+		// 152dp に相当する px 値を取得
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        padding = (int) (metrics.density * 124);
+
 		x = 0;
-		y = (float) (height / 3);
+		y = padding;
 		//標準の上下位置
-		defaultY = (float)(height /1.6);
+		defaultY = padding * 2;
 		DrawSurface(surfaceHolder);
+
 		// 100x100にリサイズ
-		imageSize = width/3;
+		imageSize = padding;
 		//bitmap生成
 		// Bitmap生成時のオプション。
 		options = new Options();
@@ -186,7 +192,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 
 		desk = BitmapFactory.decodeResource(res, R.drawable.desk,options);
 		options.inPreferredConfig = Config.ARGB_4444;
-		desk= Bitmap.createScaledBitmap(desk, width, height, true);
+		desk= Bitmap.createScaledBitmap(desk, width, padding*2, true);
 		sara= Bitmap.createScaledBitmap(sara, imageSize*2, (int) (imageSize/1.5), false);
 		prin= Bitmap.createScaledBitmap(prin, imageSize, imageSize, false);
 		cup= Bitmap.createScaledBitmap(cup, imageSize, imageSize, false);
@@ -257,12 +263,12 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				Canvas canvas = surfaceHolder.lockCanvas();
 				canvas.drawColor(Color.WHITE);
 				//背景描画
-				canvas.drawBitmap(desk, 0, 0, paintCircle);
+				canvas.drawBitmap(desk, 0, padding*3, paintCircle);
 				//スコア背景描画
-				canvas.drawBitmap(scoreimg, (float) (width/1.6), (height/100), paintCircle);
+				canvas.drawBitmap(scoreimg, (float) (padding*1.8), padding/14, paintCircle);
 
 				//Time背景描画
-				canvas.drawBitmap(timeimg, 0, (height/100), paintCircle);
+				canvas.drawBitmap(timeimg, 0, padding/14, paintCircle);
 
 				if(startFlag < 310){
 					startFlag++;
@@ -280,7 +286,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					else{
 						countt="3";
 					}
-					canvas.drawText(countt, (float) (width/2.5), height/2, paintCount);
+					canvas.drawText(countt, (float) (padding*1.2), padding * 2, paintCount);
 				}
 				else if(startFlag == 300){
 					startFlag = 1000;
@@ -288,7 +294,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 
 				if(mutekiCount > 0){
-					canvas.drawText(String.valueOf((float)mutekiCount/100), (float) (width/2.2), (float) (height/5.1), ItemCount);
+					canvas.drawText(String.valueOf((float)mutekiCount/100), (float) ((float) padding*1.3), (float) (padding * 0.9), ItemCount);
 					mutekiCount--;
 					if(PrinCount > 0){
 						if(PrinCount < mutekiCount){
@@ -299,7 +305,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 
 				if(PrinCount > 0){
-					canvas.drawText(String.valueOf((float)PrinCount/100), (float) (width/2.2), (float) (height/5.1), ItemCount);
+					canvas.drawText(String.valueOf((float)PrinCount/100), (float) ((float) padding * 1.3), (float) (padding * 0.9), ItemCount);
 					if(mutekiCount > 0){
 						if(PrinCount > mutekiCount){
 							mutekiCount = 0;
@@ -597,7 +603,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					}
 
 
-					canvas.drawText(String.valueOf(Time), (float) (width/11.5), (float) (height/7.5), CountDraw);
+					canvas.drawText(String.valueOf(Time), (float) (padding * 0.28), (float) (padding * 0.68), CountDraw);
 
 					timeCount++;
 				}
@@ -624,9 +630,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 
 				//横に移動
-				if(x <= width/2 && FlickFlag < 10){
-					x = x += width/15;
-					if(x < width/14){
+				if(x <= padding * 1.4 && FlickFlag < 10){
+					x = x += padding / 5;
+					if(x < padding / 3){
 						Random r = new Random();
 						n = r.nextInt(100);
 						if(PrinCount > 0){
@@ -817,9 +823,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						}
 					}
 					Log.v("prin","描画");
-					canvas.drawBitmap(sara, (float) (x-imageSize*1.03), (float)(defaultY-imageSize/11.2), paintCircle);
-					canvas.drawBitmap(cup, x-imageSize/2, (float) (y-imageSize/1.5), paintCircle);
-					canvas.drawBitmap(prin, x-imageSize/2, (float) (y-imageSize/1.5), paintCircle);
+					canvas.drawBitmap(sara, (float) (x-imageSize*1.07), (float)(defaultY+imageSize*0.9), paintCircle);
+					canvas.drawBitmap(cup, (float) (x-imageSize/1.8), (float) (y-imageSize/1.5), paintCircle);
+					canvas.drawBitmap(prin, (float) (x-imageSize/1.8), (float) (y-imageSize/1.5), paintCircle);
 				}
 				//フリックしたらフラグを立てる
 				if(itemFlickFlag == 1){
@@ -830,12 +836,12 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				if(FlickFlag > 25){
 					itemFlickFlag = 0;
 					FlickFlag = 0;
-					x=0;
-					y=(float) (height / 3);
+					x = 0;
+					y = (float) (padding * 1.6);
 					xFlickFlag = 0;
 					yFlickFlag = 0;
 					yFlickokFlag = 0;
-					SetY = height/3;
+					SetY = (float) (padding * 1.6);
 					if(gameokFlag == 1){
 						gameCount++;
 						gameokFlag = 0;
@@ -849,32 +855,33 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						RecoveryFlag2 = 3;
 					}
 					//お皿はそのまま
-					canvas.drawBitmap(sara, (float) (x-imageSize*1.03), (float)(defaultY-imageSize/11.2), paintCircle);
+					canvas.drawBitmap(sara, (float) (x-imageSize*1.07), (float)(defaultY+imageSize*0.9), paintCircle);
 
 					//横にフリックされたら折る
 					if(xFlickFlag == 1 || mutekiCount > 0){
-						canvas.drawBitmap(prin2, x-imageSize/2, SetY, paintCircle);
+						canvas.drawBitmap(prin2, (float) (x-imageSize/1.8), SetY, paintCircle);
 						//カップはそのまま
-						canvas.drawBitmap(cup, x-imageSize/2, (float) (height / 3)-imageSize/2, paintCircle);
+						canvas.drawBitmap(cup, (float) (x-imageSize/1.8), (float) (height / 3)-imageSize/2, paintCircle);
 					}
 					//立てにフリックされたらそのまま
 					else if(yFlickFlag == 1){
-						canvas.drawBitmap(prin, x-imageSize/2, SetY, paintCircle);
-						canvas.drawBitmap(cup, x-imageSize/2,SetY, paintCircle);
+						canvas.drawBitmap(prin, (float) (x-imageSize/1.8), SetY, paintCircle);
+						canvas.drawBitmap(cup, (float) (x-imageSize/1.8),SetY, paintCircle);
 					}
 					prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
 					canvas.drawBitmap(prin2, x-imageSize/2, SetY, paintCircle);
 					//横に移動させる
+
 					x += width/15;
 				}
 
 				//落下時の処理(8回分落下)
 				else if(itemFlickFlag == 1){
 					SetX = x-imageSize/2;
-					if(SetY + height/10 < defaultY){
-						SetY += defaultY / 20;
+					if(SetY < defaultY*1.02){
+						SetY += defaultY / 5;
 					}
-					canvas.drawBitmap(sara, (float) (x-imageSize*1.03), (float)(defaultY-imageSize/11.2), paintCircle);
+					canvas.drawBitmap(sara, (float) (x-imageSize*1.07), (float)(defaultY+imageSize*0.9), paintCircle);
 					if(xFlickFlag == 1){
 						Log.v("prin",String.valueOf(n));
 						if(prin2 != null){
@@ -1033,8 +1040,8 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 						}
 						prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
-						canvas.drawBitmap(prin2, x-imageSize/2, SetY, paintCircle);
-						canvas.drawBitmap(cup, x-imageSize/2, SetY, paintCircle);
+						canvas.drawBitmap(prin2, (float) (x-imageSize/1.8), SetY, paintCircle);
+						canvas.drawBitmap(cup, (float) (x-imageSize/1.8), SetY, paintCircle);
 						//canvas.drawBitmap(prin, x-imageSize/2, (float) (getHeight() / 4), paintCircle);
 					}
 					else if(yFlickFlag == 1){
@@ -1095,17 +1102,17 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							gameokFlag = 1;
 						}
 						prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
-						canvas.drawBitmap(prin2, x-imageSize/2, SetY, paintCircle);
-						canvas.drawBitmap(cup, x-imageSize/2, SetY, paintCircle);
-						canvas.drawBitmap(prin, x-imageSize/2, SetY, paintCircle);
+						canvas.drawBitmap(prin2, (float) (x-imageSize/1.8), SetY, paintCircle);
+						canvas.drawBitmap(cup, (float) (x-imageSize/1.8), SetY, paintCircle);
+						canvas.drawBitmap(prin, (float) (x-imageSize/1.8), SetY, paintCircle);
 						yFlickokFlag = 1;
 					}
 				}
 				else{
 					//Log.v("prin","描画");
-					canvas.drawBitmap(sara, (float) (x-imageSize*1.03), (float)(defaultY-imageSize/11.2), paintCircle);
-					canvas.drawBitmap(prin, x-imageSize/2, (float) (y-imageSize/1.5), paintCircle);
-					canvas.drawBitmap(cup, x-imageSize/2, (float) (y-imageSize/1.5), paintCircle);
+					canvas.drawBitmap(sara, (float) (x-imageSize*1.07), (float)(defaultY+imageSize*0.9), paintCircle);
+					canvas.drawBitmap(prin, (float) (x-imageSize/1.8), (float) (y-imageSize/1.5), paintCircle);
+					canvas.drawBitmap(cup, (float) (x-imageSize/1.8), (float) (y-imageSize/1.5), paintCircle);
 				}
 				canvas.drawText(String.valueOf(gameCount) + "個", (float) (width/1.55), (float) (height/8.2), CountDraw);
 				canvas.drawText(String.format("%.1f fps", fps), 0, FONT_SIZE, paintFps);
