@@ -36,7 +36,10 @@ public class StartActivity extends Activity {
 	@Override
 	public void onPause(){
 		super.onPause();
-		unregisterReceiver(m_HomeButtonReceive);
+		if(m_HomeButtonReceive != null){
+			unregisterReceiver(m_HomeButtonReceive);
+			m_HomeButtonReceive = null;
+		}
 	}
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,7 +72,10 @@ public class StartActivity extends Activity {
   		@Override
   		public void onReceive(Context arg0, Intent arg1){
   			Log.v("onHomeDestroy","再起動します。");
-  			unregisterReceiver(m_HomeButtonReceive);
+  			if(m_HomeButtonReceive != null){
+  				unregisterReceiver(m_HomeButtonReceive);
+  				m_HomeButtonReceive = null;
+  			}
   			stopService(new Intent(getBaseContext(), overrayservice.class));
   		}
   	}
