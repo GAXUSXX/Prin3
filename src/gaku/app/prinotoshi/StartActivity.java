@@ -41,6 +41,16 @@ public class StartActivity extends Activity {
 			m_HomeButtonReceive = null;
 		}
 	}
+
+	@Override
+	public void onDestroy(){
+		super.onDestroy();
+		if(m_HomeButtonReceive != null){
+			unregisterReceiver(m_HomeButtonReceive);
+			m_HomeButtonReceive = null;
+		}
+	}
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
