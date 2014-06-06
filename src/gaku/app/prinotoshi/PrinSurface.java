@@ -83,6 +83,8 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private Bitmap[] resource = new Bitmap [101];
 	private BitmapFactory.Options options;
 	private int padding;
+	//DEBUG変数
+	private int DEBUG = 1;
 
 	//画像読み込み
 	Resources res = this.getContext().getResources();
@@ -119,6 +121,11 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		// fps 計測用の設定値の初期化
 		for (int i = 0; i < 19; i++) {
 			intervalTime.add(System.currentTimeMillis());
+		}
+
+		//画像取得ブレーク
+		if(DEBUG == 1){
+			Log.v("SetPaint","Break");
 		}
 
 		// 描画に関する各種設定
@@ -179,8 +186,11 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		y = padding;
 		//標準の上下位置
 		defaultY = padding * 2;
-		DrawSurface(surfaceHolder);
 
+		//オプションセットブレーク
+		if(DEBUG == 1){
+			Log.v("SetOption","Break");
+		}
 		// 100x100にリサイズ
 		imageSize = padding;
 		//bitmap生成
@@ -196,6 +206,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		options.inPurgeable = true;
 		options.inPreferredConfig = Config.RGB_565;
 
+		//画像セットブレーク
+		if(DEBUG == 1){
+			Log.v("CreateImage","Break");
+		}
 		desk = BitmapFactory.decodeResource(res, R.drawable.desk,options);
 		options.inPreferredConfig = Config.ARGB_4444;
 		//desk= Bitmap.createScaledBitmap(desk, width, padding*2, true);
@@ -237,6 +251,9 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		item1useFlag = 0;
 		item2useFlag = 0;
 		item3useFlag = 0;
+
+		//Surface描画
+		DrawSurface(surfaceHolder);
 	}
 	// コールバック内容の定義 (2/3)
 	@Override
@@ -265,6 +282,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				float fps = 20000 / (intervalTime.get(19) - intervalTime.get(0));
 				intervalTime.remove(0);
 
+				//初期素材描画ブレーク
+				if(DEBUG == 1){
+					Log.v("GoImage","Break");
+				}
 				// ロックした Canvas の取得
 				Canvas canvas = surfaceHolder.lockCanvas();
 				canvas.drawColor(Color.WHITE);
@@ -276,6 +297,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				//Time背景描画
 				canvas.drawBitmap(timeimg, 0, padding/14, paintCircle);
 
+				//スタートブレーク
+				if(DEBUG == 1){
+					Log.v("CountBreak","Break");
+				}
 				if(startFlag < 310){
 					startFlag++;
 					FlickFlag = 100;
@@ -299,6 +324,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					FlickFlag = 0;
 				}
 
+				//アイテムカウントブレーク
+				if(DEBUG == 1){
+					Log.v("ItemCountBreak","Break");
+				}
 				if(mutekiCount > 0){
 					canvas.drawText(String.valueOf((float)mutekiCount/100), (float) ((float) padding*1.35), (float) (padding * 0.9), ItemCount);
 					mutekiCount--;
@@ -614,6 +643,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					timeCount++;
 				}
 
+				//時間切れブレーク
+				if(DEBUG == 1){
+					Log.v("CountOut","Break");
+				}
 				if(Time == 0.0 && x > 200){
 					if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
 						startFlag= 0;
@@ -635,6 +668,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					}
 				}
 
+				//横に移動ブレーク
+				if(DEBUG == 1){
+					Log.v("SlideGo","Break");
+				}
 				//横に移動
 				if(x <= padding * 1.4 && FlickFlag < 10){
 					x = x += padding / 5;
@@ -838,6 +875,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					FlickFlag ++;
 				}
 
+				//初期化ブレーク
+				if(DEBUG == 1){
+					Log.v("EndOut","Break");
+				}
 				//下に落として一定以上落ちたらスライド
 				if(FlickFlag > 25){
 					itemFlickFlag = 0;
@@ -857,6 +898,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 				//フリックされたら判定
 				else if(FlickFlag > 5){
+					//フリックで横移動ブレーク
+					if(DEBUG == 1){
+						Log.v("FlickSlide","Break");
+					}
 					if(RecoveryFlag2 == 2){
 						RecoveryFlag2 = 3;
 					}
@@ -883,6 +928,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 
 				//落下時の処理(8回分落下)
 				else if(itemFlickFlag == 1){
+					//フリックで横移動ブレーク
+					if(DEBUG == 1){
+						Log.v("StartFlickSlide","Break");
+					}
 					SetX = x-imageSize/2;
 					if(SetY < defaultY*1.02){
 						SetY += defaultY / 5;
@@ -1051,6 +1100,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						//canvas.drawBitmap(prin, x-imageSize/2, (float) (getHeight() / 4), paintCircle);
 					}
 					else if(yFlickFlag == 1){
+						//ｔａｔｅ　フリックで横移動ブレーク
+						if(DEBUG == 1){
+							Log.v("TateFlickSlide","Break");
+						}
 						Log.v("prin",String.valueOf(n));
 						if(prin2 != null){
 							prin2.recycle();
