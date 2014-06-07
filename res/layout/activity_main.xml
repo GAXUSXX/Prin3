@@ -1,27 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--  
+<?xml version="1.0" encoding="utf-8"?> 
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/container"
+    android:id="@+id/parent"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:padding="0dp">
+    
+    <ImageView
+    	android:id="@+id/background"
+    	android:layout_alignParentBottom="true"
+    	android:layout_width="fill_parent"
+    	android:layout_height="100dp"
+    	android:scaleType="fitXY"
+		android:src="@drawable/desk"
+	/>
 
-<ImageView
-    android:id="@+id/background"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-	android:src="@drawable/desk"
-/>
--->
 
 <ScrollView 
-    xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:scrollbars=""
 	android:paddingLeft="20dp"
 	android:paddingRight="20dp">
 	<LinearLayout
+	    android:id="@+id/container"
 		android:orientation="vertical"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent">
@@ -102,8 +104,9 @@
 		    </RelativeLayout>
 		    
 		    <ImageView
+		        android:id="@+id/ranking"
 		        android:layout_width="fill_parent"
-		        android:layout_height="100dp"
+		        android:layout_height="50dp"
 		        android:layout_marginTop="20dp"
 		        android:scaleType="fitCenter"
 		        android:adjustViewBounds="true"
@@ -115,7 +118,7 @@
 		        android:id="@+id/imageView4"
 		        android:layout_width="fill_parent"
 		        android:layout_height="100dp"
-		        android:layout_marginTop="20dp"
+		        android:layout_marginTop="40px"
 		        android:scaleType="fitCenter"
 		        android:adjustViewBounds="true"
 		        android:onClick="consumeStar"
@@ -228,8 +231,7 @@
 		                android:layout_marginRight="-11dp"
 		                android:layout_marginTop="-10dp"
 		                android:background="@drawable/count"
-		                android:paddingLeft="11dp"
-		                android:paddingTop="5dp"
+		                android:gravity="center"
 		                android:text="0" />
 
 		            <ImageView
@@ -252,8 +254,7 @@
 		                android:layout_marginTop="-10dp"
 		                android:layout_alignRight="@+id/item2"
 		                android:layout_alignTop="@+id/item2"
-		                android:paddingLeft="11dp"
-		                android:paddingTop="5dp"
+		                android:gravity="center"
 		                android:text="0" />
 
 		            <ImageView
@@ -274,8 +275,7 @@
 		                android:layout_marginTop="-10dp"
 		                android:layout_alignRight="@+id/item3"
 		                android:layout_alignTop="@+id/item3"
-		                android:paddingLeft="11dp"
-		                android:paddingTop="5dp"
+		                android:gravity="center"
 		                android:text="0" />
 
 		            <ImageView
@@ -296,8 +296,7 @@
 		                android:layout_marginTop="-10dp"
 		                android:layout_alignRight="@+id/item4"
 		                android:layout_alignTop="@+id/item4"
-		                android:paddingLeft="11dp"
-		                android:paddingTop="5dp"
+		                android:gravity="center"
 		                android:text="0" />
 
 		            <ImageView
@@ -321,8 +320,7 @@
 		                android:layout_marginTop="-10dp"
 		                android:layout_alignRight="@+id/item5"
 		                android:layout_alignTop="@+id/item5"
-		                android:paddingLeft="11dp"
-		                android:paddingTop="5dp"
+		                android:gravity="center"
 		                android:text="0" />
 
 		            <ImageView
@@ -344,8 +342,7 @@
 		                android:layout_marginTop="-10dp"
 		                android:layout_alignRight="@+id/item6"
 		                android:layout_alignTop="@+id/item6"
-		                android:paddingLeft="11dp"
-		                android:paddingTop="5dp"
+		                android:gravity="center"
 		                android:text="0" />
 		        </RelativeLayout>
 
@@ -382,5 +379,4 @@
 			
 	</LinearLayout>
 </ScrollView>
-<!-- </RelativeLayout> -->
-
+</RelativeLayout>

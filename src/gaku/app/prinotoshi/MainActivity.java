@@ -32,6 +32,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
@@ -111,6 +112,22 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         Log.v("create","create");
     }
+    
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus){
+    	super.onWindowFocusChanged(hasFocus);
+    	
+    	LinearLayout container = (LinearLayout)findViewById(R.id.container);
+    	int width = container.getWidth();
+    	
+    	int rankingWidth = width/6*5;
+    	ImageView ranking = (ImageView)findViewById(R.id.ranking);
+    	int height = (rankingWidth/200)*50;
+    	LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(rankingWidth,height);
+    	params.setMargins((width-rankingWidth)/2, 40, 0, 0);
+    	ranking.setLayoutParams(params);
+    }
+    
 
     @Override
     public void onResume(){
@@ -814,33 +831,48 @@ public class MainActivity extends Activity {
 			  handler.post(new Runnable(){
 				  @Override
 				  public void run(){
+					  
+					  // 現在の時刻と前回のスター消費時刻を取得
+					  Long nowTime = System.currentTimeMillis();
+					  Long savedTime = pref.getLong("play", 0);
 
+					  // 差分を取得(10分)
+					  Long diff = 600 - ((nowTime - savedTime)/1000);
+
+					  // 差分が０以下だったら回復する
+					  if(diff <= 0){
+						  
+						  //差分が600(10分)より大きければその分だけ回復
+						  if(diff <= -600){
+							  int recover = (int) (diff / -600);
+							  star += recover;
+						  }else{
+							  star += 1;
+						  }
+						  setStar();
+						  saveData("recovery");
+					  }
+					  
+					  // スタミナが6になったら非表示にする
 					  if(star >= 6){
 						  star=6;
 						  timer.cancel();
 						  TIME.setAlpha(0);
 					  }
-
-					  Long nowTime = System.currentTimeMillis();
-					  Long savedTime = pref.getLong("play", 0);
-
-					  Long diff = 600 - ((nowTime - savedTime)/1000);
-
+					  
+					  // 差分を0:00形式に変換
 					  Long second = diff % 60;
 					  Long minute = (diff-second) / 60;
 					  String s = Long.toString(second);
 					  String m = Long.toString(minute);
+					  
+					  // もし秒が10秒以下なら0を付け加える
 					  if(s.length() == 1){
 						  s = "0" + s;
 					  }
 					  String sa = m + ":" + s;
+					  
 					  TIME.setText("+1補充まであと" + sa + "残っています");
-
-					  if(diff <= 0){
-						  star += 1;
-						  setStar();
-						  saveData("recovery");
-					  }
 				  }
 			  });
 		  }
