@@ -22,6 +22,7 @@
 	android:paddingLeft="20dp"
 	android:paddingRight="20dp">
 	<LinearLayout
+	    android:id="@+id/container"
 		android:orientation="vertical"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent">
@@ -102,8 +103,9 @@
 		    </RelativeLayout>
 		    
 		    <ImageView
+		        android:id="@+id/ranking"
 		        android:layout_width="fill_parent"
-		        android:layout_height="100dp"
+		        android:layout_height="50dp"
 		        android:layout_marginTop="20dp"
 		        android:scaleType="fitCenter"
 		        android:adjustViewBounds="true"
@@ -115,7 +117,7 @@
 		        android:id="@+id/imageView4"
 		        android:layout_width="fill_parent"
 		        android:layout_height="100dp"
-		        android:layout_marginTop="20dp"
+		        android:layout_marginTop="40px"
 		        android:scaleType="fitCenter"
 		        android:adjustViewBounds="true"
 		        android:onClick="consumeStar"
