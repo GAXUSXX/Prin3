@@ -64,6 +64,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private long startTime = 0;
 	private long curTime = 0;
 	private int timeCount = 0;
+	private int defaultTime = 10;
 	private double Time = 2.0;
 	private int width = 0;
 	private int height = 0;
@@ -849,9 +850,15 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					SetY = (float) (padding * 1.6);
 					if(gameokFlag == 1){
 						gameCount++;
+						// 個数が100個以下なら10個ごとに0.1秒減らす
+						if(gameCount % 10 == 0 && gameCount <= 100){
+							defaultTime+=10;
+						}else if(gameCount == 500){
+							defaultTime=160;
+						}
 						gameokFlag = 0;
 					}
-					timeCount = 0;
+					timeCount = defaultTime;
 					startTime = System.currentTimeMillis();
 				}
 				//フリックされたら判定
