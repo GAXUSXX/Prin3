@@ -230,8 +230,7 @@
 		                android:layout_marginRight="-11dp"
 		                android:layout_marginTop="-10dp"
 		                android:background="@drawable/count"
-		                android:paddingLeft="11dp"
-		                android:paddingTop="5dp"
+		                android:gravity="center"
 		                android:text="0" />
 
 		            <ImageView
@@ -254,8 +253,7 @@
 		                android:layout_marginTop="-10dp"
 		                android:layout_alignRight="@+id/item2"
 		                android:layout_alignTop="@+id/item2"
-		                android:paddingLeft="11dp"
-		                android:paddingTop="5dp"
+		                android:gravity="center"
 		                android:text="0" />
 
 		            <ImageView
@@ -276,8 +274,7 @@
 		                android:layout_marginTop="-10dp"
 		                android:layout_alignRight="@+id/item3"
 		                android:layout_alignTop="@+id/item3"
-		                android:paddingLeft="11dp"
-		                android:paddingTop="5dp"
+		                android:gravity="center"
 		                android:text="0" />
 
 		            <ImageView
@@ -298,8 +295,7 @@
 		                android:layout_marginTop="-10dp"
 		                android:layout_alignRight="@+id/item4"
 		                android:layout_alignTop="@+id/item4"
-		                android:paddingLeft="11dp"
-		                android:paddingTop="5dp"
+		                android:gravity="center"
 		                android:text="0" />
 
 		            <ImageView
@@ -323,8 +319,7 @@
 		                android:layout_marginTop="-10dp"
 		                android:layout_alignRight="@+id/item5"
 		                android:layout_alignTop="@+id/item5"
-		                android:paddingLeft="11dp"
-		                android:paddingTop="5dp"
+		                android:gravity="center"
 		                android:text="0" />
 
 		            <ImageView
@@ -346,8 +341,7 @@
 		                android:layout_marginTop="-10dp"
 		                android:layout_alignRight="@+id/item6"
 		                android:layout_alignTop="@+id/item6"
-		                android:paddingLeft="11dp"
-		                android:paddingTop="5dp"
+		                android:gravity="center"
 		                android:text="0" />
 		        </RelativeLayout>
 
