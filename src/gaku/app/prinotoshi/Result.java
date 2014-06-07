@@ -46,7 +46,7 @@ public class Result extends Activity {
 		pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		String score = pref.getString("score", "0");
 		TextView scoretext = (TextView) findViewById(R.id.scoreText);
-		scoretext.setText(score);
+		scoretext.setText(score+"個");
 
 	    try {
 	        PackageInfo info = getPackageManager().getPackageInfo(

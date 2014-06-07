@@ -6,6 +6,7 @@
     android:orientation="vertical" >
 
     <RelativeLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -18,13 +19,13 @@
 
         <TextView
             android:id="@+id/scoreText"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignTop="@+id/imageView1"
-            android:layout_marginLeft="57dp"
             android:layout_marginTop="70dp"
             android:gravity="center"
+            android:layout_gravity="center"
             android:text="TextView"
             android:textSize="50sp" />
 
