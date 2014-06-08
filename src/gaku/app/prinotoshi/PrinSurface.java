@@ -41,7 +41,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private ScheduledExecutorService scheduledExecutorService;
 	private static final float FONT_SIZE = 64f;
 	private static final float FONT_SIZE2 = 424f;
-	private Paint paintCircle, paintFps, paintCount, CountDraw, TimeDraw, ItemCount, endText;
+	private Paint paintCircle, paintFps, paintCount, CountDraw, TimeDraw, ItemCount, endText,paintTime;
 	private float x, y, r;
 	private ArrayList<Long> intervalTime = new ArrayList<Long>(20);
 	private float touchX = 0;
@@ -64,6 +64,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private long startTime = 0;
 	private long curTime = 0;
 	private int timeCount = 0;
+	private int defaultTime = 10;
 	private double Time = 2.0;
 	private int width = 0;
 	private int height = 0;
@@ -84,7 +85,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 	private BitmapFactory.Options options;
 	private int padding;
 	//DEBUG変数
-	private int DEBUG = 1;
+	private int DEBUG = 0;
 
 	//画像読み込み
 	Resources res = this.getContext().getResources();
@@ -168,6 +169,12 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 		endText.setColor(Color.RED);
 		endText.setTextSize(FONT_SIZE2/2);
 		endText.setAntiAlias(false);
+		
+		paintTime = new Paint();
+		paintTime.setStyle(Style.FILL);
+		paintTime.setColor(Color.RED);
+		paintTime.setTextSize((float) (FONT_SIZE2/6));
+		paintTime.setAntiAlias(false);
 	}
 
 	// コールバック内容の定義 (1/3)
@@ -351,7 +358,137 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 
 				if(x > 200){
 					double sumTime = timeCount/10;
-					if(SETS[0].equals("add5") || SETS[1].equals("add5") || SETS[2].equals("add5")){
+					if(SETS[0].equals("add5") || SETS[1].equals("add5") || SETS[2].equals("add5") && SETS[0].equals("add1") || SETS[1].equals("add1") || SETS[2].equals("add1")){
+						if(sumTime == 1){
+							Time = 3.5;
+						}
+						if(sumTime == 2){
+							Time = 3.4;
+						}
+						if(sumTime == 3){
+							Time = 3.3;
+						}
+						if(sumTime == 4){
+							Time = 3.2;
+						}
+						if(sumTime == 5){
+							Time = 3.1;
+						}
+						if(sumTime == 6){
+							Time = 3.0;
+						}
+
+						if(sumTime == 7){
+							Time = 2.9;
+						}
+
+						if(sumTime == 8){
+							Time = 2.8;
+						}
+						if(sumTime == 9){
+							Time = 2.7;
+						}
+						if(sumTime == 10){
+							Time = 2.6;
+						}
+
+						if(sumTime == 11){
+							Time = 2.5;
+						}
+
+						if(sumTime == 12){
+							Time = 2.4;
+						}
+
+						if(sumTime == 13){
+							Time = 2.3;
+						}
+
+						if(sumTime == 14){
+							Time = 2.2;
+						}
+
+						if(sumTime == 15){
+							Time = 2.1;
+						}
+
+						if(sumTime == 16){
+							Time = 2.0;
+						}
+
+						if(sumTime == 17){
+							Time = 1.9;
+						}
+
+						if(sumTime == 18){
+							Time = 1.8;
+						}
+
+						if(sumTime == 19){
+							Time = 1.7;
+						}
+
+						if(sumTime == 20){
+							Time = 1.6;
+						}
+						if(sumTime == 21){
+							Time = 1.5;
+						}
+						if(sumTime == 22){
+							Time = 1.4;
+						}
+
+						if(sumTime == 23){
+							Time = 1.3;
+						}
+
+						if(sumTime == 24){
+							Time = 1.2;
+						}
+						if(sumTime == 25){
+							Time = 1.1;
+						}
+						if(sumTime == 26){
+							Time = 1.0;
+						}
+
+						if(sumTime == 27){
+							Time = 0.9;
+						}
+
+						if(sumTime == 28){
+							Time = 0.8;
+						}
+
+						if(sumTime == 29){
+							Time = 0.7;
+						}
+
+						if(sumTime == 30){
+							Time = 0.6;
+						}
+						if(sumTime == 31){
+							Time = 0.5;
+						}
+						if(sumTime == 32){
+							Time = 0.4;
+						}
+
+						if(sumTime == 33){
+							Time = 0.3;
+						}
+
+						if(sumTime == 34){
+							Time = 0.2;
+						}
+						if(sumTime == 35){
+							Time = 0.1;
+						}
+						if(sumTime == 36){
+							Time = 0.0;
+						}
+					}
+					else if(SETS[0].equals("add5") || SETS[1].equals("add5") || SETS[2].equals("add5")){
 						if(sumTime == 1){
 							Time = 2.5;
 						}
@@ -647,11 +784,12 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 				if(Time == 0.0 && x > 200){
 					if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
+						Log.v("resurrection","res1");
 						startFlag= 0;
 						RecoveryFlag = 1;
 						timeCount = 1;
 						Time = 2.0;
-						getContext().startService(new Intent(getContext(), overrayservice.class));
+						//getContext().startService(new Intent(getContext(), overrayservice.class));
 					}
 					else{
 						canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*2.4), endText);
@@ -671,9 +809,8 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					Log.v("SlideGo","Break");
 				}
 				//横に移動
-				if(x <= padding * 1.47 && FlickFlag < 10){
-					x = x += padding / 2;
-					if(x < padding / 1){
+				if(x <= width/2 && FlickFlag < 10){
+					if(x < width / 6){
 						Random r = new Random();
 						n = r.nextInt(100);
 						if(PrinCount > 0){
@@ -823,6 +960,12 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							beforePrin = n;
 						}
 					}
+					if(x<width/2){
+						x +=  width/4;
+					}
+					if(x>width/2){
+						x=width/2;
+					}
 					Log.v("prin","描画");
 					canvas.drawBitmap(sara, (float) (x-imageSize*1.07), (float)(defaultY+imageSize*0.9), paintCircle);
 					canvas.drawBitmap(cup, (float) (x-imageSize/1.8), (float) (y-imageSize/1.5), paintCircle);
@@ -838,7 +981,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					Log.v("EndOut","Break");
 				}
 				//下に落として一定以上落ちたらスライド
-				if(FlickFlag > 25){
+				if(FlickFlag > 15){
 					itemFlickFlag = 0;
 					FlickFlag = 0;
 					x = 0;
@@ -849,9 +992,14 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					SetY = (float) (padding * 1.6);
 					if(gameokFlag == 1){
 						gameCount++;
+						// 個数が100個以下なら10個ごとに0.1秒減らす
+						if(gameCount % 10 == 0){
+							defaultTime+=10;
+						}
+					
 						gameokFlag = 0;
 					}
-					timeCount = 0;
+					timeCount = defaultTime;
 					startTime = System.currentTimeMillis();
 				}
 				//フリックされたら判定
@@ -881,7 +1029,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					canvas.drawBitmap(prin2, (float) (x-imageSize/1.8), SetY, paintCircle);
 					//横に移動させる
 
-					x += padding/2;
+					x += width/4;
 				}
 
 				//落下時の処理(8回分落下)
@@ -914,13 +1062,14 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
 								Log.v("RecoveryFlag ",String.valueOf(RecoveryFlag));
+								Log.v("resurrection","res2");
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
 								resource[7] = BitmapFactory.decodeResource(res, R.drawable.mushi_0,options);
 								prin2 = resource[7];
 								n = 2000;
-								getContext().startService(new Intent(getContext(), overrayservice.class));
+								//getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
 								canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*1.4), endText);
@@ -943,13 +1092,14 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
 								Log.v("RecoveryFlag ",String.valueOf(RecoveryFlag));
+								Log.v("resurrection","res3");
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
 								resource[8] = BitmapFactory.decodeResource(res, R.drawable.jerry_0,options);
 								prin2 = resource[8];
 								n = 2000;
-								getContext().startService(new Intent(getContext(), overrayservice.class));
+								//getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
 								canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*1.4), endText);
@@ -972,13 +1122,14 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 							}
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
 								Log.v("RecoveryFlag ",String.valueOf(RecoveryFlag));
+								Log.v("resurrection","res4");
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
 								resource[9] = BitmapFactory.decodeResource(res, R.drawable.moti_0,options);
 								prin2 = resource[9];
 								n = 2000;
-								getContext().startService(new Intent(getContext(), overrayservice.class));
+								//getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
 								canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*1.4), endText);
@@ -1014,12 +1165,13 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								prin2 = resource[6];
 							}
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
+								Log.v("resurrection","res5");
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
 								prin2 = resource[6];
 								n = 2000;
-								getContext().startService(new Intent(getContext(), overrayservice.class));
+								//getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
 								canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*2.4), endText);
@@ -1085,6 +1237,13 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 				}
 				else{
 					//canvas.drawText("notPrin", 700, 150, paintFps);
+				}
+				
+				// -0.1秒表示
+				if(gameCount % 10 == 0 && gameCount != 0){
+					String showText = "-0.1秒";
+					int left =  (int)((width - paintTime.measureText(showText))/2.1);
+					canvas.drawText(showText, left, height/6, paintTime);
 				}
 
 				// ロックした Canvas の解放

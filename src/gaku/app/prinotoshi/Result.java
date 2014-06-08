@@ -73,13 +73,15 @@ public class Result extends Activity {
 
 		int score = Integer.valueOf(pref.getString("score", "0"));
 
-		// �ō��X�R�A�̎擾
+		// totalScoreの保存
 		int totalScore = pref.getInt("totalScore",0);
+		// 初解放時にアイテムひとつプレゼント
+		unLock(score,totalScore);
 		if(totalScore < score){
 			totalScore = score;
 		}
 
-		// �{���X�R�A�̎擾
+		// todayScoreの保存
 		int todayScore = pref.getInt("todayScore", 0);
 		String today = pref.getString("today", nowTime);
 		if(!today.equals(nowTime)){
@@ -98,6 +100,15 @@ public class Result extends Activity {
 		editor.putString("today", today);
 		editor.commit();
 		stopService(new Intent(getBaseContext(), overrayservice.class));
+	}
+	
+	public void unLock(int score,int totalScore){
+		// アイテム解放条件を初達成したら、解放したアイテムを一つプレゼント
+		
+		// 無敵（50個）
+		if(totalScore<50 && 50 < score){
+			pref.edit().putInt("count1", 1).commit();
+		}
 	}
 
 	public void Line(View view){

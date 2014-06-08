@@ -243,7 +243,7 @@
 		                android:layout_marginRight="20dp"
 		                android:layout_toRightOf="@+id/item1"
 		                android:onClick="select"
-		                android:src="@drawable/up10" />
+		                android:src="@drawable/add5" />
 
 		            <TextView
 		                android:id="@+id/count2"
@@ -264,7 +264,7 @@
 		                android:layout_marginTop="20dp"
 		                android:layout_toRightOf="@+id/item2"
 		                android:onClick="select"
-		                android:src="@drawable/add5" />
+		                android:src="@drawable/purin5" />
 
 		            <TextView
 		                android:id="@+id/count3"
@@ -285,7 +285,7 @@
 		                android:layout_marginTop="20dp"
 		                android:layout_below="@+id/item1"
 		                android:onClick="select"
-		                android:src="@drawable/purin5" />
+		                android:src="@drawable/add1" />
 
 		            <TextView
 		                android:id="@+id/count4"
@@ -309,7 +309,7 @@
 		                android:layout_below="@+id/item1"
 		                android:layout_toRightOf="@+id/item4"
 		                android:onClick="select"
-		                android:src="@drawable/add1" />
+		                android:src="@drawable/up10" />
 
 		            <TextView
 		                android:id="@+id/count5"

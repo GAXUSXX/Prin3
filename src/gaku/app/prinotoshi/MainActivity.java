@@ -290,19 +290,19 @@ public class MainActivity extends Activity {
     		item1.setImageResource(R.drawable.lock);
     		COUNT1.setAlpha(0);
     	}
-    	if(200 > total_score){
+    	if(100 > total_score){
     		item2.setImageResource(R.drawable.lock);
     		COUNT2.setAlpha(0);
     	}
-    	if(250 > total_score){
+    	if(150 > total_score){
     		item3.setImageResource(R.drawable.lock);
     		COUNT3.setAlpha(0);
     	}
-    	if(300 > total_score){
+    	if(190 > total_score){
     		item4.setImageResource(R.drawable.lock);
     		COUNT4.setAlpha(0);
     	}
-    	if(500 > total_score){
+    	if(300 > total_score){
     		item5.setImageResource(R.drawable.lock);
     		COUNT5.setAlpha(0);
     	}
@@ -371,40 +371,40 @@ public class MainActivity extends Activity {
     		setItem();
     		saveData("buy");
 
-    	}else if(selected.equals("up10")){
+    	}else if(selected.equals("add5")){
 
     		// ロック解除されていなければメソッド終了
-    		if(200 > total_score){
+    		if(100 > total_score){
     			return;
     		}
     		count2 = buy(count2);
     		setItem();
     		saveData("buy");
 
-    	}else if(selected.equals("add5")){
+    	}else if(selected.equals("purin5")){
 
     		// ロック解除されていなければメソッド終了
-    		if(250 > total_score){
+    		if(150 > total_score){
     			return;
     		}
     		count3 = buy(count3);
     		setItem();
     		saveData("buy");
 
-    	}else if(selected.equals("purin5")){
+    	}else if(selected.equals("add1")){
 
     		// ロック解除されていなければメソッド終了
-    		if(300 > total_score){
+    		if(190 > total_score){
     			return;
     		}
     		count4 = buy(count4);
     		setItem();
     		saveData("buy");
 
-    	}else if(selected.equals("add1")){
+    	}else if(selected.equals("up10")){
 
     		// ロック解除されていなければメソッド終了
-    		if(500 > total_score){
+    		if(250 > total_score){
     			return;
     		}
     		count5 = buy(count5);
@@ -414,7 +414,7 @@ public class MainActivity extends Activity {
     	}else if(selected.equals("resurrection")){
 
     		// ロック解除されていなければメソッド終了
-    		if(1000 > total_score){
+    		if(300 > total_score){
     			return;
     		}
     		count6 = buy(count6);
@@ -443,16 +443,16 @@ public class MainActivity extends Activity {
     		setDesc(R.drawable.muteki5,R.string.item1,"muteki",R.string.desc1,R.string.unlock1);
     		break;
     	case R.id.item2:
-    		setDesc(R.drawable.up10,R.string.item2,"up10",R.string.desc2,R.string.unlock2);
+    		setDesc(R.drawable.add5,R.string.item2,"add5",R.string.desc2,R.string.unlock2);
     		break;
     	case R.id.item3:
-    		setDesc(R.drawable.add5,R.string.item3,"add5",R.string.desc3,R.string.unlock3);
+    		setDesc(R.drawable.purin5,R.string.item3,"purin5",R.string.desc3,R.string.unlock3);
     		break;
     	case R.id.item4:
-    		setDesc(R.drawable.purin5,R.string.item4,"purin5",R.string.desc4,R.string.unlock4);
+    		setDesc(R.drawable.add1,R.string.item4,"add1",R.string.desc4,R.string.unlock4);
     		break;
     	case R.id.item5:
-    		setDesc(R.drawable.add1,R.string.item5,"add1",R.string.desc5,R.string.unlock5);
+    		setDesc(R.drawable.up10,R.string.item5,"up10",R.string.desc5,R.string.unlock5);
     		break;
     	case R.id.item6:
     		setDesc(R.drawable.resurrection,R.string.item6,"resurrection",R.string.desc6,R.string.unlock6);
@@ -513,7 +513,7 @@ public class MainActivity extends Activity {
 		 		ITEMS[i].setImageResource(res);
 			}
 		}
-		if(name.equals("up10")){
+		if(name.equals("add5")){
 			if(0 < count2){
 				count2 -= 1;
     			setItem();
@@ -521,7 +521,7 @@ public class MainActivity extends Activity {
 		 		ITEMS[i].setImageResource(res);
 			}
 		}
-		if(name.equals("add5")){
+		if(name.equals("purin5")){
 			if(0 < count3){
 				count3 -= 1;
     			setItem();
@@ -529,7 +529,7 @@ public class MainActivity extends Activity {
 		 		ITEMS[i].setImageResource(res);
 			}
 		}
-		if(name.equals("purin5")){
+		if(name.equals("add1")){
 			if(0 < count4){
 				count4 -= 1;
     			setItem();
@@ -537,7 +537,7 @@ public class MainActivity extends Activity {
 		 		ITEMS[i].setImageResource(res);
 			}
 		}
-		if(name.equals("add1")){
+		if(name.equals("up10")){
 			if(0 < count5){
 				count5 -= 1;
     			setItem();
@@ -561,19 +561,19 @@ public class MainActivity extends Activity {
 			count1 += 1;
    			setItem();
 		}
-		if(name.equals("up10")){
+		if(name.equals("add5")){
 			count2 += 1;
    			setItem();
 		}
-		if(name.equals("add5")){
+		if(name.equals("purin5")){
 			count3 += 1;
    			setItem();
 		}
-		if(name.equals("purin5")){
+		if(name.equals("add1")){
 			count4 += 1;
     		setItem();
 		}
-		if(name.equals("add1")){
+		if(name.equals("up10")){
 			count5 += 1;
    			setItem();
 		}
@@ -837,14 +837,14 @@ public class MainActivity extends Activity {
 					  Long savedTime = pref.getLong("play", 0);
 
 					  // 差分を取得(10分)
-					  Long diff = 600 - ((nowTime - savedTime)/1000);
+					  Long diff = 120 - ((nowTime - savedTime)/1000);
 
 					  // 差分が０以下だったら回復する
 					  if(diff <= 0){
 						  
 						  //差分が600(10分)より大きければその分だけ回復
-						  if(diff <= -600){
-							  int recover = (int) (diff / -600);
+						  if(diff <= -120){
+							  int recover = (int) (diff / -120);
 							  star += recover;
 						  }else{
 							  star += 1;
