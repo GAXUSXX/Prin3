@@ -789,7 +789,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						RecoveryFlag = 1;
 						timeCount = 1;
 						Time = 2.0;
-						//getContext().startService(new Intent(getContext(), overrayservice.class));
+						getContext().startService(new Intent(getContext(), overrayservice.class));
 					}
 					else{
 						canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*2.4), endText);
@@ -968,8 +968,11 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 					}
 					Log.v("prin","描画");
 					canvas.drawBitmap(sara, (float) (x-imageSize*1.07), (float)(defaultY+imageSize*0.9), paintCircle);
-					canvas.drawBitmap(cup, (float) (x-imageSize/1.8), (float) (y-imageSize/1.5), paintCircle);
-					canvas.drawBitmap(prin, (float) (x-imageSize/1.8), (float) (y-imageSize/1.5), paintCircle);
+					
+					if(FlickFlag < 1){
+						canvas.drawBitmap(prin, (float) (x-imageSize/1.8), (float) (y-imageSize/1.5), paintCircle);
+						canvas.drawBitmap(cup, (float) (x-imageSize/1.8), (float) (y-imageSize/1.5), paintCircle);
+					}
 				}
 				//フリックしたらフラグを立てる
 				if(itemFlickFlag == 1){
@@ -1025,8 +1028,10 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						canvas.drawBitmap(prin, (float) (x-imageSize/1.8), SetY, paintCircle);
 						canvas.drawBitmap(cup, (float) (x-imageSize/1.8),SetY, paintCircle);
 					}
-					prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
-					canvas.drawBitmap(prin2, (float) (x-imageSize/1.8), SetY, paintCircle);
+					else{
+						prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
+						canvas.drawBitmap(prin2, (float) (x-imageSize/1.8), SetY, paintCircle);
+					}
 					//横に移動させる
 
 					x += width/4;
@@ -1069,7 +1074,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								resource[7] = BitmapFactory.decodeResource(res, R.drawable.mushi_0,options);
 								prin2 = resource[7];
 								n = 2000;
-								//getContext().startService(new Intent(getContext(), overrayservice.class));
+								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
 								canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*1.4), endText);
@@ -1099,7 +1104,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								resource[8] = BitmapFactory.decodeResource(res, R.drawable.jerry_0,options);
 								prin2 = resource[8];
 								n = 2000;
-								//getContext().startService(new Intent(getContext(), overrayservice.class));
+								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
 								canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*1.4), endText);
@@ -1129,7 +1134,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								resource[9] = BitmapFactory.decodeResource(res, R.drawable.moti_0,options);
 								prin2 = resource[9];
 								n = 2000;
-								//getContext().startService(new Intent(getContext(), overrayservice.class));
+								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
 								canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*1.4), endText);
@@ -1173,7 +1178,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								resource[6] = BitmapFactory.decodeResource(res, R.drawable.purin_0,options);
 								prin2 = resource[6];
 								n = 2000;
-								//getContext().startService(new Intent(getContext(), overrayservice.class));
+								getContext().startService(new Intent(getContext(), overrayservice.class));
 							}
 							else{
 								canvas.drawText("失敗", (float) ((float) padding*1), (float) ((float) padding*2.4), endText);
@@ -1207,7 +1212,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						prin2= Bitmap.createScaledBitmap(prin2, imageSize, imageSize, false);
 						canvas.drawBitmap(prin2, (float) (x-imageSize/1.8), SetY, paintCircle);
 						canvas.drawBitmap(cup, (float) (x-imageSize/1.8), SetY, paintCircle);
-						canvas.drawBitmap(prin, (float) (x-imageSize/1.8), SetY, paintCircle);
+						//canvas.drawBitmap(prin, (float) (x-imageSize/1.8), SetY, paintCircle);
 						yFlickokFlag = 1;
 					}
 				}

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -49,6 +50,10 @@ public class overrayservice extends Service{
     	for(int i=0;i<3;i++){
     		if(SETS[i].equals("resurrection")){
     			SetHeight = (int) (disp.getHeight()/1.39);
+    			Log.v("model",Build.MODEL);
+    			if(Build.MODEL.contains("SC-04E")){
+    				SetHeight = (int) (disp.getHeight()/1.36);
+    			}
     			if(i == 0){
     				// 38dp に相当する px 値を取得
     		        DisplayMetrics metrics = getResources().getDisplayMetrics();
