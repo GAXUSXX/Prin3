@@ -1162,6 +1162,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 						}
 						if(n == 100){
 							if(mutekiCount > 0){
+								resource[6] = BitmapFactory.decodeResource(res, R.drawable.purin_0,options);
 								prin2 = resource[6];
 							}
 							else if(RecoveryFlag == 0 && SETS[0].equals("resurrection") || RecoveryFlag == 0 && SETS[1].equals("resurrection") || RecoveryFlag == 0 && SETS[2].equals("resurrection")){
@@ -1169,6 +1170,7 @@ public class PrinSurface extends SurfaceView implements SurfaceHolder.Callback ,
 								startFlag= 0;
 								RecoveryFlag = 1;
 								RecoveryFlag2 = 1;
+								resource[6] = BitmapFactory.decodeResource(res, R.drawable.purin_0,options);
 								prin2 = resource[6];
 								n = 2000;
 								//getContext().startService(new Intent(getContext(), overrayservice.class));
